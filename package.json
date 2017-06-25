@@ -1,0 +1,33 @@
+{
+  "name": "metropolis",
+  "version": "0.1.0",
+  "description": "Web Service test kit",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scanton/metropolis.git"
+  },
+  "keywords": [
+    "rest",
+    "soap",
+    "web",
+    "service",
+    "test",
+    "api",
+    "generator",
+    "electron"
+  ],
+  "author": "Satori Canton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scanton/metropolis/issues"
+  },
+  "homepage": "https://github.com/scanton/metropolis",
+  "dependencies": {
+    "electron-prebuilt": "^1.4.13"
+  }
+}
