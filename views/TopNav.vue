@@ -25,8 +25,7 @@
 	s += '	</div>';
 	s += '</nav>';
 
-	new Vue({
-		el: 'top-nav',
+	Vue.component('top-nav', {
 		methods: {
 			refresh: function() {
 				location.reload();

@@ -4,8 +4,7 @@
 	s += 'main-view';
 	s += '</div>';
 
-	new Vue({
-		el: 'main-view',
+	Vue.component('main-view', {
 		template: s
 	});
 })();

@@ -4,8 +4,7 @@
 	s += 'side bar';
 	s += '</div>';
 
-	new Vue({
-		el: 'side-bar',
+	Vue.component('side-bar', {
 		template: s
 	});
 })();

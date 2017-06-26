@@ -12,8 +12,7 @@
 	s += '	<footer-toolbar></footer-toolbar>';
 	s += '</div>';
 
-	new Vue({
-		el: 'services-view',
+	Vue.component('services-view', {
 		template: s
 	});
 })();

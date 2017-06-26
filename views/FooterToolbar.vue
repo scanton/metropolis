@@ -4,8 +4,7 @@
 	s += 'footer toolbar';
 	s += '</div>';
 
-	new Vue({
-		el: 'footer-toolbar',
+	Vue.component('footer-toolbar', {
 		template: s
 	});
 })();
