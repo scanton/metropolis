@@ -12,6 +12,7 @@
 	s += '		</div>';
 	s += '		<div class="collapse navbar-collapse metropolis-navbar-collapse-0">';
 	s += '			<ul class="nav navbar-nav">';
+	s += '				<top-nav-dropdown></top-nav-dropdown>';
 	s += '				<li class="active media-option-link option-link" data-target=""><a href="#"><span class="glyphicon glyphicon-cloud-download"></span> Services</a></li>';
 	s += '				<li class="media-option-link option-link" data-target=""><a href="#"><span class="glyphicon glyphicon-ok"></span> Unit Tests</a></li>';
 	s += '				<li class="media-option-link option-link" data-target=""><a href="#"><span class="glyphicon glyphicon-file"></span> Generate API</a></li>';
@@ -26,6 +27,12 @@
 	s += '</nav>';
 
 	Vue.component('top-nav', {
+		template: s,
+		data: function() {
+			return { 
+				title: 'Metropolis' 
+			}
+		},
 		methods: {
 			refresh: function() {
 				location.reload();
@@ -36,7 +43,6 @@
 			toggleSettings: function() {
 				console.log("toggle settings");
 			}
-		},
-		template: s
+		}
 	});
 })();
