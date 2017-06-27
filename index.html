@@ -1,44 +1,56 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Metropolis</title>
-		<link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.css">
-		<link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.theme.css">
-		<link rel="stylesheet" href="css/bootstrap.css">
-		<link rel="stylesheet" href="css/bootstrap-theme.css">
-		<link rel="stylesheet" href="css/style.css">
-	</head>
-	<body>
-		
-		<div id="main-app" class="container-fluid no-pad">
-			<top-nav></top-nav>
-			<div class="row no-margin">
-				<div class="col-xs-4 col-sm-3 col-lg-2">
-					<side-bar></side-bar>
-				</div>
-				<div class="col-xs-8 col-sm-9 col-lg-10">
-					<main-view></main-view>
-				</div>
-			</div>
-			<footer-toolbar></footer-toolbar>
-		</div>
-		
-		<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-		<script src="js/jquery-3.2.1.min.js"></script>
-		<script>if (window.module) module = window.module;</script>
-		<script type="text/javascript" src="js/jquery-ui-1.12.1/jquery-ui.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/script.js"></script>
-		<script type="text/javascript" src="js/vue-2.3.4.js"></script>
 
-		<script type="text/javascript" src="views/TopNavDropdown.js"></script>
-		<script type="text/javascript" src="views/TopNav.js"></script>
-		<script type="text/javascript" src="views/SideBar.js"></script>
-		<script type="text/javascript" src="views/MainView.js"></script>
-		<script type="text/javascript" src="views/FooterToolbar.js"></script>
-		<script>
-			var mainView = new Vue({el: '#main-app'});
-		</script>
-	</body>
+<head>
+	<meta charset="utf-8">
+	<title>Metropolis</title>
+	<link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.css">
+	<link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.theme.css">
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/bootstrap-theme.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+	<div id="main-app" class="container-fluid no-pad">
+		<top-nav></top-nav>
+		<div class="row no-margin">
+			<div class="col-xs-4 col-sm-3 col-lg-2">
+				<side-bar></side-bar>
+			</div>
+			<div class="col-xs-8 col-sm-9 col-lg-10">
+				<main-view></main-view>
+			</div>
+		</div>
+		<footer-toolbar></footer-toolbar>
+	</div>
+	
+	<script>
+		if (typeof module === 'object') {
+			window.module = module;
+			module = undefined;
+		}
+	</script>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script>
+		if (window.module) module = window.module;
+	</script>
+	<script type="text/javascript" src="js/jquery-ui-1.12.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/vue-2.3.4.js"></script>
+
+	<script type="text/javascript" src="views/TopNavDropdown.js"></script>
+	<script type="text/javascript" src="views/TopNav.js"></script>
+	<script type="text/javascript" src="views/SideBar.js"></script>
+	<script type="text/javascript" src="views/MainView.js"></script>
+	<script type="text/javascript" src="views/FooterToolbar.js"></script>
+	<script>
+		var mainView = new Vue({
+			el: '#main-app'
+		});
+	</script>
+</body>
+
 </html>
