@@ -1,6 +1,9 @@
 const remote = require('electron').remote;
 const {dialog} = require('electron').remote;
 
+const MetropolisController = require(__dirname + '/custom_modules/MetropolisController.js');
+const controller = new MetropolisController();
+
 require('./custom_modules/enableContextMenu.js')();
 
 $(window).resize(function() {
@@ -23,5 +26,5 @@ $(window).resize(function() {
 
 $(document).ready(function() {
 	$(window).resize();
-	
+
 });

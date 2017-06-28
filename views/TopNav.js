@@ -13,9 +13,9 @@
   s += '		<div class="collapse navbar-collapse metropolis-navbar-collapse-0">';
   s += '			<ul class="nav navbar-nav">';
   s += '				<top-nav-dropdown v-bind:dropdown="dropDown1"></top-nav-dropdown>';
-  s += '				<li class="media-option-link option-link" data-target=""><a href="#"><span class="glyphicon glyphicon-cloud-download"></span> Services</a></li>';
-  s += '				<li class="media-option-link option-link" data-target=""><a href="#"><span class="glyphicon glyphicon-ok"></span> Unit Tests</a></li>';
-  s += '				<li class="media-option-link option-link" data-target=""><a href="#"><span class="glyphicon glyphicon-file"></span> Generate API</a></li>';
+  s += '				<li onclick="controller.showView(\'manage-services-view\')" class="media-option-link option-link" data-target=""><a href="#"><span class="glyphicon glyphicon-cloud-download"></span> Services</a></li>';
+  s += '				<li onclick="controller.showView(\'Unit Tests\')" class="media-option-link option-link" data-target=""><a href="#"><span class="glyphicon glyphicon-ok"></span> Unit Tests</a></li>';
+  s += '				<li onclick="controller.showView(\'Generate API\')" class="media-option-link option-link" data-target=""><a href="#"><span class="glyphicon glyphicon-file"></span> Generate API</a></li>';
   s += '			</ul>';
   s += '			<ul class="nav navbar-nav navbar-right">';
   s += '				<li class="refresh-browser-link"><a href="#" v-on:click="refresh"><span class="glyphicon glyphicon-refresh"></span> Refresh</a></li>';
@@ -36,43 +36,33 @@
           icon: 'glyphicon glyphicon-globe',
           childLinks: [{
               title: 'About Metropolis',
-              clickHandler: '{ console.log("clicked"); }'
+              clickHandler: 'controller.showView("About Metropolis")'
             },
             {
               type: 'line-break'
             },
             {
               title: 'New Project',
-              clickHandler: function() {
-                console.log("clicked");
-              }
+              clickHandler: 'controller.createNewProject()'
             },
             {
               title: 'Open Project...',
-              clickHandler: function() {
-                console.log("clicked");
-              }
+              clickHandler: 'controller.openProject()'
             },
             {
               title: 'Save Project',
-              clickHandler: function() {
-                console.log("clicked");
-              }
+              clickHandler: 'controller.saveProject()'
             },
             {
               title: 'Save Project As...',
-              clickHandler: function() {
-                console.log("clicked");
-              }
+              clickHandler: 'controller.showMenu("Save Project As")'
             },
             {
               type: 'line-break'
             },
             {
               title: 'Preferences',
-              clickHandler: function() {
-                console.log("clicked");
-              }
+              clickHandler: 'controller.showView("Preferences")'
             }
           ]
         }
