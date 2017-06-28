@@ -5,7 +5,18 @@ body {
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   padding: 0;
 }
-
+.panel {
+  background-color: #444;
+}
+.panel-default {
+  border-color: #666
+}
+.panel-default > .panel-heading {
+  background-image: none;
+  background-color: #696969;
+  border-color: #666;
+  color: white;
+}
 .navbar {
   margin-bottom: 0;
   min-height: 20px;
@@ -62,4 +73,35 @@ body {
   background-color: #696969;
   color: white;
   background-image: none;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    background-color: #696969;
+    color: white;
+    background-image: none;
+    border-color: #888;
+}
+
+.metropolis-form {
+
+}
+.metropolis-form table {
+  width: 90%;
+}
+.metropolis-form table td:nth-child(1) {
+  text-align: right;
+  padding-right: 1em;
+}
+.metropolis-form table td:nth-child(2) {
+  width: 80%;
+  padding: .25em;
+}
+.metropolis-form table input, .metropolis-form table select {
+  width: 100%;
+  font-size: 12pt;
+  padding: .25em;
+  color: white;
+  background: #696969;
+  border-radius: 5px;
+  border-color: #888;
 }

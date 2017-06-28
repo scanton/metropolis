@@ -16,17 +16,9 @@
 	<div id="main-app" class="container-fluid no-pad">
 		<top-nav></top-nav>
 
-		<manage-services></manage-services>
-		<!--
-		<div class="row no-margin">
-			<div class="col-xs-4 col-sm-3 col-lg-2">
-				<side-bar></side-bar>
-			</div>
-			<div class="col-xs-8 col-sm-9 col-lg-10">
-				<main-view></main-view>
-			</div>
-		</div>
-	-->
+		<manage-projects></manage-projects>
+		<manage-services style="display: none;"></manage-services>
+
 		<footer-toolbar></footer-toolbar>
 	</div>
 
@@ -51,9 +43,13 @@
 	<script type="text/javascript" src="views/MainView.js"></script>
 	<script type="text/javascript" src="views/FooterToolbar.js"></script>
 	<script type="text/javascript" src="views/ManageServices.js"></script>
+	<script type="text/javascript" src="views/ManageProjects.js"></script>
 	<script type="text/javascript" src="views/ServicesSideBar.js"></script>
 	<script type="text/javascript" src="views/ServicesMainView.js"></script>
+	<script type="text/javascript" src="views/ProjectsSideBar.js"></script>
+	<script type="text/javascript" src="views/ProjectsMainView.js"></script>
 	<script type="text/javascript" src="views/FormAddService.js"></script>
+	<script type="text/javascript" src="views/FormAddProject.js"></script>
 	<script>
 		var mainView = new Vue({
 			el: '#main-app'
