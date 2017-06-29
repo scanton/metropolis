@@ -26,6 +26,9 @@
 	s += '</div>';
 
 	Vue.component('form-add-project', {
+    created: function() {
+      viewController.registerView('form-add-project', this);
+    },
 		template: s,
 		methods: {
 			formSubmit: function(e) {

@@ -5,6 +5,9 @@
 	s += '</div>';
 
 	Vue.component('services-main-view', {
+    created: function() {
+      viewController.registerView('services-main-view', this);
+    },
 		template: s
 	});
 })();

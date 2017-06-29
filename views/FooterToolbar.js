@@ -5,6 +5,9 @@
 	s += '</div>';
 
 	Vue.component('footer-toolbar', {
+    created: function() {
+      viewController.registerView('footer-toolbar', this);
+    },
 		template: s
 	});
 })();

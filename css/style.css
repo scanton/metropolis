@@ -44,6 +44,14 @@ body {
   overflow: scroll;
   padding: 1em;
 }
+.side-bar h1 {
+  margin: .25em 0 .5em;
+  font-size: 16pt;
+}
+.side-bar ul {
+  list-style: none;
+  padding: 0;
+}
 
 .footer-toolbar {
   background: #222;

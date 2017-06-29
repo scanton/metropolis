@@ -27,6 +27,9 @@
   s += '</nav>';
 
   Vue.component('top-nav', {
+    created: function() {
+      viewController.registerView('top-nav', this);
+    },
     template: s,
     data: function() {
       return {

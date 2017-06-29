@@ -4,8 +4,11 @@ const {dialog} = require('electron').remote;
 const MetropolisModel = require(__dirname + '/custom_modules/MetropolisModel.js');
 const model = new MetropolisModel();
 
+const ViewController = require(__dirname + '/custom_modules/ViewController.js');
+const viewController = new ViewController();
+
 const MetropolisController = require(__dirname + '/custom_modules/MetropolisController.js');
-const controller = new MetropolisController(model);
+const controller = new MetropolisController(model, viewController);
 
 require('./custom_modules/enableContextMenu.js')();
 

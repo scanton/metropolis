@@ -13,6 +13,9 @@
 	s += '</div>';
 
 	Vue.component('services-view', {
+    created: function() {
+      viewController.registerView('services-view', this);
+    },
 		template: s
 	});
 })();

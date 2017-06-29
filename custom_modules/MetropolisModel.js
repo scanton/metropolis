@@ -23,17 +23,24 @@ module.exports = class MetropolisModel {
     }
   }
 
-  getProjectList() {
+  getProjectList(callback) {
     this.fs.readdir(__dirname.split("custom_modules")[0] + 'working_files/projects/', function(err, items) {
-      console.log(err, items);
+      if(err) {
+        console.error(err);
+      }
+      callback(items);
     });
   }
 
   loadProject(name, callback) {
     if(this.hasProject(name)) {
-      let path = _getProjectPath(name);
-      this.fs.readJson(path, function(data, err) {
-        console.log(data, err);
+      let path = this._getProjectPath(name);
+      this.fs.readJson(path, (data, err) => {
+				if(err) {
+					console.error(err, name, path);
+				}
+				this.currentProject = data;
+        callback(data);
       });
     } else {
       console.warn(name + " does not exist as a project.");

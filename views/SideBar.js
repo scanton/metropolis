@@ -5,6 +5,9 @@
 	s += '</div>';
 
 	Vue.component('side-bar', {
+    created: function() {
+      viewController.registerView('side-bar', this);
+    },
 		template: s
 	});
 })();

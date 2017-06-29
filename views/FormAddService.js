@@ -27,6 +27,9 @@
 	s += '</div>';
 
 	Vue.component('form-add-service', {
+    created: function() {
+      viewController.registerView('form-add-service', this);
+    },
 		template: s,
 		methods: {
 			formSubmit: function(e) {

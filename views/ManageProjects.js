@@ -10,6 +10,9 @@
   s +='  </div>';
 
 	Vue.component('manage-projects', {
+    created: function() {
+      viewController.registerView('manage-projects', this);
+    },
 		template: s
 	});
 })();

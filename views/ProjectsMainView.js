@@ -5,6 +5,9 @@
 	s += '</div>';
 
 	Vue.component('projects-main-view', {
+    created: function() {
+      viewController.registerView('projects-main-view', this);
+    },
 		template: s
 	});
 })();

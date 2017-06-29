@@ -9,6 +9,9 @@
   s += '</li>';
 
   Vue.component('top-nav-dropdown', {
+    created: function() {
+      viewController.registerView('top-nav-dropdown', this);
+    },
     template: s,
     props: ['dropdown']
   });

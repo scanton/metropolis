@@ -10,6 +10,9 @@
   s +='  </div>';
 
 	Vue.component('manage-services', {
+    created: function() {
+      viewController.registerView('manage-services', this);
+    },
 		template: s
 	});
 })();
