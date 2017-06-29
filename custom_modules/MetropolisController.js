@@ -1,11 +1,16 @@
 module.exports = class MetropolisController {
 
-	constructor() {
-
+	constructor(model) {
+		this.model = model;
 	}
 
 	addProject(name) {
 		console.log("creating new project: ", name);
+		if(!model.hasProject(name)) {
+			model.createProject(name, function(data, err) {
+				console.log("project created", data, err);
+			});
+		}
 	}
 
   createNewProject() {

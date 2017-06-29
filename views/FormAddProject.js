@@ -19,6 +19,9 @@
   s += '    		</table>';
   s += '  		</form>';
 	s += '		</div>';
+	s += '		<div class="description">';
+	s += '			<p>All Metropolis sessions begin by either creating or loading a project.  Projects keep your service configurations and unit tests packaged together to make it easy to switch between proejcts or save your work so you can come back to it later.</p>'
+	s += '		</div>';
 	s += '	</div>';
 	s += '</div>';
 
