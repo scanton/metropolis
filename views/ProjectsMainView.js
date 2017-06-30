@@ -1,8 +1,9 @@
 (function() {
-	var s = '';
-  s += '<div class="main-view">';
-  s += '  <form-add-project></form-add-project>';
-	s += '</div>';
+	var s = `
+	  <div class="main-view">
+	    <form-add-project></form-add-project>
+		</div>
+	`;
 
 	Vue.component('projects-main-view', {
     created: function() {

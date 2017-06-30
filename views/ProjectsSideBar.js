@@ -1,11 +1,12 @@
 (function() {
-	var s = '';
-  s += '<div class="side-bar projects-side-bar">';
-  s += '<h1>{{ title }}</h1>';
-  s += '<ul class="project-list">';
-  s += '<li v-for="project in projects" v-on:click="openProject">{{ project }}</li>'
-  s += '</ul>';
-	s += '</div>';
+	var s = `
+	  <div class="side-bar projects-side-bar">
+		  <h1>{{ title }}</h1>
+		  <ul class="project-list">
+		  	<li v-for="project in projects" v-on:click="openProject">{{ project }}</li>
+		  </ul>
+		</div>
+	`;
 
 	Vue.component('projects-side-bar', {
     created: function() {

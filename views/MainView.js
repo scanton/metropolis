@@ -1,8 +1,9 @@
 (function() {
-	var s = '';
-	s += '<div class="main-view">';
-	s += 'main-view';
-	s += '</div>';
+	var s = `
+		<div class="main-view">
+			main-view
+		</div>
+	`;
 
 	Vue.component('main-view', {
     created: function() {

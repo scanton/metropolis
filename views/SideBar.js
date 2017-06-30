@@ -1,8 +1,9 @@
 (function() {
-	var s = '';
-	s += '<div class="side-bar">';
-	s += 'side bar';
-	s += '</div>';
+	var s = `
+		<div class="side-bar">
+			side bar
+		</div>
+	`;
 
 	Vue.component('side-bar', {
     created: function() {

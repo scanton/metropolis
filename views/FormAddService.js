@@ -1,30 +1,31 @@
 (function() {
-	var s = '';
-  s += '<div class="panel panel-default">';
-  s += '	<div class="panel-heading">';
-  s += '		Add Service to Project';
-  s += '	</div>';
-  s += '	<div class="panel-body">';
-  s += '		<div class="form-add-service">';
-	s += '  		<form class="metropolis-form">';
-  s += '    		<table>';
-  s += '      		<tr>';
-  s += '        		<td>Service Type</td>';
-  s += '        		<td><select name="service-type"><option data-label="Help Page URI">.NET REST</option><option data-label="WSDL URI">SOAP</option></select></td>';
-  s += '      		</tr>';
-  s += '      		<tr>';
-  s += '        		<td class="uri-type-label">Help Page URI</td>';
-  s += '        		<td><input type="text" name="uri" /></td>';
-  s += '      		</tr>';
-  s += '      		<tr>';
-  s += '        		<td></td>';
-  s += '        		<td><button v-on:click="formSubmit" class="btn btn-success pull-right submit-button">Add Service</button></td>';
-  s += '      		</tr>';
-  s += '    		</table>';
-  s += '  		</form>';
-	s += '		</div>';
-	s += '	</div>';
-	s += '</div>';
+	var s = `
+	  <div class="panel panel-default">
+	  	<div class="panel-heading">
+	  		Add Service to Project
+	  	</div>
+	  	<div class="panel-body">
+	  		<div class="form-add-service">
+		  		<form class="metropolis-form">
+	      		<table>
+	        		<tr>
+	          		<td>Service Type</td>
+	          		<td><select name="service-type"><option data-label="Help Page URI">.NET REST</option><option data-label="WSDL URI">SOAP</option></select></td>
+	        		</tr>
+	        		<tr>
+	          		<td class="uri-type-label">Help Page URI</td>
+	          		<td><input type="text" name="uri" /></td>
+	        		</tr>
+	        		<tr>
+	          		<td></td>
+	          		<td><button v-on:click="formSubmit" class="btn btn-success pull-right submit-button">Add Service</button></td>
+	        		</tr>
+	      		</table>
+	    		</form>
+				</div>
+			</div>
+		</div>
+	`;
 
 	Vue.component('form-add-service', {
     created: function() {

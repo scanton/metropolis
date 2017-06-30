@@ -1,16 +1,17 @@
 (function() {
-	var s = '';
-	s += '<div class="container-fluid no-pad">';
-	s += '	<div class="row no-margin">';
-	s += '		<div class="col-xs-4 col-sm-3 col-lg-2">';
-	s += '			<side-bar></side-bar>';
-	s += '		</div>';
-	s += '		<div class="col-xs-8 col-sm-9 col-lg-10">';
-	s += '			<main-view></main-view>';
-	s += '		</div>';
-	s += '	</div>';
-	s += '	<footer-toolbar></footer-toolbar>';
-	s += '</div>';
+	var s = `
+		<div class="container-fluid no-pad">
+			<div class="row no-margin">
+				<div class="col-xs-4 col-sm-3 col-lg-2">
+					<side-bar></side-bar>
+				</div>
+				<div class="col-xs-8 col-sm-9 col-lg-10">
+					<main-view></main-view>
+				</div>
+			</div>
+			<footer-toolbar></footer-toolbar>
+		</div>
+	`;
 
 	Vue.component('services-view', {
     created: function() {

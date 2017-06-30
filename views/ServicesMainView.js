@@ -1,8 +1,9 @@
 (function() {
-	var s = '';
-  s += '<div class="main-view">';
-	s += '<form-add-service></form-add-service>';
-	s += '</div>';
+	var s = `
+	  <div class="main-view">
+			<form-add-service></form-add-service>
+		</div>
+	`;
 
 	Vue.component('services-main-view', {
     created: function() {
