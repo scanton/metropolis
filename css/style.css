@@ -116,11 +116,10 @@ body {
 
 .custom-modal-dialog {
   position: absolute;
-  top: 0;
+  top: 35px;
   bottom: 0;
   left: 0;
   right: 0;
-  pointer-events:none;
 }
 .custom-modal-dialog .custom-modal-overlay {
   position: relative;

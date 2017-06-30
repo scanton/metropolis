@@ -1,6 +1,7 @@
 (function() {
+	var componentName = 'projects-side-bar';
 	var s = `
-	  <div class="side-bar projects-side-bar">
+	  <div class="side-bar ` + componentName + `">
 		  <h1>{{ title }}</h1>
 		  <ul class="project-list">
 		  	<li v-for="project in projects" v-on:click="openProject">{{ project }}</li>
@@ -8,9 +9,9 @@
 		</div>
 	`;
 
-	Vue.component('projects-side-bar', {
+	Vue.component(componentName, {
     created: function() {
-      viewController.registerView('projects-side-bar', this);
+      viewController.registerView(componentName, this);
     },
 		template: s,
     data: () => {
