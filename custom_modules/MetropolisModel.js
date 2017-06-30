@@ -15,7 +15,7 @@ module.exports = class MetropolisModel {
       let dir = this._getProjectPath(name);
       let json = this._getDefaultProjectModel(name);
       this.currentProject = json;
-      this.fs.outputJson(dir, json, (err) => {
+      this.fs.outputJson(dir, json, {spaces: 4}, (err) => {
         callback(json, err);
       });
     } else {
@@ -24,20 +24,25 @@ module.exports = class MetropolisModel {
   }
 
   getProjectList(callback) {
-    this.fs.readdir(__dirname.split("custom_modules")[0] + 'working_files/projects/', function(err, items) {
-      if(err) {
-        console.error(err);
-      }
-      callback(items);
-    });
+		let path = __dirname.split("custom_modules")[0] + 'working_files/projects/';
+		if(this.fs.pathExistsSync(path)) {
+	    this.fs.readdir(path, function(err, items) {
+	      if(err) {
+	        console.error(err);
+	      }
+	      callback(items);
+	    });
+		} else {
+			callback([]);
+		}
   }
 
   loadProject(name, callback) {
     if(this.hasProject(name)) {
       let path = this._getProjectPath(name);
-      this.fs.readJson(path, (data, err) => {
+      this.fs.readJson(path, (err, data) => {
 				if(err) {
-					console.error(err, name, path);
+					console.warn(err, path, data);
 				}
 				this.currentProject = data;
         callback(data);
