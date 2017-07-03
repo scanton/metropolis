@@ -1,7 +1,8 @@
 module.exports = class MetropolisModel {
 
-	constructor() {
-    this.fs = require('fs-extra');
+	constructor(settings) {
+		this.fs = require('fs-extra');
+		this.settings = settings;
     this.currentProject = null;
 	}
 
@@ -15,6 +16,7 @@ module.exports = class MetropolisModel {
       let dir = this._getProjectPath(name);
       let json = this._getDefaultProjectModel(name);
       this.currentProject = json;
+			this.settings.setValue("currentProject", json);
       this.fs.outputJson(dir, json, {spaces: 4}, (err) => {
         callback(json, err);
       });
@@ -22,6 +24,10 @@ module.exports = class MetropolisModel {
       console.warn(name + " already exists as a project.");
     }
   }
+
+	getCurrentProject() {
+		return this.currentProject;
+	}
 
   getProjectList(callback) {
 		let path = __dirname.split("custom_modules")[0] + 'working_files/projects/';
@@ -45,6 +51,7 @@ module.exports = class MetropolisModel {
 					console.warn(err, path, data);
 				}
 				this.currentProject = data;
+				this.settings.setValue("currentProject", data);
         callback(data);
       });
     } else {

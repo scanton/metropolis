@@ -134,8 +134,10 @@ body {
   right: 10%;
   left: 10%;
   top: 10%;
-  padding: 1em;
   border-radius: 10px;
   pointer-events: all;
   z-index: 21;
+}
+.custom-modal-dialog h3 {
+  margin-top: 0;
 }

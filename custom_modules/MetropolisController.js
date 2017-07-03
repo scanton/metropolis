@@ -1,6 +1,7 @@
 module.exports = class MetropolisController {
 
-	constructor(model, viewController) {
+	constructor(model, viewController, settings) {
+		this.settings = settings;
 		this.viewController = viewController;
 		this.model = model;
 		this.model.getProjectList((data) => {

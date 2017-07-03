@@ -1,8 +1,11 @@
 const remote = require('electron').remote;
 const {dialog} = require('electron').remote;
 
+const SettingsController = require(__dirname + '/custom_modules/SettingsController.js');
+const settings = new SettingsController();
+
 const MetropolisModel = require(__dirname + '/custom_modules/MetropolisModel.js');
-const model = new MetropolisModel();
+const model = new MetropolisModel(settings);
 
 const ViewController = require(__dirname + '/custom_modules/ViewController.js');
 const viewController = new ViewController();

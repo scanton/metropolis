@@ -2,7 +2,7 @@
   var componentName = 'custom-dialog-box';
 	var s = `
     <div class="` + componentName + ` panel panel-default">
-      <div class="panel-heading">Panel Heading</div>
+      <h3 class="panel-heading">Panel Heading</h3>
       <div class="panel-body"></div>
     </div>
 	`;
