@@ -10,6 +10,8 @@ module.exports = class MetropolisController {
 				projectList.push(data[i].split(".json")[0]);
 			}
 			this.viewController.callViewMethod('projects-side-bar', 'setProjectList', projectList);
+			this.viewController.callViewMethod('welcome-page', 'setProjectList', projectList);
+
 		});
 	}
 
@@ -28,7 +30,8 @@ module.exports = class MetropolisController {
 	}
 
   showView(viewName) {
-    console.log(viewName);
+    $(".active-view").slideUp("fast").removeClass("active-view");
+		$("." + viewName).slideDown("fast").addClass("active-view");
   }
 
   showMenu(menuName) {
@@ -39,7 +42,7 @@ module.exports = class MetropolisController {
 		this.viewController.callViewMethod('custom-dialog-box', 'setHeadline', headline);
 		this.viewController.callViewMethod('custom-dialog-box', 'setBody', body);
 		this.viewController.callViewMethod('custom-dialog-box', 'setButtons', buttons);
-		$(".custom-modal-dialog").show();
+		$(".custom-modal-dialog").fadeIn("fast");
 	}
 
 	closeModal() {
@@ -53,7 +56,6 @@ module.exports = class MetropolisController {
 	 **/
 
 	addProject(name) {
-		console.log("creating new project: ", name);
 		if(!this.model.hasProject(name)) {
 			this.model.createProject(name, (data, err) => {
 				this.model.getProjectList((data) => {
@@ -65,7 +67,21 @@ module.exports = class MetropolisController {
 				});
 			});
 		} else {
-			console.warn(name + " already exists as a project.");
+			this.showModal("'" + name + "' Already Exists", "<p>You already have an existing project called '" + name + "'.</p><p>Please select another name for your new project.</p>", [{
+				label: "Cancel",
+				class: "btn btn-default",
+				handler: () => {
+					this.closeModal();
+				}
+			},
+			{
+				label: "Load " + name,
+				class: "btn btn-success",
+				handler: () => {
+					this.loadProject(name);
+					this.closeModal();
+				}
+			}]);
 		}
 	}
 
@@ -75,6 +91,9 @@ module.exports = class MetropolisController {
 
 	loadProject(name) {
 		this.model.loadProject(name, (data) => {
+			$(".active-view").slideUp("fast").removeClass("active-view");
+			this.viewController.callViewMethod('project-detail-view', 'setProjectDetails', data);
+			$(".project-detail-view").slideDown("fast").addClass("active-view");
 				console.log('load project ' + name, data);
 		});
 	}

@@ -15,8 +15,10 @@
 
 	<div id="main-app" class="container-fluid no-pad">
 		<top-nav></top-nav>
-		<manage-projects></manage-projects>
+		<welcome-page class="active-view"></welcome-page>
+		<manage-projects style="display: none;"></manage-projects>
 		<manage-services style="display: none;"></manage-services>
+		<project-detail-view style="display: none;"></project-detail-view>
 
 		<footer-toolbar></footer-toolbar>
 		<custom-modal-dialog style="display: none;"></custom-modal-dialog>
@@ -55,6 +57,8 @@
 	<script type="text/javascript" src="views/CustomModalDialog.js"></script>
 	<script type="text/javascript" src="views/CustomModalOverlay.js"></script>
 	<script type="text/javascript" src="views/CustomButtons.js"></script>
+	<script type="text/javascript" src="views/WelcomePage.js"></script>
+	<script type="text/javascript" src="views/ProjectDetailView.js"></script>
 
 	<script>
 		var mainView = new Vue({

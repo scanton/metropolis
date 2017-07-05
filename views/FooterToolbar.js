@@ -1,7 +1,7 @@
 (function() {
   var s = `
 		<div class="footer-toolbar">
-			footer toolbar
+	   
 		</div>
 	`;
   Vue.component('footer-toolbar', {

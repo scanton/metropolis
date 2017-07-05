@@ -2,8 +2,7 @@
   var componentName = 'custom-buttons';
   var s = `
 		<div class="` + componentName + `">
-      <button class="btn btn-default btn-cancel" v-on:click="controller.closeModal()">cancel</button>
-			<button class="btn btn-info">custom buttons</button>
+      <button v-for="btn in buttons" v-bind:class="btn.class" v-on:click="btn.handler">{{btn.label}}</button>
 		</div>
 	`;
   Vue.component(componentName, {
@@ -11,8 +10,11 @@
       viewController.registerView(componentName, this);
     },
     template: s,
+    props: ['buttons'],
     data: function() {
-      return {controller: controller}
+      return {
+        controller: controller
+      }
     }
   });
 })();

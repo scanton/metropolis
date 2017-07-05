@@ -37,6 +37,4 @@ $(window).resize(function() {
 
 $(document).ready(function() {
 	$(window).resize();
-
-	controller.showModal("Sup Yo?", "<p>Work:</p><ul><li>Da Body</li></ul>", "<button>click me</button>");
 });
