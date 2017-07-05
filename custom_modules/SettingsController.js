@@ -41,7 +41,7 @@ module.exports = class SettingsController {
 
   _saveSettings() {
     let path = this.dirName + 'working_files/settings.json';
-    return this.fs.writeJsonSync(path, this.settings, {spaces: 4});
+    return this.fs.outputJsonSync(path, this.settings, {spaces: 4});
   }
   _loadSettings(path) {
     this.settings = this.fs.readJsonSync(path);

@@ -1,3 +1,5 @@
+console.info = function() {};
+
 const remote = require('electron').remote;
 const {dialog} = require('electron').remote;
 
@@ -36,4 +38,5 @@ $(window).resize(function() {
 $(document).ready(function() {
 	$(window).resize();
 
+	controller.showModal("Sup Yo?", "<p>Work:</p><ul><li>Da Body</li></ul>", "<button>click me</button>");
 });

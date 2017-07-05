@@ -35,6 +35,13 @@ module.exports = class MetropolisController {
     console.log(menuName);
   }
 
+	showModal(headline, body, buttons) {
+		this.viewController.callViewMethod('custom-dialog-box', 'setHeadline', headline);
+		this.viewController.callViewMethod('custom-dialog-box', 'setBody', body);
+		this.viewController.callViewMethod('custom-dialog-box', 'setButtons', buttons);
+		$(".custom-modal-dialog").show();
+	}
+
 	/**
 	 *
 	 * Projects
