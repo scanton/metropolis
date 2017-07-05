@@ -3,8 +3,8 @@
 	var s = `
     <div class="` + componentName + ` panel panel-default">
       <h3 class="panel-heading">{{ headline }}</h3>
-      <div class="panel-body">{{ body }}</div>
-      <!--<custom-buttons v-bind:buttons="buttons"></custom-buttons>-->
+      <div class="panel-body" v-html="body"></div>
+      <custom-buttons v-bind:buttons="buttons" class="pull-right"></custom-buttons>
     </div>
 	`;
 
@@ -23,7 +23,13 @@
         this.buttons = btns;
       }
     },
-    props: ['headline', 'body', 'buttons'],
+    data: function() {
+      return {
+        'headline': '',
+        'body': '',
+        'buttons': ''
+      }
+    },
 		template: s
 	});
 })();

@@ -141,3 +141,9 @@ body {
 .custom-modal-dialog h3 {
   margin-top: 0;
 }
+.custom-modal-dialog .custom-buttons {
+  margin: 1em;
+}
+.custom-modal-dialog .panel-body {
+  color: #b9b9b9;
+}

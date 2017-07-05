@@ -42,6 +42,10 @@ module.exports = class MetropolisController {
 		$(".custom-modal-dialog").show();
 	}
 
+	closeModal() {
+		$(".custom-modal-dialog").fadeOut("fast");
+	}
+
 	/**
 	 *
 	 * Projects
