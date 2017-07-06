@@ -151,3 +151,8 @@ body {
 .custom-modal-dialog .panel-body {
   color: #b9b9b9;
 }
+
+.project-detail-view ul.service-list {
+  list-style: none;
+  padding-left: 0;
+}

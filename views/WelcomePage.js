@@ -20,7 +20,7 @@
     data: function() {
       return {
         controller: controller,
-        projectList: []
+        projectList: model.getProjectList()
       }
     },
     methods: {
