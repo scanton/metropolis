@@ -15,10 +15,15 @@ const viewController = new ViewController();
 const MetropolisController = require(__dirname + '/custom_modules/MetropolisController.js');
 const controller = new MetropolisController(model, viewController);
 
+const stripObservers = function(obj) {
+	return JSON.parse(JSON.stringify(obj));
+}
+
 require('./custom_modules/enableContextMenu.js')();
 
 $(window).resize(function() {
 	let wHeight = $(window).height();
+	
 	$(".side-bar").each(function() {
 		let $sb = $(this);
 		let sHeight = $sb.height();

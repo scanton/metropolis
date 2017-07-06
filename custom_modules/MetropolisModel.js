@@ -106,17 +106,50 @@ module.exports = class MetropolisModel {
 					description = description[i][j];
 				}
 			}
-			handler(description);
+			handler(this._sortParams(this._processSoapData(description)));
 		});
 
   }
   _loadMsRestDetails(service, handler) {
 		this.msRest.getData(service.uri, (data) => {
-			handler(JSON.parse(data));
+			handler(this._sortParams(JSON.parse(data)));
 		});
 
   }
-
+	_processSoapData(data) {
+		let a = [];
+		for(let i in data) {
+			let d = data[i];
+			a.push({
+				id: i,
+				parameters: this._getParameters(d.input),
+				resourceDescription: this._getParameters(d.output)
+			});
+		}
+		return a;
+	}
+	_sortParams(data) {
+		return data.sort(function(a, b) {
+			if(a.id.toLowerCase() < b.id.toLowerCase()) {
+				return -1;
+			} else if(a.id.toLowerCase() > b.id.toLowerCase()) {
+				return 1;
+			} else {
+				return 0;
+			}
+		});
+	}
+	_getParameters(data) {
+		let a = [];
+		for(let i in data) {
+			a.push({
+				description: '',
+				name: i,
+				type: data[i]
+			});
+		}
+		return a;
+	}
   _getProjectPath(name) {
     return __dirname.split("custom_modules")[0] + 'working_files/projects/' + name + '.json';
   }

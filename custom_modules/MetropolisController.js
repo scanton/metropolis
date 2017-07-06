@@ -109,7 +109,7 @@ module.exports = class MetropolisController {
       this.viewController.callViewMethod('project-detail-view', 'setProjectDetails', data);
       $(".project-detail-view").slideDown("fast").addClass("active-view");
 			this.model.loadServiceDetails(data, (data, isComplete) => {
-				console.log('progress', JSON.parse(JSON.stringify(data)), isComplete);
+				//console.log('progress', JSON.parse(JSON.stringify(data)), isComplete);
 			});
     });
   }
@@ -122,6 +122,9 @@ module.exports = class MetropolisController {
     console.log("save project");
   }
 
+	addMethodToWorkspace(service, method) {
+		console.log(service, method);
+	}
   /**
    *
    * Private methods

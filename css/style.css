@@ -156,3 +156,11 @@ body {
   list-style: none;
   padding-left: 0;
 }
+.project-detail-view ul.service-list li {
+  cursor: pointer;
+}
+.project-detail-view ul.service-list .badge {
+  font-weight: normal;
+  background-color: #419641;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .75);
+}
