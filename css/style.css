@@ -154,7 +154,15 @@ body {
 
 .project-detail-view ul.service-list {
   list-style: none;
-  padding-left: 0;
+  padding: 1em;
+  background: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  overflow: scroll;
+  white-space: nowrap;
 }
 .project-detail-view ul.service-list li {
   cursor: pointer;

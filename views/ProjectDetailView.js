@@ -1,7 +1,7 @@
 (function() {
   var componentName = 'project-detail-view';
 	var s = `
-    <div class="` + componentName + ` row page-view">
+    <div class="` + componentName + ` row page-view no-margin">
       <div class="col-xs-12 main-view">
         <ul class="service-list">
           <li v-for="srv in projectDetails.services" v-on:click="toggleMethodList">
