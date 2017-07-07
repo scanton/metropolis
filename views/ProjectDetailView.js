@@ -16,9 +16,10 @@
           </li>
         </ul>
         <div class="workspace">
+          <h1>Methods to Test</h1>
           <ul class="test-list">
-            <li class="service-test">
-
+            <li class="service-test" v-for="test in projectDetails.tests">
+              {{ test.method }} ({{ test.service }})
             </li>
           </ul>
         </div>

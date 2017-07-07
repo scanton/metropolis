@@ -19,6 +19,9 @@ module.exports = class SettingsController {
   getValue(name) {
     return this.settings[name];
   }
+	getSettings() {
+		return this.settings;
+	}
   pushArrayValue(arrayName, val) {
     if(!this.settings[arrayName]) {
       this.settings[arrayName] = [];

@@ -62,6 +62,14 @@ module.exports = class MetropolisController {
     $(".custom-modal-dialog").fadeOut("fast");
   }
 
+  showLoader() {
+    $(".loading-animation").fadeIn();
+  }
+
+  closeLoader() {
+    $(".loading-animation").fadeOut();
+  }
+
   /**
    *
    * Projects
@@ -100,16 +108,19 @@ module.exports = class MetropolisController {
   }
 
   loadProject(name) {
-    this.model.loadProject(name, (data) => {
-      $(".active-view").slideUp("fast").removeClass("active-view");
-      this.viewController.callViewMethod('project-detail-view', 'setProjectDetails', data);
-      $(".project-detail-view").slideDown("fast").addClass("active-view");
-      this.model.loadServiceDetails(data, (data, isComplete) => {
-        if (isComplete) {
-          this._enableWorkspace();
-        }
+    if (name) {
+      this._disableWorkspace();
+      this.model.loadProject(name, (data) => {
+        $(".active-view").slideUp("fast").removeClass("active-view");
+        this.viewController.callViewMethod('project-detail-view', 'setProjectDetails', data);
+        $(".project-detail-view").slideDown("fast").addClass("active-view");
+        this.model.loadServiceDetails(data, (data, isComplete) => {
+          if (isComplete) {
+            this._enableWorkspace();
+          }
+        });
       });
-    });
+    }
   }
 
   createNewProject() {
@@ -125,7 +136,7 @@ module.exports = class MetropolisController {
   }
 
   addMethodToWorkspace(service, method) {
-    console.log(service, method);
+		model.addTest(service, method);
   }
   /**
    *
@@ -133,7 +144,10 @@ module.exports = class MetropolisController {
    *
    **/
 
+  _disableWorkspace() {
+    this.showLoader();
+  }
   _enableWorkspace() {
-    console.log("enable workspace - project fully loaded");
+    this.closeLoader();
   }
 }

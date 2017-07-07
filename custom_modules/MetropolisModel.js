@@ -9,6 +9,26 @@ module.exports = class MetropolisModel {
 		this.projectList = [];
   }
 
+  addTest(serviceName, methodName) {
+    let meth = this._getMethodFromCurrentProject(serviceName, methodName);
+    if(meth) {
+      this._addTestToCurrentProject(meth);
+    }
+  }
+
+  _addTestToCurrentProject(method) {
+    let set = this.settings.getSettings();
+    if(set && set.currentProject && set.currentProject.tests) {
+      set.currentProject.tests.push(method);
+      this.fs.outputJson(this._getProjectPath(set.currentProject.name), set.currentProject, { spaces: 4 }, (err) => {
+        if(err) {
+          throw err;
+        }
+      });
+
+    }
+  }
+
   hasProject(name) {
     let dir = this._getProjectPath(name);
     return this.fs.pathExistsSync(dir);
@@ -160,5 +180,29 @@ module.exports = class MetropolisModel {
       settings: {},
       tests: []
     };
+  }
+  _getMethodFromCurrentProject(serviceName, methodName) {
+    let set = this.settings.getSettings();
+    if(set && set.currentProject && set.currentProject.services) {
+      let services = set.currentProject.services;
+      let l = services.length;
+      while(l--) {
+        if(services[l].name == serviceName) {
+          let details = services[l].details;
+          let m = details.length;
+          while(m--) {
+            if(details[m].id = methodName) {
+              let a = stripObservers(details[m]);
+              let o = {};
+              o.service = serviceName;
+              o.method = methodName;
+              o.assertions = [];
+              o.details = details[m]
+              return(o);
+            }
+          }
+        }
+      }
+    }
   }
 }
