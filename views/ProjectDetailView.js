@@ -4,7 +4,7 @@
     <div class="` + componentName + ` row page-view no-margin">
       <div class="col-xs-12 main-view">
         <ul class="service-list">
-          <li v-for="srv in projectDetails.services" v-on:click="toggleMethodList">
+          <li v-for="srv in projectDetails.services" v-on:click="toggleMethodList" class="activate-mouse-hover">
             <span class="glyphicon glyphicon-menu-right arrow-icon"></span>
             <span class="glyphicon glyphicon-menu-down arrow-icon" style="display: none;"></span>
             <span class="glyphicon" v-bind:class="{ 'glyphicon-cloud-download': srv.type == 'soap', 'glyphicon-download-alt': srv.type == 'ms-rest' }"></span>
@@ -18,7 +18,7 @@
         <div class="workspace">
           <ul class="test-list">
             <li class="service-test">
-              
+
             </li>
           </ul>
         </div>
@@ -38,6 +38,11 @@
         let $this = $(e.target);
         $this.find(".method-list").slideToggle();
         $this.find(".arrow-icon").toggle();
+        if($this.find(".glyphicon-menu-right").is(":visible")) {
+          $this.addClass("activate-mouse-hover");
+        } else {
+          $this.removeClass("activate-mouse-hover");
+        }
       },
       addMethodToWorkspace: function(e) {
         let $this = $(e.target);
@@ -47,7 +52,7 @@
     data: function() {
       return {
         controller: controller,
-        'projectDetails': ''
+        'projectDetails': '',
       }
     },
 		template: s

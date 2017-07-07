@@ -16,7 +16,7 @@
 		template: s,
     data: () => {
       return {
-        title: "Projects",
+        title: "Saved Projects",
         projects: []
       };
     },

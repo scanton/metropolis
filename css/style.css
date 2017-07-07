@@ -1,9 +1,18 @@
 body {
   background: black;
 }
-
+h1, h2, h3, h4, h5 {
+  font-weight: 100;
+}
+.clear-fix {
+  clear: both;
+}
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   padding: 0;
+}
+.well {
+  background: #333;
+  border-color: #555;
 }
 .panel {
   background-color: #444;
@@ -163,9 +172,10 @@ body {
   width: 250px;
   overflow: scroll;
   white-space: nowrap;
+  line-height: 1.75em;
 }
 .project-detail-view .workspace {
-  background: #111;
+  background: #222;
   color: #999;
   position: absolute;
   top: 0;
@@ -177,11 +187,18 @@ body {
 }
 .project-detail-view ul.service-list li {
   cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 12pt;
+}
+.project-detail-view ul.service-list li.activate-mouse-hover:hover {
+  background: #555;
+  border-radius: 10px;
 }
 .project-detail-view ul.service-list .badge {
   font-weight: normal;
   background-color: #419641;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, .75);
+  transform: translateY(-2px);
 }
 .project-detail-view ul.service-list .arrow-icon {
   font-size: 6pt;
@@ -189,11 +206,36 @@ body {
 }
 .project-detail-view ul.method-list {
   list-style: none;
-  padding-left: 1em;
+  padding-left: 2em;
+}
+.project-detail-view ul.method-list li {
+  font-size: 11pt;
+}
+.project-detail-view ul.method-list li:hover {
+  color: #61dc61;
+  padding: 2px;
+  text-decoration: underline;
 }
 .welcome-page {
   padding: 0 2em;
 }
-.welcome-page h1 {
-  font-weight: 100;
+.welcome-page .likely-actions {
+  list-style: none;
+  padding: 0 2em;
+}
+.welcome-page .likely-actions li {
+  border: 1px solid #666;
+  padding: .75em;
+}
+.welcome-page .project-list {
+  list-style: none;
+  font-size: 14pt;
+}
+.project-list li {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.project-list li:hover {
+  background: #444;
+  text-decoration: underline;
 }
