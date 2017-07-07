@@ -9,12 +9,19 @@
             <span class="glyphicon glyphicon-menu-down arrow-icon" style="display: none;"></span>
             <span class="glyphicon" v-bind:class="{ 'glyphicon-cloud-download': srv.type == 'soap', 'glyphicon-download-alt': srv.type == 'ms-rest' }"></span>
             {{ srv.name }}
-            <span class="badge" v-if="srv.details.length">{{ srv.details.length }}</span>
+            <span class="badge" v-if="srv.details && srv.details.length">{{ srv.details.length }}</span>
             <ul class="method-list" style="display: none;">
               <li v-for="detail in srv.details" v-on:click="addMethodToWorkspace" v-bind:data-service-name="srv.name">{{ detail.id }}</li>
             </ul>
           </li>
         </ul>
+        <div class="workspace">
+          <ul class="test-list">
+            <li class="service-test">
+              
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
 	`;

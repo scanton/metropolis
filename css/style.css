@@ -160,7 +160,18 @@ body {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 300px;
+  width: 250px;
+  overflow: scroll;
+  white-space: nowrap;
+}
+.project-detail-view .workspace {
+  background: #111;
+  color: #999;
+  position: absolute;
+  top: 0;
+  left: 250px;
+  bottom: 0;
+  right: 0;
   overflow: scroll;
   white-space: nowrap;
 }
@@ -171,4 +182,18 @@ body {
   font-weight: normal;
   background-color: #419641;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, .75);
+}
+.project-detail-view ul.service-list .arrow-icon {
+  font-size: 6pt;
+  transform: translateY(-3px);
+}
+.project-detail-view ul.method-list {
+  list-style: none;
+  padding-left: 1em;
+}
+.welcome-page {
+  padding: 0 2em;
+}
+.welcome-page h1 {
+  font-weight: 100;
 }

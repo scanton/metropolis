@@ -99,36 +99,41 @@ module.exports = class MetropolisController {
     }
   }
 
-  createNewProject() {
-    console.log("create new project");
-  }
-
   loadProject(name) {
     this.model.loadProject(name, (data) => {
       $(".active-view").slideUp("fast").removeClass("active-view");
       this.viewController.callViewMethod('project-detail-view', 'setProjectDetails', data);
       $(".project-detail-view").slideDown("fast").addClass("active-view");
-			this.model.loadServiceDetails(data, (data, isComplete) => {
-				//console.log('progress', JSON.parse(JSON.stringify(data)), isComplete);
-			});
+      this.model.loadServiceDetails(data, (data, isComplete) => {
+        if (isComplete) {
+          this._enableWorkspace();
+        }
+      });
     });
   }
 
+  createNewProject() {
+    this.showView("manage-projects-view");
+  }
+
   openProject() {
-    console.log("open project");
+    this.showView("manage-projects-view");
   }
 
   saveProject() {
     console.log("save project");
   }
 
-	addMethodToWorkspace(service, method) {
-		console.log(service, method);
-	}
+  addMethodToWorkspace(service, method) {
+    console.log(service, method);
+  }
   /**
    *
    * Private methods
    *
    **/
 
+  _enableWorkspace() {
+    console.log("enable workspace - project fully loaded");
+  }
 }
