@@ -16,10 +16,54 @@
           </li>
         </ul>
         <div class="workspace">
+          <playbar></playbar>
+          <div class="default-values">
+            <button class="btn btn-default pull-right btn-toggle-parker">Show Default Values</button>
+            <h2>Default Values</h2>
+            <div class="parker-values">
+            </div>
+          </div>
           <h1>Methods to Test</h1>
           <ul class="test-list">
             <li class="service-test" v-for="test in projectDetails.tests">
-              {{ test.method }} ({{ test.service }})
+
+              <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters">Show Parameters</button>
+              <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters" style="display: none;">Hide Parameters</button>
+
+              <h2>{{ test.method }} ({{ test.service }})</h2>
+              <div class="input-details" style="display: none;">
+                <form class="method-details-form">
+                  <h3 v-if="test.details.parameters">SOAP Parameters</h3>
+                  <table>
+                    <tr v-if="test.details.parameters" v-for="param in test.details.parameters">
+                      <td>
+                        {{ param.name }}
+                      </td>
+                      <td v-html="getInput(param.name, param.type)"></td>
+                    </tr>
+                  </table>
+
+                  <h3 v-if="test.details.uriParameters">URI Parameters</h3>
+                  <table>
+                    <tr v-if="test.details.uriParameters" v-for="param in test.details.uriParameters">
+                      <td>
+                        {{ param.name }}
+                      </td>
+                      <td v-html="getInput(param.name, param.type)"></td>
+                    </tr>
+                  </table>
+
+                  <h3 v-if="test.details.bodyParameters">Body Parameters</h3>
+                  <table>
+                    <tr v-if="test.details.bodyParameters" v-for="param in test.details.bodyParameters">
+                      <td>
+                        {{ param.name }}
+                      </td>
+                      <td v-html="getInput(param.name, param.type)"></td>
+                    </tr>
+                  </table>
+                </form>
+              </div>
             </li>
           </ul>
         </div>
@@ -32,6 +76,14 @@
       viewController.registerView(componentName, this);
     },
     methods: {
+      getInput(name, type) {
+        if(type == 'xs:int' || type == 'integer' || type == 'decimal number' || type == 'xs:int') {
+          return '<input name="' + name + '" type="number" value="0" />';
+        } else if(type == 'boolean') {
+          return '<input name="' + name + '" type="checkbox" />';
+        }
+        return '<input name="' + name + '" type="text" />';
+      },
       setProjectDetails: function(data) {
         this.projectDetails = data;
       },
@@ -44,6 +96,12 @@
         } else {
           $this.removeClass("activate-mouse-hover");
         }
+      },
+      toggleParameters: function(e) {
+        let $this = $(e.target);
+        let $parent = $this.closest("li");
+        $parent.find(".btn-toggle-params").toggle();
+        $parent.find(".input-details").slideToggle();
       },
       addMethodToWorkspace: function(e) {
         let $this = $(e.target);

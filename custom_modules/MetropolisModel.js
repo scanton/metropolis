@@ -20,12 +20,16 @@ module.exports = class MetropolisModel {
     let set = this.settings.getSettings();
     if(set && set.currentProject && set.currentProject.tests) {
       set.currentProject.tests.push(method);
-      this.fs.outputJson(this._getProjectPath(set.currentProject.name), set.currentProject, { spaces: 4 }, (err) => {
+      let proj = this._cloneObject(set.currentProject);
+      let l = proj.services.length;
+      while(l--) {
+        proj.services[l].details = [];
+      }
+      this.fs.outputJson(this._getProjectPath(set.currentProject.name), proj, { spaces: 4 }, (err) => {
         if(err) {
           throw err;
         }
       });
-
     }
   }
 
@@ -115,6 +119,10 @@ module.exports = class MetropolisModel {
     }
   }
 
+  _cloneObject(obj) {
+      return JSON.parse(JSON.stringify(obj));
+  }
+
   _loadSoapDetails(service, handler) {
 		this.soap.createClient(service.uri, (err, client) => {
 			if(err) {
@@ -191,7 +199,7 @@ module.exports = class MetropolisModel {
           let details = services[l].details;
           let m = details.length;
           while(m--) {
-            if(details[m].id = methodName) {
+            if(details[m].id == methodName) {
               let a = stripObservers(details[m]);
               let o = {};
               o.service = serviceName;

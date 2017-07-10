@@ -48,6 +48,19 @@ h1, h2, h3, h4, h5 {
   padding-bottom: 7px;
 }
 
+.btn-default {
+  background-image: none;
+  background: #666;
+  border-color: #444;
+  color: #ccc;
+  text-shadow: 1px 1px 0 #000;
+}
+.btn-default:hover, .btn-default:focus, .btn-default:active:focus {
+  background: #444;
+  color: white;
+  border-color: black;
+}
+
 .main-view {
   margin-top: 34px;
   color: #CCC;
@@ -190,7 +203,7 @@ h1, h2, h3, h4, h5 {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 250px;
+  width: 300px;
   overflow: scroll;
   white-space: nowrap;
   line-height: 1.75em;
@@ -201,7 +214,7 @@ h1, h2, h3, h4, h5 {
   color: #999;
   position: absolute;
   top: 0;
-  left: 250px;
+  left: 300px;
   bottom: 0;
   right: 0;
   overflow: scroll;
@@ -215,11 +228,41 @@ h1, h2, h3, h4, h5 {
   font-size: 12pt;
 }
 
+.project-detail-view .workspace .test-list h2 {
+  margin-top: 0;
+  overflow: scroll;
+  font-size: 18pt;
+}
 .project-detail-view .workspace .test-list .service-test {
   padding: 1em;
   border: 1px solid #555;
 }
-
+.workspace .default-values {
+  padding: 1em;
+  border: 1px solid #555;
+  margin-top: 30px;
+}
+.project-detail-view .workspace .input-details h3 {
+  text-align: center;
+  font-size: 16pt;
+}
+.project-detail-view .workspace .input-details table {
+  width: 100%;
+}
+.project-detail-view .workspace .input-details table td:nth-child(1){
+  text-align: right;
+  padding-right: 1em;
+  width: 25%;
+}
+.project-detail-view .workspace .input-details table input {
+  width: 100%;
+  background: #444;
+  border-color: #666;
+  color: white;
+  padding: .25em .75em;
+  margin: .25em;
+  border-radius: 5px;
+}
 .project-detail-view ul.service-list li {
   cursor: pointer;
   transition: all 0.2s ease;
@@ -351,3 +394,27 @@ h1, h2, h3, h4, h5 {
 .custom-tool-tip.hide {
   display: none;
 }
+.playbar {
+  background: #444;
+  text-align: center;
+  margin: -15px;
+  padding: .5em;
+}
+/*
+.playbar .major-button {
+  font-size: 18pt;
+  border-radius: 50%;
+}
+.playbar .right-button {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  padding-left: 2em;
+  margin-left: -2em;
+}
+.playbar .left-button {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+  padding-right: 2em;
+  margin-right: -2em;
+}
+*/
