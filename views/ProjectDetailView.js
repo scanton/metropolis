@@ -11,7 +11,7 @@
             {{ srv.name }}
             <span class="badge" v-if="srv.details && srv.details.length">{{ srv.details.length }}</span>
             <ul class="method-list" style="display: none;">
-              <li v-for="detail in srv.details" v-on:click="addMethodToWorkspace" v-bind:data-service-name="srv.name">{{ detail.id }}</li>
+              <li class="has-tooltip" data-tooltip="click to add a test" v-for="detail in srv.details" v-on:click="addMethodToWorkspace" v-bind:data-service-name="srv.name">{{ detail.id }}</li>
             </ul>
           </li>
         </ul>

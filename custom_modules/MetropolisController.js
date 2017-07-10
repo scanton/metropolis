@@ -16,6 +16,10 @@ module.exports = class MetropolisController {
     });
   }
 
+	updateMousePosition(x, y) {
+		$(".custom-tool-tip").css("left", x + 10).css("top", y + 10);
+	}
+
   getServiceData(serviceType, uri) {
     if (!uri) {
       this.showModal("Missing URI", "<p>Please provide a URL to the service you would like to use.</p>", [{
@@ -69,6 +73,13 @@ module.exports = class MetropolisController {
   closeLoader() {
     $(".loading-animation").fadeOut();
   }
+
+	showTooltip(tip) {
+		$(".custom-tool-tip").text(tip).removeClass("hide");
+	}
+	hideTooltip() {
+		$(".custom-tool-tip").addClass("hide");
+	}
 
   /**
    *

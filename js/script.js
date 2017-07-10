@@ -23,7 +23,7 @@ require('./custom_modules/enableContextMenu.js')();
 
 $(window).resize(function() {
 	let wHeight = $(window).height();
-	
+
 	$(".side-bar").each(function() {
 		let $sb = $(this);
 		let sHeight = $sb.height();
@@ -38,8 +38,15 @@ $(window).resize(function() {
 		let targetHeight = wHeight - 33 - tPos.top;
 		$tc.attr("style", "height: " + targetHeight + "px");
 	});
+}).mousemove(function(e) {
+	controller.updateMousePosition(e.clientX, e.clientY);
 });
+
 
 $(document).ready(function() {
 	$(window).resize();
+}).on("mouseover", ".has-tooltip", function() {
+	controller.showTooltip($(this).attr("data-tooltip"));
+}).on("mouseout", ".has-tooltip", function() {
+	controller.hideTooltip();
 });

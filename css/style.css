@@ -339,3 +339,15 @@ h1, h2, h3, h4, h5 {
     transform: rotate(360deg) translateX(90px) translateY(-70px);
   }
 }
+.custom-tool-tip {
+  position: absolute;
+  background: rgba(136, 136, 255, .67);
+  color: white;
+  padding: .25em .5em;
+  border-radius: 10px;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, .35);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .75);
+}
+.custom-tool-tip.hide {
+  display: none;
+}
