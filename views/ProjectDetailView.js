@@ -27,8 +27,8 @@
           <ul class="test-list">
             <li class="service-test" v-for="test in projectDetails.tests">
 
-              <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters">Show Parameters</button>
-              <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters" style="display: none;">Hide Parameters</button>
+              <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters">Show Details</button>
+              <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters" style="display: none;">Hide Details</button>
 
               <h2>{{ test.method }} ({{ test.service }})</h2>
               <div class="input-details" style="display: none;">
@@ -63,6 +63,9 @@
                     </tr>
                   </table>
                 </form>
+              </div>
+              <div class="assertions" style="display: none;">
+                <assertion-list></assertion-list>
               </div>
             </li>
           </ul>
@@ -102,6 +105,7 @@
         let $parent = $this.closest("li");
         $parent.find(".btn-toggle-params").toggle();
         $parent.find(".input-details").slideToggle();
+        $parent.find(".assertions").slideToggle();
       },
       addMethodToWorkspace: function(e) {
         let $this = $(e.target);
