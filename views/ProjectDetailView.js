@@ -18,14 +18,45 @@
         <div class="workspace">
           <playbar></playbar>
           <div class="default-values">
-            <button class="btn btn-default pull-right btn-toggle-parker">Show Default Values</button>
-            <h2>Default Values</h2>
-            <div class="parker-values">
+            <button class="btn btn-default pull-right btn-toggle-parker" v-on:click="toggleDefaultValues">Toggle Details</button>
+            <h2>Default Values <span class="badge">{{ getPropCount(projectDetails.defaultValues) }}</span></h2>
+            <div class="default-values-container" style="display: none;">
+              <ul class="default-values-list">
+                <li v-for="(item, index) in projectDetails.defaultValues">
+                  <div class="row">
+                    <div class="col-xs-5">
+                      <input :value="index" />
+                    </div>
+                    <div class="col-xs-5">
+                      <input :value="item" />
+                    </div>
+                    <div class="col-xs-2 text-center">
+                      <button class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove"></span>
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <h3>Add Default Value</h3>
+              <div class="container-fluid">
+                <div class="add-default-value-container row">
+                  <div class="col-xs-4">
+                    <input type="text" name="parameter" placeholder="parameter" />
+                  </div>
+                  <div class="col-xs-4">
+                    <input type="text" name="value" placeholder="value" />
+                  </div>
+                  <div class="col-xs-4">
+                    <button class="btn btn-success add-value-button">Add Default</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <h1>Methods to Test</h1>
           <ul class="test-list">
-            <li class="service-test" v-for="test in projectDetails.tests">
+            <li class="service-test" v-for="(test, index) in projectDetails.tests" v-bind:data-index="index">
 
               <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters">Show Details</button>
               <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters" style="display: none;">Hide Details</button>
@@ -65,7 +96,7 @@
                 </form>
               </div>
               <div class="assertions" style="display: none;">
-                <assertion-list></assertion-list>
+                <assertion-list :assertions="test.assertions" :defaults="test.defaultValues" :parameters="test.details.resourceDescription" :index="index"></assertion-list>
               </div>
             </li>
           </ul>
@@ -81,11 +112,30 @@
     methods: {
       getInput(name, type) {
         if(type == 'xs:int' || type == 'integer' || type == 'decimal number' || type == 'xs:int') {
-          return '<input name="' + name + '" type="number" value="0" />';
+          return '<input name="' + name + '" type="number" value="' + this.getDefaultValue(name, type) + '" />';
         } else if(type == 'boolean') {
-          return '<input name="' + name + '" type="checkbox" />';
+          return '<input name="' + name + '" type="checkbox" checked="' + this.getDefaultValue(name, type) + '" />';
         }
-        return '<input name="' + name + '" type="text" />';
+        return '<input name="' + name + '" type="text" value="' + this.getDefaultValue(name, type) + '" />';
+      },
+      getDefaultValue: function(name, type) {
+        if(this.projectDetails.defaultValues[name]) {
+          if(type == 'boolean') {
+            return 'checked';
+          }
+          return this.projectDetails.defaultValues[name];
+        }
+        if(type == 'xs:int' || type == 'integer' || type == 'decimal number' || type == 'xs:int') {
+          return 0;
+        }
+        return '';
+      },
+      getPropCount: function(data) {
+        let count = 0;
+        for(let i in data) {
+          ++count;
+        }
+        return count;
       },
       setProjectDetails: function(data) {
         this.projectDetails = data;
@@ -107,6 +157,9 @@
         $parent.find(".input-details").slideToggle();
         $parent.find(".assertions").slideToggle();
       },
+      toggleDefaultValues: function(e) {
+        $(".default-values-container").slideToggle();
+      },
       addMethodToWorkspace: function(e) {
         let $this = $(e.target);
         controller.addMethodToWorkspace($this.attr("data-service-name"), $this.text());
@@ -115,7 +168,7 @@
     data: function() {
       return {
         controller: controller,
-        'projectDetails': '',
+        projectDetails: '',
       }
     },
 		template: s

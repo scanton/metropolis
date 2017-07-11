@@ -16,6 +16,10 @@ module.exports = class MetropolisController {
     });
   }
 
+  addAssertion(testIndex, parameter, type, value) {
+    console.log(testIndex, parameter, type, value);
+  }
+
 	updateMousePosition(x, y) {
 		$(".custom-tool-tip").css("left", x + 10).css("top", y + 10);
 	}
