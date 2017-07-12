@@ -4,21 +4,26 @@ module.exports = class MetropolisController {
     this.settings = settings;
     this.viewController = viewController;
     this.model = model;
+		this.model.addEventListener("default-data-change", (data) => {
+			this.viewController.callViewMethod("project-detail-view", 'setProjectDetails', data);
+		});
     this.model.loadProjectList((data) => {
       let projectList = [];
       for (let i in data) {
         projectList.push(data[i].split(".json")[0]);
       }
-
       this.viewController.callViewMethod('projects-side-bar', 'setProjectList', projectList);
       this.viewController.callViewMethod('welcome-page', 'setProjectList', projectList);
-
     });
   }
 
   addAssertion(testIndex, parameter, type, value) {
-    console.log(testIndex, parameter, type, value);
+    model.addAssertion(testIndex, parameter, type, value);
   }
+
+	removeAssertion(testIndex, assertionIndex) {
+		model.removeAssertion(testIndex, assertionIndex);
+	}
 
 	updateMousePosition(x, y) {
 		$(".custom-tool-tip").css("left", x + 10).css("top", y + 10);

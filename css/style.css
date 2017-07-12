@@ -261,6 +261,9 @@ input, select {
   border: 1px solid #555;
   margin-top: 30px;
 }
+.workspace .default-values button {
+  margin-top: 3px;
+}
 .workspace .default-values h2 {
   margin: 0;
 }
@@ -438,4 +441,16 @@ h2 .badge {
   font-size: 14pt;
   font-weight: 100;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, .75);
+}
+.assertion-list .list-of-assertions {
+  list-style: none;
+  padding-left: 0;
+}
+.assertion-list .list-of-assertions .col-xs-3 {
+  border: 1px solid #555;
+  padding: .25em .5em;
+  min-height: 34px;
+}
+.assertion-list .list-of-assertions .btn {
+  padding: 0 3px;
 }

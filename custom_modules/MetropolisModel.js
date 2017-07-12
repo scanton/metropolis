@@ -7,29 +7,60 @@ module.exports = class MetropolisModel {
     this.settings = settings;
     this.currentProject = null;
 		this.projectList = [];
+    this.listeners = {};
+  }
+
+  addEventListener(eventName, handler) {
+    if(!this.listeners[eventName]) {
+      this.listeners[eventName] = [];
+    }
+    this.listeners[eventName].push(handler);
+  }
+  dispatchEvent(eventName, data) {
+    let handlers = this.listeners[eventName];
+    let l = handlers.length;
+    while(l--) {
+      handlers[l](data);
+    }
+  }
+
+  addAssertion(testIndex, parameter, type, value) {
+    let set = this.settings.getSettings();
+    let proj = this._cloneObject(set.currentProject);
+    proj.tests[testIndex].assertions.push({parameter: parameter, type: type, value: value});
+    this.settings.setValue("currentProject", proj);
+    this._saveCurrentProject();
+  }
+  removeAssertion(testIndex, assertionIndex) {
+    let set = this.settings.getSettings();
+    let proj = this._cloneObject(set.currentProject);
+    proj.tests[testIndex].assertions.splice(assertionIndex, 1);
+    this.settings.setValue("currentProject", proj);
+    this._saveCurrentProject();
+  }
+
+  addDefaultParameter(param, val) {
+    let set = this.settings.getSettings();
+    let proj = this._cloneObject(set.currentProject);
+    proj.defaultValues[param] = val;
+    this.settings.setValue("currentProject", proj);
+    this._saveCurrentProject();
+  }
+  removeDefaultParameter(param) {
+    let set = this.settings.getSettings();
+    let proj = this._cloneObject(set.currentProject);
+    delete proj.defaultValues[param];
+    this.settings.setValue("currentProject", proj);
+    this._saveCurrentProject();
+  }
+  updateDefaultParameter(param, val) {
+    this.addDefaultParameter(param, val);
   }
 
   addTest(serviceName, methodName) {
     let meth = this._getMethodFromCurrentProject(serviceName, methodName);
     if(meth) {
       this._addTestToCurrentProject(meth);
-    }
-  }
-
-  _addTestToCurrentProject(method) {
-    let set = this.settings.getSettings();
-    if(set && set.currentProject && set.currentProject.tests) {
-      set.currentProject.tests.push(method);
-      let proj = this._cloneObject(set.currentProject);
-      let l = proj.services.length;
-      while(l--) {
-        proj.services[l].details = [];
-      }
-      this.fs.outputJson(this._getProjectPath(set.currentProject.name), proj, { spaces: 4 }, (err) => {
-        if(err) {
-          throw err;
-        }
-      });
     }
   }
 
@@ -119,8 +150,32 @@ module.exports = class MetropolisModel {
     }
   }
 
+  _addTestToCurrentProject(method) {
+    let set = this.settings.getSettings();
+    if(set && set.currentProject && set.currentProject.tests) {
+      set.currentProject.tests.push(method);
+      this._saveCurrentProject();
+    }
+  }
+
   _cloneObject(obj) {
       return JSON.parse(JSON.stringify(obj));
+  }
+
+  _saveCurrentProject() {
+    let set = this.settings.getSettings();
+    this.currentProject = set.currentProject;
+    let proj = this._cloneObject(set.currentProject);
+    let l = proj.services.length;
+    while(l--) {
+      proj.services[l].details = [];
+    }
+    this.dispatchEvent("default-data-change", proj);
+    this.fs.outputJson(this._getProjectPath(set.currentProject.name), proj, { spaces: 4 }, (err) => {
+      if(err) {
+        throw err;
+      }
+    });
   }
 
   _loadSoapDetails(service, handler) {

@@ -25,13 +25,13 @@
                 <li v-for="(item, index) in projectDetails.defaultValues">
                   <div class="row">
                     <div class="col-xs-5">
-                      <input :value="index" />
+                      <input :value="index" name="parameter" v-on:change="updateDefaultParameter" />
                     </div>
                     <div class="col-xs-5">
-                      <input :value="item" />
+                      <input :value="item" name="value" v-on:change="updateDefaultParameter" />
                     </div>
                     <div class="col-xs-2 text-center">
-                      <button class="btn btn-danger">
+                      <button class="btn btn-danger" :data-index="index" v-on:click="removeDefaultParameter">
                         <span class="glyphicon glyphicon-remove"></span>
                       </button>
                     </div>
@@ -48,7 +48,7 @@
                     <input type="text" name="value" placeholder="value" />
                   </div>
                   <div class="col-xs-4">
-                    <button class="btn btn-success add-value-button">Add Default</button>
+                    <button class="btn btn-success add-value-button" v-on:click="addDefaultValue">Add Default</button>
                   </div>
                 </div>
               </div>
@@ -96,7 +96,7 @@
                 </form>
               </div>
               <div class="assertions" style="display: none;">
-                <assertion-list :assertions="test.assertions" :defaults="test.defaultValues" :parameters="test.details.resourceDescription" :index="index"></assertion-list>
+                <assertion-list :test="index" :assertions="test.assertions" :defaults="test.defaultValues" :parameters="test.details.resourceDescription" :index="index"></assertion-list>
               </div>
             </li>
           </ul>
@@ -110,18 +110,47 @@
       viewController.registerView(componentName, this);
     },
     methods: {
+      addDefaultValue(e) {
+        let $this = $(e.target);
+        let $row = $this.closest(".row");
+        let param = $row.find("input[name='parameter']").val();
+        let val = $row.find("input[name='value']").val();
+        if(param && val) {
+          model.addDefaultParameter(param, val);
+          $row.find("input[name='value']").val('');
+          $row.find("input[name='value']").val('');
+        }
+      },
+      removeDefaultParameter(e) {
+        let $this = $(e.target);
+        let index = $this.attr("data-index");
+        if(!index) {
+          index = $this.closest("button").attr("data-index");
+        }
+        if(index) {
+          model.removeDefaultParameter(index);
+        }
+
+      },
+      updateDefaultParameter(e) {
+        let $this = $(e.target);
+        let $row = $this.closest(".row");
+        let param = $row.find("input[name='parameter']").val();
+        let val = $row.find("input[name='value']").val();
+        model.updateDefaultParameter(param, val);
+      },
       getInput(name, type) {
         if(type == 'xs:int' || type == 'integer' || type == 'decimal number' || type == 'xs:int') {
           return '<input name="' + name + '" type="number" value="' + this.getDefaultValue(name, type) + '" />';
         } else if(type == 'boolean') {
-          return '<input name="' + name + '" type="checkbox" checked="' + this.getDefaultValue(name, type) + '" />';
+          return '<input name="' + name + '" type="checkbox" ' + this.getDefaultValue(name, type) + ' />';
         }
         return '<input name="' + name + '" type="text" value="' + this.getDefaultValue(name, type) + '" />';
       },
       getDefaultValue: function(name, type) {
         if(this.projectDetails.defaultValues[name]) {
           if(type == 'boolean') {
-            return 'checked';
+            return 'checked="checked"';
           }
           return this.projectDetails.defaultValues[name];
         }
