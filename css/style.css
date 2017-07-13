@@ -431,8 +431,10 @@ input, select {
   font-weight: 100;
   letter-spacing: 2px;
 }
-.add-assertion-container .col-xs-3 {
+.add-assertion-container .column {
   padding: 5px;
+  background: #444;
+  min-height: 52px;
 }
 .default-values-container .col-xs-4, .default-values-container .col-xs-5 {
   padding: 0 5px;

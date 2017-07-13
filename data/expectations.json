@@ -1,0 +1,1001 @@
+[
+  {
+    "assertionType": "toContain",
+    "assertionName": "To Contain",
+    "variableType": "array",
+    "variableName": "Array",
+    "values": [
+      {
+        "name": "member",
+        "type": "mixed"
+      }
+    ]
+  },
+  {
+    "assertionType": "toThrow",
+    "assertionName": "To Throw",
+    "variableType": "function",
+    "variableName": "Function",
+    "values": [
+      {
+        "name": "string",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "assertionType": "toThrowError",
+    "assertionName": "To Throw Error",
+    "variableType": "function",
+    "variableName": "Function",
+    "values": [
+      {
+        "name": "string",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "assertionType": "toBe",
+    "assertionName": "To Be",
+    "variableType": "instance",
+    "variableName": "Instance",
+    "values": [
+      {
+        "name": "instance",
+        "type": "instance"
+      }
+    ]
+  },
+  {
+    "assertionType": "toBeDefined",
+    "assertionName": "To Be Defined",
+    "variableType": "mixed",
+    "variableName": "mixed",
+    "values": []
+  },
+  {
+    "assertionType": "toBeFalsy",
+    "assertionName": "To Be Falsy",
+    "variableType": "mixed",
+    "variableName": "mixed",
+    "values": []
+  },
+  {
+    "assertionType": "toBeNull",
+    "assertionName": "To Be Null",
+    "variableType": "mixed",
+    "variableName": "mixed",
+    "values": []
+  },
+  {
+    "assertionType": "toBeTruthy",
+    "assertionName": "To Be Truthy",
+    "variableType": "mixed",
+    "variableName": "mixed",
+    "values": []
+  },
+  {
+    "assertionType": "toBeUndefined",
+    "assertionName": "To Be Undefined",
+    "variableType": "mixed",
+    "variableName": "mixed",
+    "values": []
+  },
+  {
+    "assertionType": "toEqual",
+    "assertionName": "To Equal",
+    "variableType": "mixed",
+    "variableName": "mixed",
+    "values": [
+      {
+        "name": "mixed",
+        "type": "mixed"
+      }
+    ]
+  },
+  {
+    "assertionType": "toMatch",
+    "assertionName": "To Match",
+    "variableType": "mixed",
+    "variableName": "mixed",
+    "values": [
+      {
+        "name": "pattern",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "assertionType": "toBeCloseTo",
+    "assertionName": "To Be Close To",
+    "variableType": "number",
+    "variableName": "number",
+    "values": [
+      {
+        "name": "number",
+        "type": "number"
+      },
+      {
+        "name": "decimal places",
+        "type": "number"
+      }
+    ]
+  },
+  {
+    "assertionType": "toBeGreaterThan",
+    "assertionName": "To Be Greater Than",
+    "variableType": "number",
+    "variableName": "number",
+    "values": [
+      {
+        "name": "number",
+        "type": "number"
+      }
+    ]
+  },
+  {
+    "assertionType": "toBeLessThan",
+    "assertionName": "To Be Less Than",
+    "variableType": "number",
+    "variableName": "number",
+    "values": [
+      {
+        "name": "number",
+        "type": "number"
+      }
+    ]
+  },
+  {
+    "assertionType": "toBeNaN",
+    "assertionName": "To Be Not a Number",
+    "variableType": "number",
+    "variableName": "number",
+    "values": []
+  },
+  {
+    "assertionType": "toHaveBeenCalled",
+    "assertionName": "To Have Been Called",
+    "variableType": "spy",
+    "variableName": "spy",
+    "values": []
+  },
+  {
+    "assertionType": "toHaveBeenCalledTimes",
+    "assertionName": "To Have Been Called x Times",
+    "variableType": "spy",
+    "variableName": "spy",
+    "values": [
+      {
+        "name": "number",
+        "type": "number"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveBeenCalledWith",
+    "assertionName": "To Have Been Called With",
+    "variableType": "spy",
+    "variableName": "spy",
+    "values": [
+      {
+        "name": "arguments",
+        "type": "arguments"
+      }
+    ]
+  },
+  {
+    "assertionType": "toBeArray",
+    "assertionName": "To Be Array",
+    "variableType": "array",
+    "variableName": "Array",
+    "values": []
+  },
+  {
+    "assertionType": "toBeArrayOfBooleans",
+    "assertionName": "To Be Array Of Booleans",
+    "variableType": "array",
+    "variableName": "Array",
+    "values": []
+  },
+  {
+    "assertionType": "toBeArrayOfNumbers",
+    "assertionName": "To Be Array of Numbers",
+    "variableType": "array",
+    "variableName": "Array",
+    "values": []
+  },
+  {
+    "assertionType": "toBeArrayOfObjects",
+    "assertionName": "To Be Array of Objects",
+    "variableType": "array",
+    "variableName": "Array",
+    "values": []
+  },
+  {
+    "assertionType": "toBeArrayOfSize",
+    "assertionName": "To Be Array of Size",
+    "variableType": "array",
+    "variableName": "Array",
+    "values": [
+      {
+        "name": "number",
+        "type": "number"
+      }
+    ]
+  },
+  {
+    "assertionType": "toBeArrayOfStrings",
+    "assertionName": "To Be Array of Strings",
+    "variableType": "array",
+    "variableName": "Array",
+    "values": []
+  },
+  {
+    "assertionType": "toBeEmptyArray",
+    "assertionName": "To Be Empty Array",
+    "variableType": "array",
+    "variableName": "Array",
+    "values": []
+  },
+  {
+    "assertionType": "toBeNonEmptyArray",
+    "assertionName": "To Be Non-Empty Array",
+    "variableType": "array",
+    "variableName": "Array",
+    "values": []
+  },
+  {
+    "assertionType": "toBeBoolean",
+    "assertionName": "To Be Boolean",
+    "variableType": "boolean",
+    "variableName": "Boolean",
+    "values": []
+  },
+  {
+    "assertionType": "toBeFalse",
+    "assertionName": "To Be False",
+    "variableType": "boolean",
+    "variableName": "Boolean",
+    "values": []
+  },
+  {
+    "assertionType": "toBeTrue",
+    "assertionName": "To Be True",
+    "variableType": "boolean",
+    "variableName": "Boolean",
+    "values": []
+  },
+  {
+    "assertionType": "toBeAfter",
+    "assertionName": "To Be After",
+    "variableType": "date",
+    "variableName": "Date",
+    "values": [
+      {
+        "name": "Date",
+        "type": "date"
+      }
+    ]
+  },
+  {
+    "assertionType": "toBeBefore",
+    "assertionName": "To Be Before",
+    "variableType": "date",
+    "variableName": "Date",
+    "values": [
+      {
+        "name": "Date",
+        "type": "date"
+      }
+    ]
+  },
+  {
+    "assertionType": "toBeDate",
+    "assertionName": "To Be Date",
+    "variableType": "date",
+    "variableName": "Date",
+    "values": []
+  },
+  {
+    "assertionType": "toBeValidDate",
+    "assertionName": "To Be Valid Date",
+    "variableType": "date",
+    "variableName": "Date",
+    "values": []
+  },
+  {
+    "assertionType": "toBeFunction",
+    "assertionName": "To Be Function",
+    "variableType": "function",
+    "variableName": "Function",
+    "values": []
+  },
+  {
+    "assertionType": "toThrowAnyError",
+    "assertionName": "To Throw Any Error",
+    "variableType": "function",
+    "variableName": "Function",
+    "values": []
+  },
+  {
+    "assertionType": "toThrowErrorOfType",
+    "assertionName": "To Throw Error Of Type",
+    "variableType": "function",
+    "variableName": "Function",
+    "values": [
+      {
+        "name": "error name",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "assertionType": "toBeCalculable",
+    "assertionName": "To Be Calculable",
+    "variableType": "mixed",
+    "variableName": "mixed",
+    "values": []
+  },
+  {
+    "assertionType": "toBeEvenNumber",
+    "assertionName": "To Be Even Number",
+    "variableType": "number",
+    "variableName": "Number",
+    "values": []
+  },
+  {
+    "assertionType": "toBeGreaterThanOrEqualTo",
+    "assertionName": "To Be Greater Than or Equal To",
+    "variableType": "number",
+    "variableName": "Number",
+    "values": [
+      {
+        "name": "Number",
+        "type": "number"
+      }
+    ]
+  },
+  {
+    "assertionType": "toBeLessThanOrEqualTo",
+    "assertionName": "To Be Less Than or Equal To",
+    "variableType": "number",
+    "variableName": "Number",
+    "values": [
+      {
+        "name": "Number",
+        "type": "number"
+      }
+    ]
+  },
+  {
+    "assertionType": "toBeNear",
+    "assertionName": "To Be Near",
+    "variableType": "number",
+    "variableName": "Number",
+    "values": [
+      {
+        "name": "value",
+        "type": "number"
+      },
+      {
+        "name": "epsilon",
+        "type": "number"
+      }
+    ]
+  },
+  {
+    "assertionType": "toBeNumber",
+    "assertionName": "To Be Number",
+    "variableType": "number",
+    "variableName": "Number",
+    "values": []
+  },
+  {
+    "assertionType": "toBeOddNumber",
+    "assertionName": "To Be Odd Number",
+    "variableType": "number",
+    "variableName": "Number",
+    "values": []
+  },
+  {
+    "assertionType": "toBeWholeNumber",
+    "assertionName": "To Be Whole Number",
+    "variableType": "number",
+    "variableName": "Number",
+    "values": []
+  },
+  {
+    "assertionType": "toBeWithinRange",
+    "assertionName": "To Be Within Range",
+    "variableType": "number",
+    "variableName": "Number",
+    "values": []
+  },
+  {
+    "assertionType": "toBeEmptyString",
+    "assertionName": "To Be Empty String",
+    "variableType": "string",
+    "variableName": "String",
+    "values": []
+  },
+  {
+    "assertionType": "toBeHtmlString",
+    "assertionName": "To Be HTML String",
+    "variableType": "string",
+    "variableName": "String",
+    "values": []
+  },
+  {
+    "assertionType": "toBeIso8601",
+    "assertionName": "To Be ISO 8601",
+    "variableType": "string",
+    "variableName": "String",
+    "values": []
+  },
+  {
+    "assertionType": "toBeJsonString",
+    "assertionName": "To Be JSON String",
+    "variableType": "string",
+    "variableName": "String",
+    "values": []
+  },
+  {
+    "assertionType": "toBeLongerThan",
+    "assertionName": "To Be Longer Than",
+    "variableType": "string",
+    "variableName": "String",
+    "values": []
+  },
+  {
+    "assertionType": "toBeNonEmptyString",
+    "assertionName": "To Be Non-Empty String",
+    "variableType": "string",
+    "variableName": "String",
+    "values": []
+  },
+  {
+    "assertionType": "toBeSameLengthAs",
+    "assertionName": "To Be Same Length As",
+    "variableType": "string",
+    "variableName": "String",
+    "values": []
+  },
+  {
+    "assertionType": "toBeShorterThan",
+    "assertionName": "To Be Shorter Than",
+    "variableType": "string",
+    "variableName": "String",
+    "values": []
+  },
+  {
+    "assertionType": "toBeString",
+    "assertionName": "To Be String",
+    "variableType": "string",
+    "variableName": "String",
+    "values": []
+  },
+  {
+    "assertionType": "toBeWhitespace",
+    "assertionName": "To Be Whitespace",
+    "variableType": "string",
+    "variableName": "String",
+    "values": []
+  },
+  {
+    "assertionType": "toEndWith",
+    "assertionName": "To End With",
+    "variableType": "string",
+    "variableName": "String",
+    "values": [
+      {
+        "name": "string",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toStartWith",
+    "assertionName": "To Start With",
+    "variableType": "string",
+    "variableName": "String",
+    "values": [
+      {
+        "name": "string",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toBeEmptyObject",
+    "assertionName": "To Be Empty Object",
+    "variableType": "object",
+    "variableName": "Object",
+    "values": []
+  },
+  {
+    "assertionType": "toBeNonEmptyObject",
+    "assertionName": "To Be Non-Empty Object",
+    "variableType": "object",
+    "variableName": "Object",
+    "values": []
+  },
+  {
+    "assertionType": "toBeObject",
+    "assertionName": "To Be Object",
+    "variableType": "object",
+    "variableName": "Object",
+    "values": []
+  },
+  {
+    "assertionType": "toBeRegExp",
+    "assertionName": "To Be Regular Expression",
+    "variableType": "string",
+    "variableName": "regexp",
+    "values": []
+  },
+  {
+    "assertionType": "toHaveArray",
+    "assertionName": "To Have Array",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveArrayOfBooleans",
+    "assertionName": "To Have Array of Booleans",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveArrayOfNumbers",
+    "assertionName": "To Have Array of Numbers",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveArrayOfObjects",
+    "assertionName": "To Have Array of Objects",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveArrayOfSize",
+    "assertionName": "To Have Array of Size",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      },
+      {
+        "name": "length",
+        "type": "number"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveArrayOfStrings",
+    "assertionName": "To Have Array Of Strings",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveBoolean",
+    "assertionName": "To Have Boolean",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveCalculable",
+    "assertionName": "To Have Calculable",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveDate",
+    "assertionName": "To Have Date",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveDateAfter",
+    "assertionName": "To Have Date After",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      },
+      {
+        "name": "Date",
+        "type": "date"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveDateBefore",
+    "assertionName": "To Have Date Before",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      },
+      {
+        "name": "Date",
+        "type": "date"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveEmptyArray",
+    "assertionName": "To Have Empty Array",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveEmptyObject",
+    "assertionName": "To Have Empty Object",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveEmptyString",
+    "assertionName": "To Have Empty String",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveEvenNumber",
+    "assertionName": "To Have Even Number",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveFalse",
+    "assertionName": "To Have False",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveHtmlString",
+    "assertionName": "To Have HTML String",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveIso8601",
+    "assertionName": "To Have ISO 8601",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveJsonString",
+    "assertionName": "To Have JSON String",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveMember",
+    "assertionName": "To Have Member",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveMethod",
+    "assertionName": "To Have Method",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveNonEmptyArray",
+    "assertionName": "To Have Non-Empty Array",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveNonEmptyObject",
+    "assertionName": "To Have Non-Empty Object",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveNonEmptyString",
+    "assertionName": "To Have Non-Empty String",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveNumber",
+    "assertionName": "To Have Number",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveNumberWithinRange",
+    "assertionName": "To Have Number Within Range",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      },
+      {
+        "name": "floor",
+        "type": "number"
+      },
+      {
+        "name": "ceiling",
+        "type": "number"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveObject",
+    "assertionName": "To Have Object",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveOddNumber",
+    "assertionName": "To Have Odd Number",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveString",
+    "assertionName": "To Have String",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveStringLongerThan",
+    "assertionName": "To Have String Longer Than",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      },
+      {
+        "name": "string",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveStringSameLengthAs",
+    "assertionName": "To Have String Same Length As",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      },
+      {
+        "name": "string",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveStringShorterThan",
+    "assertionName": "To Have String Shorter Than",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      },
+      {
+        "name": "string",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveTrue",
+    "assertionName": "To Have True",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveUndefined",
+    "assertionName": "To Have Undefined",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveWhitespaceString",
+    "assertionName": "To Have Whitespace String",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  },
+  {
+    "assertionType": "toHaveWholeNumber",
+    "assertionName": "To Have Whole Number",
+    "variableType": "Object",
+    "variableName": "object",
+    "values": [
+      {
+        "name": "member name",
+        "type": "String"
+      }
+    ]
+  }
+]

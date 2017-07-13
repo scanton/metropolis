@@ -8,6 +8,15 @@ module.exports = class MetropolisModel {
     this.currentProject = null;
 		this.projectList = [];
     this.listeners = {};
+    let path = __dirname.split("custom_modules")[0];
+    this.expectations = this.fs.readJsonSync(path + 'data/expectations.json').sort(function(a, b) {
+      if(a.assertionType > b.assertionType) {
+        return 1;
+      } else if(a.assertionType < b.assertionType) {
+        return -1;
+      }
+      return 0;
+    });
   }
 
   addEventListener(eventName, handler) {
@@ -87,6 +96,10 @@ module.exports = class MetropolisModel {
 
   getCurrentProject() {
     return this.currentProject;
+  }
+
+  getExpectations() {
+    return this.expectations;
   }
 
 	getProjectList() {

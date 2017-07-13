@@ -11,7 +11,7 @@
                 {{ assert.parameter }}
               </div>
               <div class="col-xs-3">
-                {{ getCasualAssertion(assert.type) }}
+                {{ assert.type }}
               </div>
               <div class="col-xs-3">
                 {{ assert.value }}
@@ -32,35 +32,24 @@
       <div class="add-assertion-container">
         <h3>Add Assertion</h3>
         <div class="row">
-          <div class="col-xs-3">
+          <div class="col-xs-2 column">
             <select name="parameters">
               <option v-for="param in parameters">{{ param.name }}</option>
             </select>
           </div>
-          <div class="col-xs-3">
+          <div class="col-xs-2 column">
             <select name="type" v-on:change="handleTypeChange">
-              <option value="is-equal">is Equal ==</option>
-              <option value="is-greater-than">is Greather Than ></option>
-              <option value="is-less-than">is Less Than <</option>
-              <option value="is-not-null">is Not Null</option>
-              <option value="is-null">is Null</option>
-              <option value="is-truthy">is True</option>
-              <option value="is-falsey">is False</option>
-              <option value="is-string">is String (not empty)</option>
-              <option value="is-object">is Object</option>
-              <option value="is-array">is Array</option>
-              <option value="contains-value">Contains Value (object or array)</option>
-              <option value="contains-index">Contains Index (object or array)</option>
-              <option value="matches-regex">Matches (regex)</option>
-              <option value="length-equals">Length Equals</option>
-              <option value="length-greater-than">Length Greater Than</option>
-              <option value="length-less-than">Length Less Than</option>
+              <option v-for="expect in expectations" :value="expect.assertionType">{{ expect.assertionName }}</option>
             </select>
           </div>
-          <div class="col-xs-3">
+          <div class="col-xs-2 column">
             <input type="text" name="value" placeholder="value" />
           </div>
-          <div class="col-xs-3">
+          <div class="col-xs-2 column">
+          </div>
+          <div class="col-xs-2 column">
+          </div>
+          <div class="col-xs-2 column">
             <button class="btn btn-success add-assertion-button" v-on:click="addAssertion">
               Add Assertion
             </button>
@@ -144,7 +133,8 @@
     props: ['assertions', 'parameters', 'index', 'test'],
     data: function() {
       return {
-        controller: controller
+        controller: controller,
+        expectations: model.getExpectations()
       }
     }
   });
