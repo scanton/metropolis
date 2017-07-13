@@ -31,7 +31,7 @@
                       <input :value="item" name="value" v-on:change="updateDefaultParameter" />
                     </div>
                     <div class="col-xs-2 text-center">
-                      <button class="btn btn-danger" :data-index="index" v-on:click="removeDefaultParameter">
+                      <button class="btn btn-danger has-tooltip" data-tooltip="Remove default value" :data-index="index" v-on:click="removeDefaultParameter">
                         <span class="glyphicon glyphicon-remove"></span>
                       </button>
                     </div>

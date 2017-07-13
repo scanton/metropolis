@@ -17,6 +17,23 @@ module.exports = class MetropolisController {
     });
   }
 
+	resetTestIndex() {
+		console.log('resetting test index');
+	}
+	stepBackTestIndex() {
+		console.log('stepping test index backward');
+	}
+	stepForwardTestIndex() {
+		console.log('stepping test index forward');
+	}
+	playTest() {
+		console.log('playing test');
+	}
+	pauseTest() {
+		console.log('pausing test');
+	}
+	
+
   addAssertion(testIndex, parameter, type, value) {
     model.addAssertion(testIndex, parameter, type, value);
   }

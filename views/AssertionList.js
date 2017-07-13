@@ -17,7 +17,8 @@
                 {{ assert.value }}
               </div>
               <div class="col-xs-3 text-center">
-                <button class="btn btn-danger delete-assertion-button"
+                <button class="btn btn-danger delete-assertion-button has-tooltip"
+                  data-tooltip="Remove assertion from test"
                   :data-test-index="test"
                   :data-assertion-index="index"
                   v-on:click="removeAssertion">
@@ -60,7 +61,9 @@
             <input type="text" name="value" placeholder="value" />
           </div>
           <div class="col-xs-3">
-            <button class="btn btn-success add-assertion-button" v-on:click="addAssertion">Add Assertion</button>
+            <button class="btn btn-success add-assertion-button" v-on:click="addAssertion">
+              Add Assertion
+            </button>
           </div>
         </div>
       </div>
