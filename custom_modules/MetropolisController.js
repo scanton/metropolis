@@ -169,6 +169,7 @@ module.exports = class MetropolisController {
         this.viewController.callViewMethod('project-detail-view', 'setProjectDetails', data);
         $(".project-detail-view").slideDown("fast").addClass("active-view");
         this.model.loadServiceDetails(data, (data, isComplete) => {
+					this.viewController.callViewMethod('service-list', 'setServiceDetails', data);
           if (isComplete) {
             this._enableWorkspace();
           }
@@ -176,7 +177,9 @@ module.exports = class MetropolisController {
       });
     }
   }
-
+	getServiceDetails(name) {
+		return model.getServiceDetails(name);
+	}
   createNewProject() {
     this.showView("manage-projects-view");
   }

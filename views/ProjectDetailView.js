@@ -3,18 +3,7 @@
 	var s = `
     <div class="` + componentName + ` row page-view no-margin">
       <div class="col-xs-12 main-view">
-        <ul class="service-list">
-          <li v-for="srv in projectDetails.services" v-on:click="toggleMethodList" class="activate-mouse-hover">
-            <span class="glyphicon glyphicon-menu-right arrow-icon"></span>
-            <span class="glyphicon glyphicon-menu-down arrow-icon" style="display: none;"></span>
-            <span class="glyphicon" v-bind:class="{ 'glyphicon-cloud-download': srv.type == 'soap', 'glyphicon-download-alt': srv.type == 'ms-rest' }"></span>
-            {{ srv.name }}
-            <span class="badge" v-if="srv.details && srv.details.length">{{ srv.details.length }}</span>
-            <ul class="method-list" style="display: none;">
-              <li class="has-tooltip" data-tooltip="click to add a test" v-for="detail in srv.details" v-on:click="addMethodToWorkspace" v-bind:data-service-name="srv.name">{{ detail.id }}</li>
-            </ul>
-          </li>
-        </ul>
+        <service-list :project-details="projectDetails"></service-list>
         <div class="workspace">
           <playbar></playbar>
           <div class="default-values">
@@ -57,10 +46,8 @@
           <h1>Methods to Test</h1>
           <ul class="test-list">
             <li class="service-test" :class="{ active: testIndex == index }" v-for="(test, index) in projectDetails.tests" v-bind:data-index="index">
-
               <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters">Show Details</button>
               <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters" style="display: none;">Hide Details</button>
-
               <h2>{{ test.method }} ({{ test.service }})</h2>
               <div class="input-details" style="display: none;">
                 <form class="method-details-form">
@@ -73,7 +60,6 @@
                       <td v-html="getInput(param.name, param.type)"></td>
                     </tr>
                   </table>
-
                   <h3 v-if="test.details.uriParameters">URI Parameters</h3>
                   <table>
                     <tr v-if="test.details.uriParameters" v-for="param in test.details.uriParameters">
@@ -83,7 +69,6 @@
                       <td v-html="getInput(param.name, param.type)"></td>
                     </tr>
                   </table>
-
                   <h3 v-if="test.details.bodyParameters">Body Parameters</h3>
                   <table>
                     <tr v-if="test.details.bodyParameters" v-for="param in test.details.bodyParameters">
@@ -172,16 +157,6 @@
       setTestIndex: function(index) {
         this.testIndex = index;
       },
-      toggleMethodList: function(e) {
-        let $this = $(e.target);
-        $this.find(".method-list").slideToggle();
-        $this.find(".arrow-icon").toggle();
-        if($this.find(".glyphicon-menu-right").is(":visible")) {
-          $this.addClass("activate-mouse-hover");
-        } else {
-          $this.removeClass("activate-mouse-hover");
-        }
-      },
       toggleParameters: function(e) {
         let $this = $(e.target);
         let $parent = $this.closest("li");
@@ -191,10 +166,6 @@
       },
       toggleDefaultValues: function(e) {
         $(".default-values-container").slideToggle();
-      },
-      addMethodToWorkspace: function(e) {
-        let $this = $(e.target);
-        controller.addMethodToWorkspace($this.attr("data-service-name"), $this.text());
       }
     },
     data: function() {

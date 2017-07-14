@@ -6,6 +6,7 @@ module.exports = class MetropolisModel {
 		this.msRest = require('../custom_modules/ms-discover.js');
     this.settings = settings;
     this.currentProject = null;
+    this.serviceDetails = {};
 		this.projectList = [];
     this.listeners = {};
     let path = __dirname.split("custom_modules")[0];
@@ -152,23 +153,30 @@ module.exports = class MetropolisModel {
       let service = data.services[count];
       if (service.type == 'soap') {
         this._loadSoapDetails(service, (details) => {
-					service.details = details;
+					//service.details = details;
+          this.serviceDetails[service.name.trim()] = details;
 					let isComplete = count == l - 1;
-					progressHandler(data, isComplete);
+					progressHandler(this.serviceDetails, isComplete);
 					if(!isComplete) {
 						this.loadServiceDetails(data, progressHandler, count + 1);
 					}
         });
       } else if (service.type == 'ms-rest') {
         this._loadMsRestDetails(service, (details) => {
-					service.details = details;
+					//service.details = details;
+          this.serviceDetails[service.name.trim()] = details;
 					let isComplete = count == l - 1;
-					progressHandler(data, isComplete);
+					progressHandler(this.serviceDetails, isComplete);
 					if(!isComplete) {
 						this.loadServiceDetails(data, progressHandler, count + 1);
 					}
         });
       }
+    }
+  }
+  getServiceDetails(name) {
+    if(this.serviceDetails[name]) {
+      return this.serviceDetails[name];
     }
   }
 
@@ -267,16 +275,18 @@ module.exports = class MetropolisModel {
     };
   }
   _getMethodFromCurrentProject(serviceName, methodName) {
+    serviceName = serviceName.trim();
+    methodName = methodName.trim();
     let set = this.settings.getSettings();
     if(set && set.currentProject && set.currentProject.services) {
       let services = set.currentProject.services;
       let l = services.length;
       while(l--) {
-        if(services[l].name == serviceName) {
+        if(services[l].name.trim() == serviceName) {
           let details = services[l].details;
           let m = details.length;
           while(m--) {
-            if(details[m].id == methodName) {
+            if(details[m].id.trim() == methodName) {
               let a = stripObservers(details[m]);
               let o = {};
               o.service = serviceName;
