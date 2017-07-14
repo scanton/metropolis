@@ -255,6 +255,22 @@ input, select {
 .project-detail-view .workspace .test-list .service-test {
   padding: 1em;
   border: 1px solid #555;
+  transition: all 0.5s ease;
+}
+.project-detail-view .workspace .test-list .service-test.active {
+  border-color: white;
+  color: white;
+  background: #333;
+}
+.project-detail-view .workspace .test-list .service-test.failed {
+  border-color: red;
+  color: white;
+  background: #933;
+}
+.project-detail-view .workspace .test-list .service-test.passed {
+  border-color: #0F0;
+  color: white;
+  background: #242;
 }
 .workspace .default-values {
   padding: 1em;

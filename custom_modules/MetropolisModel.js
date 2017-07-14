@@ -94,6 +94,15 @@ module.exports = class MetropolisModel {
     }
   }
 
+  getExpectationDetails(type) {
+    var l = this.expectations.length;
+    while(l--) {
+      if(this.expectations[l].assertionType == type) {
+        return this.expectations[l];
+      }
+    }
+	}
+
   getCurrentProject() {
     return this.currentProject;
   }

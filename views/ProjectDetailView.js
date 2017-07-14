@@ -56,7 +56,7 @@
           </div>
           <h1>Methods to Test</h1>
           <ul class="test-list">
-            <li class="service-test" v-for="(test, index) in projectDetails.tests" v-bind:data-index="index">
+            <li class="service-test" :class="{ active: testIndex == index }" v-for="(test, index) in projectDetails.tests" v-bind:data-index="index">
 
               <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters">Show Details</button>
               <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters" style="display: none;">Hide Details</button>
@@ -130,7 +130,7 @@
         if(index) {
           model.removeDefaultParameter(index);
         }
-
+        controller.hideTooltip();
       },
       updateDefaultParameter(e) {
         let $this = $(e.target);
@@ -169,6 +169,9 @@
       setProjectDetails: function(data) {
         this.projectDetails = data;
       },
+      setTestIndex: function(index) {
+        this.testIndex = index;
+      },
       toggleMethodList: function(e) {
         let $this = $(e.target);
         $this.find(".method-list").slideToggle();
@@ -198,6 +201,8 @@
       return {
         controller: controller,
         projectDetails: '',
+        testIndex: 0,
+        isPaused: true
       }
     },
 		template: s

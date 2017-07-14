@@ -2,7 +2,7 @@
   var componentName = 'assertion-list';
   var s = `
 		<div class="` + componentName + `">
-      <h2 v-if="assertions">Assertions</h2>
+      <h2 v-if="assertions">Expectations</h2>
       <ul class="list-of-assertions">
         <li v-for="(assert, index) in assertions">
           <div class="container-fluid">
@@ -18,7 +18,7 @@
               </div>
               <div class="col-xs-3 text-center">
                 <button class="btn btn-danger delete-assertion-button has-tooltip"
-                  data-tooltip="Remove assertion from test"
+                  data-tooltip="Remove expectation from test"
                   :data-test-index="test"
                   :data-assertion-index="index"
                   v-on:click="removeAssertion">
@@ -30,7 +30,7 @@
         </li>
       </ul>
       <div class="add-assertion-container">
-        <h3>Add Assertion</h3>
+        <h3>Add Expectation</h3>
         <div class="row">
           <div class="col-xs-2 column">
             <select name="parameters">
@@ -43,15 +43,17 @@
             </select>
           </div>
           <div class="col-xs-2 column">
-            <input type="text" name="value" placeholder="value" />
+            <input class="inputs-0" v-if="inputs && inputs[0]" type="text" :name="inputs[0].type" :placeholder="inputs[0].name" />
           </div>
           <div class="col-xs-2 column">
+            <input class="inputs-1" v-if="inputs && inputs[1]" type="text" :name="inputs[1].type" :placeholder="inputs[1].name" />
           </div>
           <div class="col-xs-2 column">
+            <input class="inputs-2" v-if="inputs && inputs[2]" type="text" :name="inputs[2].type" :placeholder="inputs[2].name" />
           </div>
           <div class="col-xs-2 column">
             <button class="btn btn-success add-assertion-button" v-on:click="addAssertion">
-              Add Assertion
+              Add Expectation
             </button>
           </div>
         </div>
@@ -68,53 +70,20 @@
         let $parent = $this.closest(".row");
         let parameter = $parent.find("select[name='parameters']").val();
         let type = $parent.find("select[name='type']").val();
-        let value = $parent.find("input[name='value']").val();
-        controller.addAssertion(this.index, parameter, type, value);
-      },
-      getCasualAssertion: function(type) {
-        if(type == 'is-equal') {
-          return "Equals";
-        } else if(type == 'is-greater-than') {
-          return "Is Greater Than"
-        } else if(type == 'is-less-than') {
-          return "Is Less Than";
-        } else if(type == 'is-not-null') {
-          return "Is Not Null";
-        } else if(type == 'is-null') {
-          return "Is Null";
-        } else if(type == 'is-truthy') {
-          return "Is True";
-        } else if(type == 'is-falsey') {
-          return "Is False";
-        } else if(type == 'is-string') {
-          return "Is String";
-        } else if(type == 'is-object') {
-          return "Is Object";
-        } else if(type == 'is-array') {
-          return "Is Array";
-        } else if(type == 'contains-value') {
-          return "Contains Value";
-        } else if(type == 'contains-index') {
-          return "Contains Index";
-        } else if(type == 'matches-regex') {
-          return "Matches Regular Expression"
-        } else if(type == 'length-equals') {
-          return "Length Equals";
-        } else if(type == 'length-greater-than') {
-          return "Length Greater Than";
-        } else if(type == 'length-less-than') {
-          return "Length Less Than";
-        }
-        return 'unknown';
+        let val0 = $parent.find("input.inputs-0").val();
+        let val1 = $parent.find("input.inputs-1").val();
+        let val2 = $parent.find("input.inputs-2").val();
+        let values = [];
+        if(val0) values.push(val0);
+        if(val1) values.push(val1);
+        if(val2) values.push(val2);
+        controller.addAssertion(this.index, parameter, type, values);
       },
       handleTypeChange: function(e) {
         let $this = $(e.target);
         let val = $this.val();
-        if(val == 'is-equal' || val == 'is-greater-than' || val == 'is-less-than') {
-          $this.closest(".row").find("input[name='value']").fadeIn();
-        } else {
-          $this.closest(".row").find("input[name='value']").fadeOut();
-        }
+        let exp = controller.getExpectationDetails(val);
+        this.inputs = exp.values;
       },
       removeAssertion: function(e) {
         let $this = $(e.target);
@@ -127,6 +96,7 @@
           assertionIndex = $this.closest("button").attr("data-assertion-index");
         }
         controller.removeAssertion(testIndex, assertionIndex);
+        controller.hideTooltip();
       }
     },
     template: s,
@@ -134,7 +104,11 @@
     data: function() {
       return {
         controller: controller,
-        expectations: model.getExpectations()
+        expectations: model.getExpectations(),
+        inputs: [{
+          "name": "instance",
+          "type": "instance"
+        }]
       }
     }
   });

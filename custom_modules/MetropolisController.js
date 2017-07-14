@@ -15,24 +15,41 @@ module.exports = class MetropolisController {
       this.viewController.callViewMethod('projects-side-bar', 'setProjectList', projectList);
       this.viewController.callViewMethod('welcome-page', 'setProjectList', projectList);
     });
+		this.testIndex = 0;
+		this.testIsPaused = true;
   }
 
 	resetTestIndex() {
-		console.log('resetting test index');
+		this.testIndex = 0;
+		this.viewController.callViewMethod('project-detail-view', 'setTestIndex', this.testIndex );
 	}
 	stepBackTestIndex() {
-		console.log('stepping test index backward');
+		if(this.testIndex > 0) {
+			--this.testIndex;
+			this.viewController.callViewMethod('project-detail-view', 'setTestIndex', this.testIndex );
+		}
 	}
 	stepForwardTestIndex() {
-		console.log('stepping test index forward');
+		let proj = model.getCurrentProject();
+		if(proj && proj.tests && this.testIndex < proj.tests.length - 1) {
+			++this.testIndex;
+			this.viewController.callViewMethod('project-detail-view', 'setTestIndex', this.testIndex );
+		}
 	}
 	playTest() {
-		console.log('playing test');
+		this.testIsPaused = false;
 	}
 	pauseTest() {
-		console.log('pausing test');
+		this.testIsPaused = true;
 	}
-	
+	getTestIndex() {
+		return this.testIndex;
+	}
+
+	getExpectationDetails(type) {
+		return model.getExpectationDetails(type);
+	}
+
 
   addAssertion(testIndex, parameter, type, value) {
     model.addAssertion(testIndex, parameter, type, value);
