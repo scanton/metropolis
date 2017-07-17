@@ -52,6 +52,9 @@ module.exports = class MetropolisModel {
   addDefaultParameter(param, val) {
     let set = this.settings.getSettings();
     let proj = this._cloneObject(set.currentProject);
+    if(!proj.defaultValues) {
+      proj.defaultValues = {};
+    }
     proj.defaultValues[param] = val;
     this.settings.setValue("currentProject", proj);
     this._saveCurrentProject();

@@ -50,7 +50,9 @@
               <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters" style="display: none;">Hide Details</button>
               <h2>{{ test.method }} ({{ test.service }})</h2>
               <div class="input-details" style="display: none;">
+
                 <form class="method-details-form">
+
                   <h3 v-if="test.details.parameters">SOAP Parameters</h3>
                   <table>
                     <tr v-if="test.details.parameters" v-for="param in test.details.parameters">
@@ -78,6 +80,7 @@
                       <td v-html="getInput(param.name, param.type)"></td>
                     </tr>
                   </table>
+
                 </form>
               </div>
               <div class="assertions" style="display: none;">
@@ -133,7 +136,7 @@
         return '<input name="' + name + '" type="text" value="' + this.getDefaultValue(name, type) + '" />';
       },
       getDefaultValue: function(name, type) {
-        if(this.projectDetails.defaultValues[name]) {
+        if(this.projectDetails && this.projectDetails.defaultValues && this.projectDetails.defaultValues[name]) {
           if(type == 'boolean') {
             return 'checked="checked"';
           }
