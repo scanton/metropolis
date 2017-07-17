@@ -2,6 +2,9 @@
   var componentName = 'service-list';
   var s = `
 		<ul class="` + componentName + `">
+      <li>
+        <button v-on:click="showAddServiceDialog" class="btn btn-default add-service-button">Add Service</button>
+      </li>
       <li v-for="srv in projectDetails.services" v-on:click="toggleMethodList" class="activate-mouse-hover">
         <span class="glyphicon glyphicon-menu-right arrow-icon"></span>
         <span class="glyphicon glyphicon-menu-down arrow-icon" style="display: none;"></span>
@@ -48,6 +51,9 @@
       setServiceDetails: function(data) {
         this.serviceDetails = data;
         this.$forceUpdate();
+      },
+      showAddServiceDialog() {
+        console.log("show add service dialog");
       }
     },
     template: s,

@@ -20,16 +20,19 @@ module.exports = class MetropolisController {
   }
 
 	resetTestIndex() {
+		this.pauseTest();
 		this.testIndex = 0;
 		this.viewController.callViewMethod('project-detail-view', 'setTestIndex', this.testIndex );
 	}
 	stepBackTestIndex() {
+		this.pauseTest();
 		if(this.testIndex > 0) {
 			--this.testIndex;
 			this.viewController.callViewMethod('project-detail-view', 'setTestIndex', this.testIndex );
 		}
 	}
 	stepForwardTestIndex() {
+		this.pauseTest();
 		let proj = model.getCurrentProject();
 		if(proj && proj.tests && this.testIndex < proj.tests.length - 1) {
 			++this.testIndex;
@@ -38,9 +41,12 @@ module.exports = class MetropolisController {
 	}
 	playTest() {
 		this.testIsPaused = false;
+		this.viewController.callViewMethod('playbar', 'setPaused', this.testIsPaused);
+		this._runTest();
 	}
 	pauseTest() {
 		this.testIsPaused = true;
+		this.viewController.callViewMethod('playbar', 'setPaused', this.testIsPaused);
 	}
 	getTestIndex() {
 		return this.testIndex;
@@ -49,7 +55,6 @@ module.exports = class MetropolisController {
 	getExpectationDetails(type) {
 		return model.getExpectationDetails(type);
 	}
-
 
   addAssertion(testIndex, parameter, type, value) {
     model.addAssertion(testIndex, parameter, type, value);
@@ -177,9 +182,15 @@ module.exports = class MetropolisController {
       });
     }
   }
+
+	getService(name) {
+		return this.model.getService(name);
+	}
+
 	getServiceDetails(name) {
 		return model.getServiceDetails(name);
 	}
+
   createNewProject() {
     this.showView("manage-projects-view");
   }
@@ -198,6 +209,13 @@ module.exports = class MetropolisController {
 	removeMethodFromWorkspace(index) {
 		model.removeTest(index);
 	}
+
+	moveTestDown(index) {
+		model.moveTest(index, Number(index) + 1);
+	}
+	moveTestUp(index) {
+		model.moveTest(index, Number(index) - 1);
+	}
   /**
    *
    * Private methods
@@ -210,4 +228,19 @@ module.exports = class MetropolisController {
   _enableWorkspace() {
     this.closeLoader();
   }
+	_runTest() {
+		let index = this.testIndex;
+		let isPaused = this.testIsPaused;
+		if(!isPaused && index < model.getTestCount()) {
+			let testData = stripObservers(model.getTest(index));
+			let methodDetails = stripObservers(model.getMethodDetails(testData.service, testData.method));
+			let service = stripObservers(model.getService(testData.service));
+			model.test(service, methodDetails, testData, function(results, err) {
+				if(err) {
+					console.error(err);
+				}
+				console.log(results);
+			});
+		}
+	}
 }

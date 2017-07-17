@@ -77,10 +77,20 @@ module.exports = class MetropolisModel {
     }
   }
   removeTest(index) {
-    let set = this.settings.getSettings();
-    if(set && set.currentProject && set.currentProject.tests) {
-      set.currentProject.tests.splice(index, 1);
-      this._saveCurrentProject();
+    if(index !== undefined) {
+      let set = this.settings.getSettings();
+      if(set && set.currentProject && set.currentProject.tests) {
+        set.currentProject.tests.splice(index, 1);
+        this._saveCurrentProject();
+      }
+    }
+  }
+  getTest(index) {
+    if(index !== undefined) {
+      let set = this.settings.getSettings();
+      if(set && set.currentProject && set.currentProject.tests) {
+        return set.currentProject.tests[index];
+      }
     }
   }
 
@@ -184,9 +194,60 @@ module.exports = class MetropolisModel {
       }
     }
   }
-  getServiceDetails(name) {
-    if(this.serviceDetails[name]) {
-      return this.serviceDetails[name];
+
+  getService(name) {
+    name = name.trim();
+    if(this.currentProject && this.currentProject.services) {
+      let l = this.currentProject.services.length;
+      while(l--) {
+        if(this.currentProject.services[l].name == name) {
+          return this.currentProject.services[l];
+        }
+      }
+    }
+  }
+  getServiceDetails(serviceName) {
+    if(this.serviceDetails[serviceName]) {
+      return this.serviceDetails[serviceName];
+    }
+  }
+  getMethodDetails(serviceName, methodName) {
+    if(this.serviceDetails[serviceName]) {
+      let service = this.serviceDetails[serviceName];
+      let l = service.length;
+      while(l--) {
+        if(service[l].id == methodName) {
+          return service[l];
+        }
+      }
+    }
+  }
+
+  getTestCount() {
+    let set = this.settings.getSettings();
+    if(set.currentProject && set.currentProject.tests) {
+      return set.currentProject.tests.length;
+    }
+  }
+
+  moveTest(index, target) {
+    let set = this.settings.getSettings();
+    if(set.currentProject && set.currentProject.tests) {
+      if(index && target < set.currentProject.tests.length) {
+        let tests = set.currentProject.tests
+        tests.splice(target, 0, tests.splice(index, 1)[0]);
+        this._saveCurrentProject();
+      }
+    }
+	}
+
+  test(service, methodDetails, testData, callback) {
+    if(service.type == 'soap') {
+      console.log('soap', service, methodDetails, testData);
+    } else if(service.type == 'ms-rest') {
+      console.log('rest', service, methodDetails, testData);
+    } else {
+      callback(null, "invalid service type");
     }
   }
 
@@ -231,7 +292,6 @@ module.exports = class MetropolisModel {
 			}
 			handler(this._sortParams(this._processSoapData(description)));
 		});
-
   }
   _loadMsRestDetails(service, handler) {
 		this.msRest.getData(service.uri, (data) => {

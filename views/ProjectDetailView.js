@@ -52,6 +52,14 @@
                 <button v-on:click="removeTest" class="remove-test-button btn btn-danger" :data-index="index" style="display: none;">
                   <span class="glyphicon glyphicon-remove"></span>
                 </button>
+                <div class="btn-group move-test-buttons" style="display: none;">
+                  <button v-on:click="moveTestUp" :data-index="index" class="btn btn-success move-test-up-button" v-if="index > 0">
+                    <span class="glyphicon glyphicon-chevron-up"></span>
+                  </button>
+                  <button v-on:click="moveTestDown" :data-index="index" class="btn btn-success move-test-up-down" v-if="index < model.getTestCount() - 1">
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                  </button>
+                </div>
                 {{ test.method }} ({{ test.service }})
               </h2>
               <div class="input-details" style="display: none;">
@@ -132,9 +140,9 @@
       removeTest(e) {
         let $this = $(e.target);
         let index = $this.attr("data-index");
-        if(!index) {
+        if(index === undefined) {
           $this = $this.closest("button");
-          let index = $this.attr("data-index");
+          index = Number($this.attr("data-index"));
         }
         controller.removeMethodFromWorkspace(index);
       },
@@ -178,14 +186,36 @@
         $parent.find(".input-details").slideToggle();
         $parent.find(".assertions").slideToggle();
         $parent.find(".remove-test-button").toggle("fast");
+        $parent.find(".move-test-buttons").toggle("fast");
       },
       toggleDefaultValues: function(e) {
         $(".default-values-container").slideToggle();
+      },
+      moveTestUp(e) {
+        let $this = $(e.target);
+        let index = $this.attr("data-index");
+        if(index === undefined) {
+          $this = $this.closest("button");
+          index = $this.attr("data-index");
+        }
+        controller.moveTestUp(index);
+      },
+      moveTestDown(e) {
+        let $this = $(e.target);
+        let index = $this.attr("data-index");
+        if(index === undefined) {
+          $this = $this.closest("button");
+          index = $this.attr("data-index");
+        }
+        if(index) {
+          controller.moveTestDown(index);
+        }
       }
     },
     data: function() {
       return {
         controller: controller,
+        model: model,
         projectDetails: '',
         testIndex: 0,
         isPaused: true

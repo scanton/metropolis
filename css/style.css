@@ -322,6 +322,11 @@ input, select {
   transform: translateY(-3px);
 }
 
+.project-detail-view ul.service-list .add-service-button {
+  width: 100%;
+  margin-bottom: 1em;
+}
+
 .project-detail-view ul.method-list {
   list-style: none;
   padding-left: 2em;
@@ -380,7 +385,7 @@ input, select {
   position: relative;
   width: 100%;
   height: 100%;
-  color: rgba(255, 255, 255, .5);
+  color: white;
   background: rgba(255, 255, 255, 0.5);
 }
 .loading-animation-container .glyphicon-globe {
@@ -396,7 +401,7 @@ input, select {
   top: 40%;
   animation: loadingAnimationOrbiter 1s linear infinite;
   border-radius: 50%;
-  background: rgba(255, 255, 255, .5);
+  background: white;
   width: 10px;
   height: 10px;
 }
@@ -435,6 +440,15 @@ input, select {
   text-align: center;
   margin: -15px;
   padding: .5em;
+}
+.playbar .button-play {
+  display: none;
+}
+.playbar.paused .button-pause {
+  display: none;
+}
+.playbar.paused .button-play {
+  display: inline-block;
 }
 .add-assertion-container select, .add-assertion-container input, .add-assertion-container button {
   width: 100%;
