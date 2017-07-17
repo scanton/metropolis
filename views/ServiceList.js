@@ -43,11 +43,11 @@
       getServiceDetails: function(name) {
         let det = stripObservers(this.serviceDetails);
         name = name.trim();
-        console.log(name, det[name], det, this.serviceDetails);
         return det[name];
       },
       setServiceDetails: function(data) {
         this.serviceDetails = data;
+        this.$forceUpdate();
       }
     },
     template: s,

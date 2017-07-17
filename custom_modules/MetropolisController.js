@@ -195,6 +195,9 @@ module.exports = class MetropolisController {
   addMethodToWorkspace(service, method) {
 		model.addTest(service, method);
   }
+	removeMethodFromWorkspace(index) {
+		model.removeTest(index);
+	}
   /**
    *
    * Private methods

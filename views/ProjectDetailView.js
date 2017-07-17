@@ -48,11 +48,14 @@
             <li class="service-test" :class="{ active: testIndex == index }" v-for="(test, index) in projectDetails.tests" v-bind:data-index="index">
               <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters">Show Details</button>
               <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters" style="display: none;">Hide Details</button>
-              <h2>{{ test.method }} ({{ test.service }})</h2>
+              <h2>
+                <button v-on:click="removeTest" class="remove-test-button btn btn-danger" :data-index="index" style="display: none;">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                {{ test.method }} ({{ test.service }})
+              </h2>
               <div class="input-details" style="display: none;">
-
                 <form class="method-details-form">
-
                   <h3 v-if="test.details.parameters">SOAP Parameters</h3>
                   <table>
                     <tr v-if="test.details.parameters" v-for="param in test.details.parameters">
@@ -80,7 +83,6 @@
                       <td v-html="getInput(param.name, param.type)"></td>
                     </tr>
                   </table>
-
                 </form>
               </div>
               <div class="assertions" style="display: none;">
@@ -127,6 +129,15 @@
         let val = $row.find("input[name='value']").val();
         model.updateDefaultParameter(param, val);
       },
+      removeTest(e) {
+        let $this = $(e.target);
+        let index = $this.attr("data-index");
+        if(!index) {
+          $this = $this.closest("button");
+          let index = $this.attr("data-index");
+        }
+        controller.removeMethodFromWorkspace(index);
+      },
       getInput(name, type) {
         if(type == 'xs:int' || type == 'integer' || type == 'decimal number' || type == 'xs:int') {
           return '<input name="' + name + '" type="number" value="' + this.getDefaultValue(name, type) + '" />';
@@ -166,6 +177,7 @@
         $parent.find(".btn-toggle-params").toggle();
         $parent.find(".input-details").slideToggle();
         $parent.find(".assertions").slideToggle();
+        $parent.find(".remove-test-button").toggle("fast");
       },
       toggleDefaultValues: function(e) {
         $(".default-values-container").slideToggle();
