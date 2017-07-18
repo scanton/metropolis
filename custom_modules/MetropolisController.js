@@ -199,6 +199,10 @@ module.exports = class MetropolisController {
     this.showView("manage-projects-view");
   }
 
+  importProject() {
+    console.log("import project");
+  }
+
   saveProject() {
     console.log("save project");
   }
@@ -209,6 +213,9 @@ module.exports = class MetropolisController {
 	removeMethodFromWorkspace(index) {
 		model.removeTest(index);
 	}
+  hasTest(id) {
+    return model.hasTest(id);
+  }
 
 	moveTestDown(index) {
 		model.moveTest(index, Number(index) + 1);

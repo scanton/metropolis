@@ -14,10 +14,12 @@
         <ul class="method-list" style="display: none;">
           <li
             class="has-tooltip"
+            :class="{'has-test': controller.hasTest(detail.id)}"
             data-tooltip="click to add a test"
             v-for="detail in getServiceDetails(srv.name)"
             v-on:click="addMethodToWorkspace"
             v-bind:data-service-name="srv.name">
+              <span class="glyphicon glyphicon-ok" v-if="controller.hasTest(detail.id)"></span>
               {{ detail.id }}
           </li>
         </ul>

@@ -99,6 +99,21 @@ module.exports = class MetropolisModel {
     return this.fs.pathExistsSync(dir);
   }
 
+  hasTest(id) {
+    if(id !== undefined) {
+      let set = this.settings.getSettings();
+      if(set && set.currentProject && set.currentProject.tests) {
+        let l = set.currentProject.tests.length;
+        while(l--) {
+          if(set.currentProject.tests[l].method == id) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
   createProject(name, callback) {
     if (!this.hasProject(name)) {
       let dir = this._getProjectPath(name);

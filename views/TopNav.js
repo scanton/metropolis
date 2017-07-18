@@ -13,11 +13,6 @@
     		<div class="collapse navbar-collapse metropolis-navbar-collapse-0">
     			<ul class="nav navbar-nav">
     				<top-nav-dropdown v-bind:dropdown="dropDown1"></top-nav-dropdown>
-            <!--
-    				<li onclick="controller.showView(\'manage-services-view\')" class="media-option-link option-link" data-target=""><a href="#"><span class="glyphicon glyphicon-cloud-download"></span> Services</a></li>
-    				<li onclick="controller.showView(\'Unit Tests\')" class="media-option-link option-link" data-target=""><a href="#"><span class="glyphicon glyphicon-ok"></span> Unit Tests</a></li>
-    				<li onclick="controller.showView(\'Generate API\')" class="media-option-link option-link" data-target=""><a href="#"><span class="glyphicon glyphicon-file"></span> Generate API</a></li>
-            -->
     			</ul>
     			<ul class="nav navbar-nav navbar-right">
     				<li class="refresh-browser-link"><a href="#" v-on:click="refresh"><span class="glyphicon glyphicon-refresh"></span> Refresh</a></li>
@@ -54,6 +49,10 @@
             {
               title: 'Open Project...',
               clickHandler: 'controller.openProject()'
+            },
+            {
+              title: 'Import Project...',
+              clickHandler: 'controller.importProject()'
             },
             {
               type: 'line-break'

@@ -341,6 +341,9 @@ input, select {
   padding: 2px;
   text-decoration: underline;
 }
+.project-detail-view ul.method-list li.has-test {
+  color: #61dc61;
+}
 
 .welcome-page {
   padding: 0 2em;
