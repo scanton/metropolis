@@ -4,11 +4,14 @@ module.exports = class MetropolisModel {
     this.fs = require('fs-extra');
 		this.soap = require('soap');
 		this.msRest = require('../custom_modules/ms-discover.js');
+    let Expectations = require('../custom_modules/Expectations.js');
+    this.expect = new Expectations();
     this.settings = settings;
     this.currentProject = null;
     this.serviceDetails = {};
 		this.projectList = [];
     this.listeners = {};
+    this.parker = {};
     let path = __dirname.split("custom_modules")[0];
     this.expectations = this.fs.readJsonSync(path + 'data/expectations.json').sort(function(a, b) {
       if(a.assertionType > b.assertionType) {
@@ -32,6 +35,18 @@ module.exports = class MetropolisModel {
     while(l--) {
       handlers[l](data);
     }
+  }
+  park(obj) {
+    for(let i in obj) {
+      this.parker[i] = obj[i];
+    }
+    return this.parker;
+  }
+  getParker(name) {
+    return this.parker[name];
+  }
+  resetParker() {
+    this.parker = {};
   }
 
   addAssertion(testIndex, parameter, type, value) {
@@ -174,6 +189,10 @@ module.exports = class MetropolisModel {
           console.warn(err, path, data);
         }
         this.currentProject = data;
+        if(data.defaultValues) {
+          this.resetParker();
+          this.park(data.defaultValues);
+        }
         this.settings.setValue("currentProject", data);
         callback(data);
       });
@@ -256,14 +275,83 @@ module.exports = class MetropolisModel {
     }
 	}
 
+  getDefaultValue(name, type) {
+    let isNumeric = false;
+    if(type == 'xs:boolean' || type == 'xs:int' || type == 'integer') {
+      isNumeric = true;
+    }
+    let p = this.getParker(name);
+    if(p) {
+      if(isNumeric) {
+        p = Number(p);
+      }
+      return p;
+    }
+    if(isNumeric) {
+      return 0;
+    }
+    return '';
+  }
+
   test(service, methodDetails, testData, callback) {
     if(service.type == 'soap') {
-      console.log('soap', service, methodDetails, testData);
+      var args = {};
+      let l = methodDetails.parameters.length;
+      for(let i = 0; i < l; i++) {
+        let name = methodDetails.parameters[i].name;
+        let type = methodDetails.parameters[i].type;
+        args[name] = this.getDefaultValue(name, type);
+      }
+      this.soap.createClient(service.uri, (err, client) => {
+        if(err) {
+          console.warn(err);
+        }
+        client[testData.method](args, (err, result) => {
+          if(err) {
+            console.warn(err);
+          }
+          for(var i in result) {
+            this.park(result[i]);
+          }
+          callback(result, this._makeAssertions(result, testData), err);
+        });
+      });
     } else if(service.type == 'ms-rest') {
       console.log('rest', service, methodDetails, testData);
     } else {
-      callback(null, "invalid service type");
+      callback(null, null, "invalid service type");
     }
+  }
+
+  _makeAssertions(data, test) {
+    let tests = [];
+    if(test.assertions && test.assertions.length) {
+      let l = test.assertions.length;
+      for(let i = 0; i < l; i++) {
+        let ass = test.assertions[i];
+        tests.push(this._assert(ass.parameter, data[ass.parameter], ass.type, ass.value));
+      }
+    }
+    return tests;
+  }
+
+  _assert(param, value, type, args) {
+    let o = {param: param, value: value, type: type, args: args, passed: false};
+    if(this.expect[type]) {
+      if(args.length == 0) {
+        o.passed = this.expect[type](value);
+      } else if(args.length == 1) {
+        o.passed = this.expect[type](value, args[0]);
+      } else if(args.length == 2) {
+        o.passed = this.expect[type](value, args[0], args[1]);
+      } else if(args.length == 3) {
+        o.passed = this.expect[type](value, args[0], args[1], args[2]);
+      }
+    } else {
+      console.log(this.expect);
+      console.warn("expectation type not found", type);
+    }
+    return o;
   }
 
   _addTestToCurrentProject(method) {
@@ -275,7 +363,7 @@ module.exports = class MetropolisModel {
   }
 
   _cloneObject(obj) {
-      return JSON.parse(JSON.stringify(obj));
+    return JSON.parse(JSON.stringify(obj));
   }
 
   _saveCurrentProject() {
@@ -367,7 +455,7 @@ module.exports = class MetropolisModel {
       let l = srv.length;
       while(l--) {
         if(srv[l].id.trim() == methodName) {
-          let a = stripObservers(srv[l]);
+          let a = this._cloneObject(srv[l]);
           let o = {};
           o.service = serviceName;
           o.method = methodName;

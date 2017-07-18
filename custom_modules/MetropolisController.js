@@ -242,11 +242,11 @@ module.exports = class MetropolisController {
 			let testData = stripObservers(model.getTest(index));
 			let methodDetails = stripObservers(model.getMethodDetails(testData.service, testData.method));
 			let service = stripObservers(model.getService(testData.service));
-			model.test(service, methodDetails, testData, function(results, err) {
+			model.test(service, methodDetails, testData, function(results, assertions, err) {
 				if(err) {
 					console.error(err);
 				}
-				console.log(results);
+				console.log(results, assertions);
 			});
 		}
 	}
