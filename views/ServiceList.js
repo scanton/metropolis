@@ -3,7 +3,10 @@
   var s = `
 		<ul class="` + componentName + `">
       <li>
-        <button v-on:click="showAddServiceDialog" class="btn btn-default add-service-button">Add Service</button>
+        <button v-on:click="showAddServiceDialog" class="btn btn-default add-service-button">
+          <span class="glyphicon glyphicon-plus"></span>
+          Add Service
+        </button>
       </li>
       <li v-for="srv in projectDetails.services" v-on:click="toggleMethodList" class="activate-mouse-hover">
         <span class="glyphicon glyphicon-menu-right arrow-icon"></span>
