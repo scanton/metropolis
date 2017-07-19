@@ -182,6 +182,10 @@
         return '<input name="' + name + '" type="text" value="' + this.getDefaultValue(name, type) + '" />';
       },
       getDefaultValue: function(name, type) {
+        let park = model.getParker(name);
+        if(park) {
+          return park;
+        }
         if(this.projectDetails && this.projectDetails.defaultValues && this.projectDetails.defaultValues[name]) {
           if(type == 'boolean') {
             return 'checked="checked"';

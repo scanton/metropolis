@@ -3,7 +3,7 @@
   var s = `
 		<div class="` + componentName + ` container-fluid">
       <div class="row" v-if="result && result.args">
-        <div class="col-xs-12 text-center">
+        <div class="col-xs-12 text-center data-source">
           <h2>Results From:</h2>
           {{ result.service.uri }} - {{ result.methodDetails.id }}
         </div>

@@ -245,9 +245,8 @@ module.exports = class MetropolisController {
 			let service = stripObservers(model.getService(testData.service));
 			model.test(service, methodDetails, testData, (data, err) => {
 				if(err) {
-					console.error(err);
+					console.warn(err);
 				}
-				console.log(data);
 				this.viewController.callViewMethod('project-detail-view', 'setResults', {data: data, index: index});
 			});
 		}

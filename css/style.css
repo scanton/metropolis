@@ -283,7 +283,19 @@ pre {
 .project-detail-view .workspace .test-list .service-test.passed .add-assertion-container .column {
   background: #242;
 }
-
+.project-detail-view .workspace .test-list .service-test.passed pre, .project-detail-view .workspace .test-list .service-test.passed .test-results .data-source {
+  background: #353;
+}
+.project-detail-view .workspace .test-list .service-test.failed .add-assertion-container .column {
+  background: #933;
+}
+.project-detail-view .workspace .test-list .service-test.failed pre, .project-detail-view .workspace .test-list .service-test.failed .test-results .data-source {
+  background: #822;
+}
+.test-results .data-source {
+  padding: .5em;
+  border-radius: 5px;
+}
 .workspace .default-values {
   padding: 1em;
   border: 1px solid #555;
@@ -504,4 +516,7 @@ h2 .badge {
 .test-results {
   margin-top: .5em;
   padding: .5em;
+}
+.list-of-assertions li.failed {
+  background: red;
 }

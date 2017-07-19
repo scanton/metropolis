@@ -101,6 +101,7 @@
     },
     template: s,
     props: ['assertions', 'parameters', 'index', 'test'],
+
     data: function() {
       return {
         controller: controller,
@@ -108,7 +109,8 @@
         inputs: [{
           "name": "instance",
           "type": "instance"
-        }]
+        }],
+        result: []
       }
     }
   });
