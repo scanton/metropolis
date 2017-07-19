@@ -45,7 +45,7 @@
           </div>
           <h1>Methods to Test</h1>
           <ul class="test-list">
-            <li class="service-test" :class="{ active: testIndex == index }" v-for="(test, index) in projectDetails.tests" v-bind:data-index="index">
+            <li class="service-test" :class="{ active: testIndex == index, failed: hasResult(index) && !allTestsPassed(index), passed: hasResult(index) && allTestsPassed(index) }" v-for="(test, index) in projectDetails.tests" v-bind:data-index="index">
               <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters">Show Details</button>
               <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters" style="display: none;">Hide Details</button>
               <h2>
@@ -96,6 +96,7 @@
               <div class="assertions" style="display: none;">
                 <assertion-list :test="index" :assertions="test.assertions" :defaults="test.defaultValues" :parameters="test.details.resourceDescription" :index="index"></assertion-list>
               </div>
+              <test-results :result="result[index]" v-if="result" style="display: none;"></test-results>
             </li>
           </ul>
         </div>
@@ -106,6 +107,12 @@
 	Vue.component(componentName, {
     created: function() {
       viewController.registerView(componentName, this);
+    },
+    props: {
+      result: {
+        type: Array,
+        default: () => []
+      }
     },
     methods: {
       addDefaultValue(e) {
@@ -118,6 +125,26 @@
           $row.find("input[name='value']").val('');
           $row.find("input[name='value']").val('');
         }
+      },
+      allTestsPassed(index) {
+        let res = this.result[Number(index)];
+        if(res && res.assertions && res.assertions.length) {
+          let l = res.assertions.length;
+          while(l--) {
+            if(!res.assertions[l].passed) {
+              return false;
+            }
+          }
+        }
+        return true;
+      },
+      hasResult(index) {
+        let res = this.result[Number(index)];
+        return res != undefined;
+      },
+      setResults(obj) {
+        this.result[Number(obj.index)] = obj.data;
+        this.$forceUpdate();
       },
       removeDefaultParameter(e) {
         let $this = $(e.target);
@@ -187,6 +214,7 @@
         $parent.find(".assertions").slideToggle();
         $parent.find(".remove-test-button").toggle("fast");
         $parent.find(".move-test-buttons").toggle("fast");
+        $parent.find(".test-results").slideToggle();
       },
       toggleDefaultValues: function(e) {
         $(".default-values-container").slideToggle();

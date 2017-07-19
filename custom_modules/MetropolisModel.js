@@ -313,7 +313,9 @@ module.exports = class MetropolisModel {
           for(var i in result) {
             this.park(result[i]);
           }
-          callback(result, this._makeAssertions(result, testData), err);
+          let assertions = this._makeAssertions(result, testData);
+          let o = { result: result, assertions: assertions, args: args, parker: this.parker, service: service, methodDetails: methodDetails, testData: testData }
+          callback(o, err);
         });
       });
     } else if(service.type == 'ms-rest') {

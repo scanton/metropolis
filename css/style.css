@@ -16,6 +16,14 @@ input, select {
   border-radius: 5px;
 }
 
+pre {
+  background-color: #666;
+  border: #999;
+  border-radius: 5px;
+  color: white;
+  margin: .25em;
+}
+
 .clear-fix {
   clear: both;
 }
@@ -272,6 +280,10 @@ input, select {
   color: white;
   background: #242;
 }
+.project-detail-view .workspace .test-list .service-test.passed .add-assertion-container .column {
+  background: #242;
+}
+
 .workspace .default-values {
   padding: 1em;
   border: 1px solid #555;
@@ -488,4 +500,8 @@ h2 .badge {
 }
 .assertion-list .list-of-assertions .btn {
   padding: 0 3px;
+}
+.test-results {
+  margin-top: .5em;
+  padding: .5em;
 }

@@ -16,7 +16,7 @@ const MetropolisController = require(__dirname + '/custom_modules/MetropolisCont
 const controller = new MetropolisController(model, viewController);
 
 const stripObservers = function(obj) {
-	return JSON.parse(JSON.stringify(obj));
+	return JSON.parse(JSON.stringify(obj, null, 4));
 }
 
 require('./custom_modules/enableContextMenu.js')();

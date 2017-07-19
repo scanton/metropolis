@@ -171,6 +171,7 @@ module.exports = class MetropolisController {
       this._disableWorkspace();
       this.model.loadProject(name, (data) => {
         $(".active-view").slideUp("fast").removeClass("active-view");
+				this._setResizeTimeout();
         this.viewController.callViewMethod('project-detail-view', 'setProjectDetails', data);
         $(".project-detail-view").slideDown("fast").addClass("active-view");
         this.model.loadServiceDetails(data, (data, isComplete) => {
@@ -242,12 +243,18 @@ module.exports = class MetropolisController {
 			let testData = stripObservers(model.getTest(index));
 			let methodDetails = stripObservers(model.getMethodDetails(testData.service, testData.method));
 			let service = stripObservers(model.getService(testData.service));
-			model.test(service, methodDetails, testData, function(results, assertions, err) {
+			model.test(service, methodDetails, testData, (data, err) => {
 				if(err) {
 					console.error(err);
 				}
-				console.log(results, assertions);
+				console.log(data);
+				this.viewController.callViewMethod('project-detail-view', 'setResults', {data: data, index: index});
 			});
 		}
+	}
+	_setResizeTimeout() {
+		return setTimeout(() => {
+			$(window).resize();
+		}, 750);
 	}
 }
