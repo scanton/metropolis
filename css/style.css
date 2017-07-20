@@ -450,6 +450,7 @@ pre {
     transform: rotate(360deg) translateX(90px) translateY(-70px);
   }
 }
+
 .custom-tool-tip {
   position: absolute;
   background: rgba(136, 136, 255, .67);

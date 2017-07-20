@@ -19,6 +19,7 @@ module.exports = class Expectations {
 		return false;
 	}
 	toHaveTrue(data, member) {
-		return data[member] == true || data[member] == 'true';
+		let element = data[member];
+		return element == true || element == 'true';
 	}
 }
