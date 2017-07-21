@@ -83,23 +83,6 @@ module.exports = class MetropolisModel {
   getCurrentProject() {
     return this.currentProject;
   }
-  getDefaultValue(name, type) {
-    let isNumeric = false;
-    if (type == 'xs:boolean' || type == 'xs:int' || type == 'integer') {
-      isNumeric = true;
-    }
-    let p = this.getParker(name);
-    if (p) {
-      if (isNumeric) {
-        p = Number(p);
-      }
-      return p;
-    }
-    if (isNumeric) {
-      return 0;
-    }
-    return '';
-  }
   getExpectationDetails(type) {
     var l = this.expectations.length;
     while (l--) {
@@ -278,14 +261,14 @@ module.exports = class MetropolisModel {
   resetParker() {
     this.parker = {};
   }
-  test(service, methodDetails, testData, callback) {
+  test(service, methodDetails, testData, formData, callback) {
     if (service.type == 'soap') {
       var args = {};
       let l = methodDetails.parameters.length;
       for (let i = 0; i < l; i++) {
         let name = methodDetails.parameters[i].name;
         let type = methodDetails.parameters[i].type;
-        args[name] = this.getDefaultValue(name, type);
+        args[name] = this._getDefaultValue(name, type, formData);
       }
       this.soap.createClient(service.uri, (err, client) => {
         if (err) {
@@ -312,7 +295,34 @@ module.exports = class MetropolisModel {
         });
       });
     } else if (service.type == 'ms-rest') {
-      console.log('rest', service, methodDetails, testData);
+      let args = {};
+      if(methodDetails.bodyParameters) {
+        args = this._mergeObjects(args, this._objectifyParameters(methodDetails.bodyParameters, formData));
+      }
+      if(methodDetails.uriParameters) {
+        args = this._mergeObjects(args, this._objectifyParameters(methodDetails.uriParameters, formData));
+      }
+      let verb = methodDetails.verb;
+      let uri = service.uri.split("/help")[0] + '/' + this._injectValues(methodDetails.path, formData);
+      if(this.rest[verb.toLowerCase()]) {
+        this.rest[verb.toLowerCase()](uri, args, (result, response) => {
+          this.park(result);
+          let assertions = this._makeAssertions(result, testData);
+          let o = {
+            uri: uri,
+            result: result,
+            assertions: assertions,
+            args: args,
+            parker: this.parker,
+            service: service,
+            methodDetails: methodDetails,
+            testData: testData
+          }
+          callback(o, response);
+        });
+      } else {
+        console.warn("REST Verb: " + verb.toUpperCase() + " not supported");
+      }
     } else {
       callback(null, null, "invalid service type");
     }
@@ -324,6 +334,17 @@ module.exports = class MetropolisModel {
   /**
    * Private Methods
    **/
+
+   _objectifyParameters(arr, formData) {
+     let o = {};
+     let l = arr.length;
+     for(let i = 0; i < l; i++) {
+       let name = arr[i].name;
+       let type = arr[i].type;
+       o[name] = this._getDefaultValue(name, type, formData);
+     }
+     return o;
+   }
 
   _addTestToCurrentProject(method) {
     let set = this.settings.getSettings();
@@ -367,6 +388,30 @@ module.exports = class MetropolisModel {
       tests: []
     };
   }
+  _getDefaultValue(name, type, formData) {
+    let isNumeric = false;
+    if (type == 'xs:boolean' || type == 'xs:int' || type == 'integer') {
+      isNumeric = true;
+    }
+    if(formData[name]) {
+      if(isNumeric) {
+        return Number(formData[name]);
+      } else {
+        return formData[name];
+      }
+    }
+    let p = this.getParker(name);
+    if (p) {
+      if (isNumeric) {
+        p = Number(p);
+      }
+      return p;
+    }
+    if (isNumeric) {
+      return 0;
+    }
+    return '';
+  }
   _getMethodFromCurrentProject(serviceName, methodName) {
     serviceName = serviceName.trim();
     methodName = methodName.trim();
@@ -400,6 +445,17 @@ module.exports = class MetropolisModel {
   _getProjectPath(name) {
     return __dirname.split("custom_modules")[0] + 'working_files/projects/' + name + '.json';
   }
+  _injectValues (str, vals) {
+  	var a = str.split("{");
+  	var l = a.length;
+  	var a2;
+  	for(var i = 1; i < l; i++) {
+  		a2 = a[i].split('}');
+  		a2[0] = vals[a2[0]];
+  		a[i] = a2.join('');
+  	}
+  	return a.join('');
+  }
   _loadMsRestDetails(service, handler) {
     this.msRest.getData(service.uri, (data) => {
       handler(this._sortParams(JSON.parse(data)));
@@ -426,10 +482,19 @@ module.exports = class MetropolisModel {
       let l = test.assertions.length;
       for (let i = 0; i < l; i++) {
         let ass = test.assertions[i];
+        console.log(ass, data);
         tests.push(this._assert(ass.parameter, data[ass.parameter], ass.type, ass.value));
       }
     }
     return tests;
+  }
+  _mergeObjects(obj1, obj2) {
+    let o = this._cloneObject(obj1);
+    let o2 = this._cloneObject(obj2);
+    for(let i in o2) {
+      o[i] = o2[i];
+    }
+    return o;
   }
   _processSoapData(data) {
     let a = [];

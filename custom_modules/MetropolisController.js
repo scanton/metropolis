@@ -236,6 +236,13 @@ module.exports = class MetropolisController {
   _enableWorkspace() {
     this.closeLoader();
   }
+	_objectifyValues(arr) {
+		var o = {};
+		for(var val in arr) {
+			o[arr[val].name] = arr[val].value;
+		}
+		return o;
+	}
 	_runTest() {
 		let index = this.testIndex;
 		let isPaused = this.testIsPaused;
@@ -243,9 +250,10 @@ module.exports = class MetropolisController {
 			let testData = stripObservers(model.getTest(index));
 			let methodDetails = stripObservers(model.getMethodDetails(testData.service, testData.method));
 			let service = stripObservers(model.getService(testData.service));
-			model.test(service, methodDetails, testData, (data, err) => {
+			let formData = this._objectifyValues($(".workspace ul.test-list li[data-index='" + index + "']").find("form").serializeArray());
+			model.test(service, methodDetails, testData, formData, (data, err) => {
 				if(err) {
-					console.warn(err);
+					//console.warn(err);
 				}
 				this.viewController.callViewMethod('project-detail-view', 'setResults', {data: data, index: index});
 			});

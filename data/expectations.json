@@ -36,18 +36,6 @@
     ]
   },
   {
-    "assertionType": "toBe",
-    "assertionName": "To Be (instance of)",
-    "variableType": "instance",
-    "variableName": "Instance",
-    "values": [
-      {
-        "name": "instance",
-        "type": "instance"
-      }
-    ]
-  },
-  {
     "assertionType": "toBeDefined",
     "assertionName": "To Be Defined",
     "variableType": "mixed",
@@ -305,13 +293,6 @@
     "values": []
   },
   {
-    "assertionType": "toBeFunction",
-    "assertionName": "To Be Function",
-    "variableType": "function",
-    "variableName": "Function",
-    "values": []
-  },
-  {
     "assertionType": "toThrowAnyError",
     "assertionName": "To Throw Any Error",
     "variableType": "function",
@@ -329,13 +310,6 @@
         "type": "string"
       }
     ]
-  },
-  {
-    "assertionType": "toBeCalculable",
-    "assertionName": "To Be Calculable",
-    "variableType": "mixed",
-    "variableName": "mixed",
-    "values": []
   },
   {
     "assertionType": "toBeEvenNumber",
@@ -482,7 +456,12 @@
     "assertionName": "To Be String",
     "variableType": "string",
     "variableName": "String",
-    "values": []
+    "values": [
+      {
+        "name": "value",
+        "type": "String"
+      }
+    ]
   },
   {
     "assertionType": "toBeWhitespace",
@@ -907,6 +886,10 @@
     "values": [
       {
         "name": "member name",
+        "type": "String"
+      },
+      {
+        "name": "value",
         "type": "String"
       }
     ]
