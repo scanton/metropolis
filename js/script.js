@@ -28,14 +28,14 @@ $(window).resize(function() {
 		let $sb = $(this);
 		let sHeight = $sb.height();
 		let sPos = $sb.offset();
-		let targetHeight = wHeight - 33 - sPos.top;
+		let targetHeight = wHeight - 40 - sPos.top;
 		$sb.attr("style", "height: " + targetHeight + "px");
 	});
 	$(".main-view").each(function() {
 		let $tc = $(this);
 		let tHeight = $tc.height();
 		let tPos = $tc.offset();
-		let targetHeight = wHeight - 33 - tPos.top;
+		let targetHeight = wHeight - 40 - tPos.top;
 		$tc.attr("style", "height: " + targetHeight + "px");
 	});
 }).mousemove(function(e) {

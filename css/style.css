@@ -107,7 +107,18 @@ pre {
   background: #222;
   color: #AAA;
   padding: 5px;
-  min-height: 30px;
+  min-height: 40px;
+  font-size: 16pt;
+  font-weight: 100;
+  letter-spacing: 1.5px;
+}
+.footer-toolbar.success {
+  background: #337133;
+  color: yellow;
+}
+.footer-toolbar.failed {
+  color: yellow;
+  background: #933;
 }
 
 .no-pad {
@@ -279,6 +290,16 @@ pre {
   border-color: #0F0;
   color: white;
   background: #242;
+}
+.project-detail-view .workspace .test-list .service-test.passed.active {
+  border-color: yellow;
+  background: #337133;
+  color: yellow;
+}
+.project-detail-view .workspace .test-list .service-test.failed.active {
+  border-color: yellow;
+  background: #c13333;
+  color: yellow;
 }
 .project-detail-view .workspace .test-list .service-test.passed .add-assertion-container .column {
   background: #242;

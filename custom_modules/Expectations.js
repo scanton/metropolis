@@ -106,15 +106,13 @@ module.exports = class Expectations {
 		return Number(data) > Number(value);
 	}
 	toBeLessThan(data, value) {
-		console.log(data, value);
 		return Number(data) < Number(value);
 	}
 	toBeTrue(data) {
 		return data === true;
 	}
 	toBeTruthy(data) {
-		console.log(data);
-		return data == true;
+		return data == true || data == 'true';
 	}
   toContain(data, member) {
     return data[member] != null;
@@ -128,8 +126,15 @@ module.exports = class Expectations {
 		}
 		return false;
 	}
+	toHaveString(data, member, str) {
+		let s = data[member];
+		return s == str;
+	}
 	toHaveTrue(data, member) {
 		let element = data[member];
-		return element == true || element == 'true';
+		if(element == true || element == 'true') {
+			return true;
+		};
+		return false;
 	}
 }

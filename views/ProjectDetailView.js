@@ -62,6 +62,7 @@
                 </div>
                 {{ test.method }} ({{ test.service }})
               </h2>
+
               <div class="input-details" style="display: none;">
                 <form class="method-details-form">
                   <h3 v-if="test.details.parameters">SOAP Parameters</h3>
@@ -93,6 +94,7 @@
                   </table>
                 </form>
               </div>
+
               <div class="assertions" style="display: none;">
                 <assertion-list :test="index" :assertions="test.assertions" :defaults="test.defaultValues" :parameters="test.details.resourceDescription" :index="index"></assertion-list>
               </div>

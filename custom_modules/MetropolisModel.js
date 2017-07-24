@@ -390,7 +390,7 @@ module.exports = class MetropolisModel {
   }
   _getDefaultValue(name, type, formData) {
     let isNumeric = false;
-    if (type == 'xs:boolean' || type == 'xs:int' || type == 'integer') {
+    if (type == 'xs:int' || type == 'integer') {
       isNumeric = true;
     }
     if(formData[name]) {
@@ -482,8 +482,13 @@ module.exports = class MetropolisModel {
       let l = test.assertions.length;
       for (let i = 0; i < l; i++) {
         let ass = test.assertions[i];
-        console.log(ass, data);
-        tests.push(this._assert(ass.parameter, data[ass.parameter], ass.type, ass.value));
+        let val = data[ass.parameter];
+        if(!val) {
+          if(data[0]) {
+            val = data[0][ass.parameter];
+          }
+        }
+        tests.push(this._assert(ass.parameter, val, ass.type, ass.value));
       }
     }
     return tests;
