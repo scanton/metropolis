@@ -269,7 +269,7 @@ module.exports = class MetropolisController {
 						this._runTest();
 					} else {
 						let $list = $(".project-detail-view ul.test-list");
-						let testCount = $list.length;
+						let testCount = $list.find("li").length;
 						let $assertions = $(".project-detail-view ul.list-of-assertions");
 						let assertionCount = $assertions.length;
 						let successCount = $list.find(".passed").length;

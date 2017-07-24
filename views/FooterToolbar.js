@@ -2,7 +2,7 @@
   var s = `
 		<div class="footer-toolbar" :class="{success: this.status == 'success', failed: this.status == 'failed'}">
 	   <span class="pull-right" v-if="this.status">
-      {{ this.assertionCount }} assertions in {{ this.successCount + this.failCount }} tests | {{ this.successCount }} successful | {{ this.failCount }} failed.
+      {{ this.assertionCount }} expectations in {{ this.successCount + this.failCount }} tests | {{ this.successCount }} successful tests | {{ this.failCount }} failed.
      </span>
 		</div>
 	`;
