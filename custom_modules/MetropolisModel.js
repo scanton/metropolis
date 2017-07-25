@@ -268,7 +268,7 @@ module.exports = class MetropolisModel {
       for (let i = 0; i < l; i++) {
         let name = methodDetails.parameters[i].name;
         let type = methodDetails.parameters[i].type;
-        args[name] = this._getDefaultValue(name, type, formData);
+        args[name] = this._evaluateString(this._getDefaultValue(name, type, formData));
       }
       this.soap.createClient(service.uri, (err, client) => {
         if (err) {
@@ -301,6 +301,9 @@ module.exports = class MetropolisModel {
       }
       if(methodDetails.uriParameters) {
         args = this._mergeObjects(args, this._objectifyParameters(methodDetails.uriParameters, formData));
+      }
+      for(let i in args) {
+        args[i] = this._evaluateString(args[i]);
       }
       let verb = methodDetails.verb;
       let uri = service.uri.split("/help")[0] + '/' + this._injectValues(methodDetails.path, formData);
@@ -335,17 +338,6 @@ module.exports = class MetropolisModel {
    * Private Methods
    **/
 
-   _objectifyParameters(arr, formData) {
-     let o = {};
-     let l = arr.length;
-     for(let i = 0; i < l; i++) {
-       let name = arr[i].name;
-       let type = arr[i].type;
-       o[name] = this._getDefaultValue(name, type, formData);
-     }
-     return o;
-   }
-
   _addTestToCurrentProject(method) {
     let set = this.settings.getSettings();
     if (set && set.currentProject && set.currentProject.tests) {
@@ -379,6 +371,20 @@ module.exports = class MetropolisModel {
   }
   _cloneObject(obj) {
     return JSON.parse(JSON.stringify(obj));
+  }
+  _evaluateString(str) {
+    if(str && str.split) {
+      let a = str.split("#{");
+      let l = a.length;
+      if(l > 1) {
+        for(let i = 1; i < l; i++) {
+          let a2 = a[i].split("}");
+          a[i] = eval(a2[0]) + a2[1];
+        }
+        return a.join("");
+      }
+    }
+    return str;
   }
   _getDefaultProjectModel(name) {
     return {
@@ -498,6 +504,16 @@ module.exports = class MetropolisModel {
     let o2 = this._cloneObject(obj2);
     for(let i in o2) {
       o[i] = o2[i];
+    }
+    return o;
+  }
+  _objectifyParameters(arr, formData) {
+    let o = {};
+    let l = arr.length;
+    for(let i = 0; i < l; i++) {
+      let name = arr[i].name;
+      let type = arr[i].type;
+      o[name] = this._getDefaultValue(name, type, formData);
     }
     return o;
   }
