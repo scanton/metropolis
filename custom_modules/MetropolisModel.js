@@ -14,6 +14,7 @@ module.exports = class MetropolisModel {
     this.projectList = [];
     this.listeners = {};
     this.parker = {};
+    this.calculatedValues = {};
     let path = __dirname.split("custom_modules")[0];
     this.expectations = this.fs.readJsonSync(path + 'data/expectations.json').sort(function(a, b) {
       if (a.assertionType > b.assertionType) {
@@ -376,12 +377,16 @@ module.exports = class MetropolisModel {
     if(str && str.split) {
       let a = str.split("#{");
       let l = a.length;
+      if(l > 1 && this.calculatedValues[str]) {
+        return this.calculatedValues[str];
+      }
       if(l > 1) {
         for(let i = 1; i < l; i++) {
           let a2 = a[i].split("}");
           a[i] = eval(a2[0]) + a2[1];
         }
-        return a.join("");
+        let result = this.calculatedValues[str] = a.join("");
+        return result;
       }
     }
     return str;
@@ -396,24 +401,35 @@ module.exports = class MetropolisModel {
   }
   _getDefaultValue(name, type, formData) {
     let isNumeric = false;
+    let isBoolean = false;
     if (type == 'xs:int' || type == 'integer') {
       isNumeric = true;
+    }
+    if(type == 'boolean' || type == 'xs:bool') {
+      isBoolean = true;
     }
     if(formData[name]) {
       if(isNumeric) {
         return Number(formData[name]);
       } else {
-        return formData[name];
+        if(isBoolean) {
+          return Number(formData[name]);
+        } else {
+          return formData[name];
+        }
+
       }
     }
     let p = this.getParker(name);
     if (p) {
       if (isNumeric) {
         p = Number(p);
+      } else if(isBoolean) {
+        p = Number(p);
       }
       return p;
     }
-    if (isNumeric) {
+    if (isNumeric || isBoolean) {
       return 0;
     }
     return '';

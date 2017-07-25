@@ -268,14 +268,17 @@ module.exports = class MetropolisController {
 						this.viewController.callViewMethod('project-detail-view', 'setTestIndex', this.testIndex );
 						this._runTest();
 					} else {
-						let $list = $(".project-detail-view ul.test-list");
-						let testCount = $list.find("li").length;
-						let $assertions = $(".project-detail-view ul.list-of-assertions");
-						let assertionCount = $assertions.length;
-						let successCount = $list.find(".passed").length;
-						let failCount = $list.find(".failed").length;
-						this.viewController.callViewMethod('footer-toolbar', 'setStatus', {status: failCount ? 'failed': 'success', testCount: testCount, assertionCount: assertionCount, successCount: successCount, failCount: failCount} );
-						this.pauseTest();
+						setTimeout(() => {
+							let $list = $(".project-detail-view ul.test-list");
+							let testCount = $list.find("li.service-test").length;
+							let $assertions = $(".project-detail-view ul.list-of-assertions li");
+							let assertionCount = $assertions.length;
+							let successCount = $list.find("li.service-test.passed").length;
+							let failCount = $list.find("li.service-test.failed").length;
+							this.viewController.callViewMethod('footer-toolbar', 'setStatus', {status: failCount ? 'failed': 'success', testCount: testCount, assertionCount: assertionCount, successCount: successCount, failCount: failCount} );
+							this.pauseTest();
+						}, 100);
+
 					}
 				}
 			});

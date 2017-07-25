@@ -12,30 +12,6 @@
     ]
   },
   {
-    "assertionType": "toThrow",
-    "assertionName": "To Throw",
-    "variableType": "function",
-    "variableName": "Function",
-    "values": [
-      {
-        "name": "string",
-        "type": "string"
-      }
-    ]
-  },
-  {
-    "assertionType": "toThrowError",
-    "assertionName": "To Throw Error",
-    "variableType": "function",
-    "variableName": "Function",
-    "values": [
-      {
-        "name": "string",
-        "type": "string"
-      }
-    ]
-  },
-  {
     "assertionType": "toBeDefined",
     "assertionName": "To Be Defined",
     "variableType": "mixed",
@@ -140,37 +116,6 @@
     "variableType": "number",
     "variableName": "number",
     "values": []
-  },
-  {
-    "assertionType": "toHaveBeenCalled",
-    "assertionName": "To Have Been Called",
-    "variableType": "spy",
-    "variableName": "spy",
-    "values": []
-  },
-  {
-    "assertionType": "toHaveBeenCalledTimes",
-    "assertionName": "To Have Been Called x Times",
-    "variableType": "spy",
-    "variableName": "spy",
-    "values": [
-      {
-        "name": "number",
-        "type": "number"
-      }
-    ]
-  },
-  {
-    "assertionType": "toHaveBeenCalledWith",
-    "assertionName": "To Have Been Called With",
-    "variableType": "spy",
-    "variableName": "spy",
-    "values": [
-      {
-        "name": "arguments",
-        "type": "arguments"
-      }
-    ]
   },
   {
     "assertionType": "toBeArray",
@@ -293,25 +238,6 @@
     "values": []
   },
   {
-    "assertionType": "toThrowAnyError",
-    "assertionName": "To Throw Any Error",
-    "variableType": "function",
-    "variableName": "Function",
-    "values": []
-  },
-  {
-    "assertionType": "toThrowErrorOfType",
-    "assertionName": "To Throw Error Of Type",
-    "variableType": "function",
-    "variableName": "Function",
-    "values": [
-      {
-        "name": "error name",
-        "type": "string"
-      }
-    ]
-  },
-  {
     "assertionType": "toBeEvenNumber",
     "assertionName": "To Be Even Number",
     "variableType": "number",
@@ -403,20 +329,6 @@
     "values": []
   },
   {
-    "assertionType": "toBeHtmlString",
-    "assertionName": "To Be HTML String",
-    "variableType": "string",
-    "variableName": "String",
-    "values": []
-  },
-  {
-    "assertionType": "toBeIso8601",
-    "assertionName": "To Be ISO 8601",
-    "variableType": "string",
-    "variableName": "String",
-    "values": []
-  },
-  {
     "assertionType": "toBeJsonString",
     "assertionName": "To Be JSON String",
     "variableType": "string",
@@ -428,7 +340,12 @@
     "assertionName": "To Be Longer Than",
     "variableType": "string",
     "variableName": "String",
-    "values": []
+    "values": [
+      {
+        "name": "length",
+        "type": "Number"
+      }
+    ]
   },
   {
     "assertionType": "toBeNonEmptyString",
@@ -442,14 +359,24 @@
     "assertionName": "To Be Same Length As",
     "variableType": "string",
     "variableName": "String",
-    "values": []
+    "values": [
+      {
+        "name": "length",
+        "type": "Number"
+      }
+    ]
   },
   {
     "assertionType": "toBeShorterThan",
     "assertionName": "To Be Shorter Than",
     "variableType": "string",
     "variableName": "String",
-    "values": []
+    "values": [
+      {
+        "name": "length",
+        "type": "Number"
+      }
+    ]
   },
   {
     "assertionType": "toBeString",
@@ -611,18 +538,6 @@
     ]
   },
   {
-    "assertionType": "toHaveCalculable",
-    "assertionName": "To Have Calculable",
-    "variableType": "Object",
-    "variableName": "object",
-    "values": [
-      {
-        "name": "member name",
-        "type": "String"
-      }
-    ]
-  },
-  {
     "assertionType": "toHaveDate",
     "assertionName": "To Have Date",
     "variableType": "Object",
@@ -717,30 +632,6 @@
   {
     "assertionType": "toHaveFalse",
     "assertionName": "To Have False",
-    "variableType": "Object",
-    "variableName": "object",
-    "values": [
-      {
-        "name": "member name",
-        "type": "String"
-      }
-    ]
-  },
-  {
-    "assertionType": "toHaveHtmlString",
-    "assertionName": "To Have HTML String",
-    "variableType": "Object",
-    "variableName": "object",
-    "values": [
-      {
-        "name": "member name",
-        "type": "String"
-      }
-    ]
-  },
-  {
-    "assertionType": "toHaveIso8601",
-    "assertionName": "To Have ISO 8601",
     "variableType": "Object",
     "variableName": "object",
     "values": [
