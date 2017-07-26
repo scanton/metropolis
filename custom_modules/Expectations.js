@@ -88,7 +88,10 @@ module.exports = class Expectations {
 		return Object.keys(data).length === 0 && data.constructor === Object;
 	}
 	toBeEmptyString(data) {
-		return data && data.length && data.length === 0;
+		if(data) {
+			return data && data.length && data.length === 0;
+		}
+		return false;
 	}
 	toBeEvenNumber(data) {
 		return data % 2 === 0;
@@ -117,7 +120,10 @@ module.exports = class Expectations {
 		return Number(data) <= Number(value);
 	}
 	toBeLongerThan(data, value) {
-		return data.length > value;
+		if(data) {
+			return data.length > value;
+		}
+		return false;
 	}
 	toBeNaN(data) {
 		return isNaN(Number(data));
@@ -160,10 +166,16 @@ module.exports = class Expectations {
 		return isValid;
 	}
 	toBeSameLengthAs(data, length) {
-		return data.length == length;
+		if(data) {
+			return data.length == length;
+		}
+		return false;
 	}
 	toBeShorterThan(data, length) {
-		return data.length < length;
+		if(data) {
+			return data.length < length;
+		}
+		return false;
 	}
 	toBeString(data, value) {
 		return data == value;
@@ -182,7 +194,10 @@ module.exports = class Expectations {
 		return d != "Invalid Date";
 	}
 	toBeWhitespace(data) {
-		return !data.replace(/\s/g, '').length;
+		if(data && data.replace) {
+			return !data.replace(/\s/g, '').length;
+		}
+		return false;
 	}
 	toBeWholeNumber(data) {
 		return Number.isInteger(data);
@@ -191,183 +206,288 @@ module.exports = class Expectations {
 		return data >= floor && data <= ceiling;
 	}
   toContain(data, member) {
-    return data[member] != null;
+		if(data) {
+    	return data[member] != null;
+		}
+		return false;
   }
 	toEndWith(data, string) {
-		return data.endsWith(string);
+		if(data && data.endsWith) {
+			return data.endsWith(string);
+		}
+		return false;
 	}
 	toEqual(data, value) {
 		return data == value;
 	}
 	toHaveArray(data, member) {
-		return Array.isArray(data[member]);
+		if(data) {
+			return Array.isArray(data[member]);
+		}
 	}
 	toHaveArrayOfBooleans(data, member) {
-		if(!Array.isArray(data[member])) {
-			return false;
-		}
-		let l = data[member].length;
-		while(l--) {
-			if(typeof(data[member][l]) != "boolean") {
+		if(data) {
+			if(!Array.isArray(data[member])) {
 				return false;
 			}
+			let l = data[member].length;
+			while(l--) {
+				if(typeof(data[member][l]) != "boolean") {
+					return false;
+				}
+			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 	toHaveArrayOfNumbers(data, member) {
-		if(!Array.isArray(data[member])) {
-			return false;
-		}
-		let l = data[member].length;
-		while(l--) {
-			if(isNaN(Number(data[member][l]))) {
+		if(data) {
+			if(!Array.isArray(data[member])) {
 				return false;
 			}
+			let l = data[member].length;
+			while(l--) {
+				if(isNaN(Number(data[member][l]))) {
+					return false;
+				}
+			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 	toHaveArrayOfObjects(data, member) {
-		if(!Array.isArray(data[member])) {
-			return false;
-		}
-		let l = data[member].length;
-		while(l--) {
-			if(!((typeof data[member][l] === 'function') || (typeof data[member][l] === 'object'))) {
+		if(data) {
+			if(!Array.isArray(data[member])) {
 				return false;
 			}
+			let l = data[member].length;
+			while(l--) {
+				if(!((typeof data[member][l] === 'function') || (typeof data[member][l] === 'object'))) {
+					return false;
+				}
+			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 	toHaveArrayOfSize(data, member, length) {
-		return data[member].length == length;
+		if(data) {
+			return data[member].length == length;
+		}
+		return false;
 	}
 	toHaveArrayOfStrings(data, member) {
-		if(!Array.isArray(data[member])) {
-			return false;
-		}
-		let l = data[member].length;
-		while(l--) {
-			if(typeof data[member][l] != "string") {
+		if(data) {
+			if(!Array.isArray(data[member])) {
 				return false;
 			}
+			let l = data[member].length;
+			while(l--) {
+				if(typeof data[member][l] != "string") {
+					return false;
+				}
+			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 	toHaveBoolean(data, member) {
-		return typeof(data[member]) == "boolean";
+		if(data) {
+			return typeof(data[member]) == "boolean";
+		}
+		return false;
 	}
 	toHaveDate(data, member) {
-		let d = new Date(data[member]);
-		return d != "Invalid Date";
+		if(data) {
+			let d = new Date(data[member]);
+			return d != "Invalid Date";
+		}
+		return false;
 	}
 	toHaveDateAfter(data, member, date) {
-		let d1 = new Date(data[member]);
-		let d2 = new Date(date);
-		if(d1 == "Invalid Date" || d2 == "Invalid Date") {
-			return false;
+		if(data) {
+			let d1 = new Date(data[member]);
+			let d2 = new Date(date);
+			if(d1 == "Invalid Date" || d2 == "Invalid Date") {
+				return false;
+			}
+			return d1.getTime() > d2.getTime();
 		}
-		return d1.getTime() > d2.getTime();
+		return false;
 	}
 	toHaveDateBefore(data, member, date) {
-		let d1 = new Date(data[member]);
-		let d2 = new Date(date);
-		if(d1 == "Invalid Date" || d2 == "Invalid Date") {
-			return false;
+		if(data) {
+			let d1 = new Date(data[member]);
+			let d2 = new Date(date);
+			if(d1 == "Invalid Date" || d2 == "Invalid Date") {
+				return false;
+			}
+			return d1.getTime() < d2.getTime();
 		}
-		return d1.getTime() < d2.getTime();
+		return false;
 	}
 	toHaveEmptyArray(data, member) {
-		if(!Array.isArray(data[member])) {
-			return false;
+		if(data) {
+			if(!Array.isArray(data[member])) {
+				return false;
+			}
+			return data[member].length == 0;
 		}
-		return data[member].length == 0;
+		return false;
 	}
 	toHaveEmptyObject(data, member) {
-		return Object.keys(data[member]).length == 0 && data[member].constructor === Object
+		if(data) {
+			return Object.keys(data[member]).length == 0 && data[member].constructor === Object;
+		}
+		return false;
 	}
 	toHaveEmptyString(data, member) {
-		return typeof data[member] == "string" && data[member].length == 0;
+		if(data) {
+			return typeof data[member] == "string" && data[member].length == 0;
+		}
+		return false;
 	}
 	toHaveEvenNumber(data, member) {
-		return data[member] % 2 === 0;
+		if(data) {
+			return data[member] % 2 === 0;
+		}
+		return false;
 	}
 	toHaveFalse(data, member) {
-		return data[member] === false;
+		if(data) {
+			return data[member] === false;
+		}
+		return false;
 	}
 	toHaveJsonString(data, member) {
-		try {
-			JSON.parse(data[member]);
-		} catch(e) {
-			return false;
+		if(data) {
+			try {
+				JSON.parse(data[member]);
+			} catch(e) {
+				return false;
+			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 	toHaveMember(data, member) {
-		return data[member] != null;
+		if(data) {
+			return data[member] != null;
+		}
+		return false;
 	}
 	toHaveNonEmptyArray(data, member) {
-		if(!Array.isArray(data[member])) {
-			return false;
+		if(data) {
+			if(!Array.isArray(data[member])) {
+				return false;
+			}
+			return data[member].length > 0;
 		}
-		return data[member].length > 0;
+		return false;
 	}
 	toHaveNonEmptyObject(data, member) {
-		return Object.keys(data[member]).length > 0 && data[member].constructor === Object
+		if(data) {
+			return Object.keys(data[member]).length > 0 && data[member].constructor === Object;
+		}
+		return false;
 	}
 	toHaveNonEmptyString(data, member) {
-		return typeof data[member] == "string" && data[member].length > 0;
+		if(data) {
+			return typeof data[member] == "string" && data[member].length > 0;
+		}
+		return false;
 	}
 	toHaveNumber(data, member) {
-		return !isNaN(Number(data[member]));
+		if(data) {
+			return !isNaN(Number(data[member]));
+		}
+		return false;
 	}
 	toHaveNumberWithinRange(data, member, min, max) {
-		let n = Number(data[member]);
-		min = Number(min);
-		max = Number(max);
-		if(!isNaN(n) && !isNaN(min) && !isNaN(max)) {
-			return n >= min && n <= max;
+		if(data) {
+			let n = Number(data[member]);
+			min = Number(min);
+			max = Number(max);
+			if(!isNaN(n) && !isNaN(min) && !isNaN(max)) {
+				return n >= min && n <= max;
+			}
 		}
 		return false;
 	}
 	toHaveObject(data, member) {
-		return (typeof data[member] === 'function') || (typeof data[member] === 'object');
+		if(data) {
+			return (typeof data[member] === 'function') || (typeof data[member] === 'object');
+		}
+		return false;
 	}
 	toHaveOddNumber(data, member) {
-		return Math.abs(data[member] % 2) === 1;
+		if(data) {
+			return Math.abs(data[member] % 2) === 1;
+		}
+		return false;
 	}
 	toHaveString(data, member, str) {
-		let s = data[member];
-		return s == str;
+		if(data) {
+			let s = data[member];
+			return s == str;
+		}
+		return false;
 	}
 	toHaveStringLongerThan(data, member, string) {
-		return data[member].length > string.length;
+		if(data) {
+			return data[member].length > string.length;
+		}
+		return false;
 	}
 	toHaveStringSameLengthAs(data, member, string) {
-		return data[member].length == string.length;
+		if(data) {
+			return data[member].length == string.length;
+		}
+		return false;
 	}
 	toHaveStringShorterThan(data, member, string) {
-		return data[member].length < string.length;
+		if(data) {
+			return data[member].length < string.length;
+		}
+		return false;
 	}
 	toHaveTrue(data, member) {
-		let element = data[member];
-		if(element == true || element == 'true') {
-			return true;
-		};
+		if(data) {
+			let element = data[member];
+			if(element == true || element == 'true') {
+				return true;
+			};
+		}
 		return false;
 	}
 	toHaveUndefined(data, member) {
-		return data[member] == undefined;
+		if(data) {
+			return data[member] == undefined;
+		}
+		return false;
 	}
 	toHaveWhitespaceString(data, member) {
-		return !data[member].replace(/\s/g, '').length;
+		if(data) {
+			return !data[member].replace(/\s/g, '').length;
+		}
+		return false;
 	}
 	toHaveWholeNumber(data, member) {
-		return Number.isInteger(data[member]);
+		if(data) {
+			return Number.isInteger(data[member]);
+		}
+		return false;
 	}
 	toMatch(data, pattern) {
-		return data.match(pattern) != null;
+		if(data && data.match) {
+			return data.match(pattern) != null;
+		}
+		return false;
 	}
 	toStartWith(data, string) {
-		return data.startsWith(string);
+		if(data && data.startsWith) {
+			return data.startsWith(string);
+		}
+		return false;
 	}
 }

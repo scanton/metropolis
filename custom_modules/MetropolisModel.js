@@ -107,7 +107,11 @@ module.exports = class MetropolisModel {
     }
   }
   getParker(name) {
-    return this.parker[name];
+    if(this.parker[name]) {
+      return this.parker[name];
+    } else {
+      this.parker[name.toLowerCase()];
+    }
   }
   getProjectList() {
     return this.projectList;
@@ -233,6 +237,7 @@ module.exports = class MetropolisModel {
   park(obj) {
     for (let i in obj) {
       this.parker[i] = obj[i];
+      this.parker[i.toLowerCase()] = obj[i];
     }
     return this.parker;
   }
@@ -279,9 +284,6 @@ module.exports = class MetropolisModel {
           if (err) {
             console.warn(err);
           }
-          for (var i in result) {
-            this.park(result[i]);
-          }
           let assertions = this._makeAssertions(result, testData);
           let o = {
             result: result,
@@ -292,7 +294,19 @@ module.exports = class MetropolisModel {
             methodDetails: methodDetails,
             testData: testData
           }
-          callback(o, err);
+          let passedAssertions = true;
+          let l = assertions.length;
+          while(l--) {
+            if(!assertions[l].passed) {
+              passedAssertions = false;
+            }
+          }
+          if(passedAssertions) {
+            for (var i in result) {
+              this.park(result[i]);
+            }
+          }
+          callback(o, err, passedAssertions);
         });
       });
     } else if (service.type == 'ms-rest') {
@@ -306,11 +320,17 @@ module.exports = class MetropolisModel {
       for(let i in args) {
         args[i] = this._evaluateString(args[i]);
       }
+      /*
+      delete args.WebuserID;
+      delete args.SecSessionID;
+      delete args.Result;
+      delete args.ResultMsg;
+      */
       let verb = methodDetails.verb;
       let uri = service.uri.split("/help")[0] + '/' + this._injectValues(methodDetails.path, formData);
       if(this.rest[verb.toLowerCase()]) {
         this.rest[verb.toLowerCase()](uri, args, (result, response) => {
-          this.park(result);
+
           let assertions = this._makeAssertions(result, testData);
           let o = {
             uri: uri,
@@ -322,7 +342,19 @@ module.exports = class MetropolisModel {
             methodDetails: methodDetails,
             testData: testData
           }
-          callback(o, response);
+
+          let passedAssertions = true;
+          let l = assertions.length;
+          while(l--) {
+            if(!assertions[l].passed) {
+              passedAssertions = false;
+            }
+          }
+          if(passedAssertions) {
+            this.park(result);
+          }
+
+          callback(o, response, passedAssertions);
         });
       } else {
         console.warn("REST Verb: " + verb.toUpperCase() + " not supported");
@@ -400,6 +432,9 @@ module.exports = class MetropolisModel {
     };
   }
   _getDefaultValue(name, type, formData) {
+    if(name == "SecQuestID") {
+      console.log(name, type, formData);
+    }
     let isNumeric = false;
     let isBoolean = false;
     if (type == 'xs:int' || type == 'integer') {

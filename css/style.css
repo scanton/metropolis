@@ -245,9 +245,12 @@ pre {
   left: 300px;
   bottom: 0;
   right: 0;
-  overflow: scroll;
   white-space: nowrap;
   padding: 1em;
+}
+.project-detail-view .workspace .value-container {
+  overflow: scroll;
+  margin-top: 16px;
 }
 
 .project-detail-view .workspace ul.default-values-list {
@@ -528,7 +531,6 @@ h2 .badge {
   padding-left: 0;
 }
 .assertion-list .list-of-assertions .col-xs-3 {
-  border: 1px solid #555;
   padding: .25em .5em;
   min-height: 34px;
 }

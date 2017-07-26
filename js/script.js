@@ -37,6 +37,7 @@ $(window).resize(function() {
 		let tPos = $tc.offset();
 		let targetHeight = wHeight - 40 - tPos.top;
 		$tc.attr("style", "height: " + targetHeight + "px");
+		$tc.find(".value-container").attr("style", "height: " + (targetHeight - 33)  + "px");
 	});
 }).mousemove(function(e) {
 	controller.updateMousePosition(e.clientX, e.clientY);

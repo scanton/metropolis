@@ -244,6 +244,7 @@ module.exports = class MetropolisController {
 		return o;
 	}
 	_runTest() {
+		let autoPlay = 1;
 		var index = this.testIndex;
 		var isPaused = this.testIsPaused;
 		if(!isPaused && index < model.getTestCount()) {
@@ -251,14 +252,24 @@ module.exports = class MetropolisController {
 			let methodDetails = stripObservers(model.getMethodDetails(testData.service, testData.method));
 			let service = stripObservers(model.getService(testData.service));
 			let formData = this._objectifyValues($(".workspace ul.test-list li[data-index='" + index + "']").find("form").serializeArray());
-			for(let i in formData) {
-				if(model.parker[i]) {
-					formData[i] = model.parker[i];
-				}
-			}
+			//for(let i in formData) {
+				//if(model.parker[i]) {
+				//	formData[i] = model.parker[i];
+				//}
+			//}
 			this.model.test(service, methodDetails, testData, formData, (data, err) => {
 				if(err) {
 					//console.warn(err);
+				}
+				let passedAssertions = true;
+				if(data && data.assertions && data.assertions.length) {
+					let l = data.assertions.length;
+					while(l--) {
+						let ass = data.assertions[l];
+						if(!ass.passed) {
+							passedAssertions = false;
+						}
+					}
 				}
 				this.viewController.callViewMethod('project-detail-view', 'setResults', {data: data, index: index});
 				if(!isPaused) {
@@ -266,19 +277,15 @@ module.exports = class MetropolisController {
 					if(proj && proj.tests && this.testIndex < proj.tests.length - 1) {
 						++this.testIndex;
 						this.viewController.callViewMethod('project-detail-view', 'setTestIndex', this.testIndex );
-						this._runTest();
-					} else {
-						setTimeout(() => {
-							let $list = $(".project-detail-view ul.test-list");
-							let testCount = $list.find("li.service-test").length;
-							let $assertions = $(".project-detail-view ul.list-of-assertions li");
-							let assertionCount = $assertions.length;
-							let successCount = $list.find("li.service-test.passed").length;
-							let failCount = $list.find("li.service-test.failed").length;
-							this.viewController.callViewMethod('footer-toolbar', 'setStatus', {status: failCount ? 'failed': 'success', testCount: testCount, assertionCount: assertionCount, successCount: successCount, failCount: failCount} );
+						if(autoPlay && passedAssertions) {
+							this._runTest();
+						} else {
 							this.pauseTest();
-						}, 100);
-
+							setTimeout(this._updateFooter.bind(this), 100);
+						}
+					} else {
+						this.pauseTest();
+						setTimeout(this._updateFooter.bind(this), 100);
 					}
 				}
 			});
@@ -288,5 +295,14 @@ module.exports = class MetropolisController {
 		return setTimeout(() => {
 			$(window).resize();
 		}, 750);
+	}
+	_updateFooter() {
+		let $list = $(".project-detail-view ul.test-list");
+		let testCount = $list.find("li.service-test").length;
+		let $assertions = $(".project-detail-view ul.list-of-assertions li");
+		let assertionCount = $assertions.length;
+		let successCount = $list.find("li.service-test.passed").length;
+		let failCount = $list.find("li.service-test.failed").length;
+		this.viewController.callViewMethod('footer-toolbar', 'setStatus', {status: failCount ? 'failed': 'success', testCount: testCount, assertionCount: assertionCount, successCount: successCount, failCount: failCount} )
 	}
 }

@@ -6,101 +6,107 @@
         <service-list :project-details="projectDetails"></service-list>
         <div class="workspace">
           <playbar></playbar>
-          <div class="default-values">
-            <button class="btn btn-default pull-right btn-toggle-parker" v-on:click="toggleDefaultValues">Toggle Details</button>
-            <h2>Default Values <span class="badge">{{ getPropCount(projectDetails.defaultValues) }}</span></h2>
-            <div class="default-values-container" style="display: none;">
-              <ul class="default-values-list">
-                <li v-for="(item, index) in projectDetails.defaultValues">
-                  <div class="row">
-                    <div class="col-xs-5">
-                      <input :value="index" name="parameter" v-on:change="updateDefaultParameter" />
+          <div class="value-container">
+            <div class="default-values">
+              <button class="btn btn-default pull-right btn-toggle-parker" v-on:click="toggleDefaultValues">Toggle Details</button>
+              <h2>Default Values <span class="badge">{{ getPropCount(projectDetails.defaultValues) }}</span></h2>
+              <div class="default-values-container" style="display: none;">
+                <ul class="default-values-list">
+                  <li v-for="(item, index) in projectDetails.defaultValues">
+                    <div class="row">
+                      <div class="col-xs-5">
+                        <input :value="index" name="parameter" v-on:change="updateDefaultParameter" />
+                      </div>
+                      <div class="col-xs-5">
+                        <input :value="item" name="value" v-on:change="updateDefaultParameter" />
+                      </div>
+                      <div class="col-xs-2 text-center">
+                        <button class="btn btn-danger has-tooltip" data-tooltip="Remove default value" :data-index="index" v-on:click="removeDefaultParameter">
+                          <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                      </div>
                     </div>
-                    <div class="col-xs-5">
-                      <input :value="item" name="value" v-on:change="updateDefaultParameter" />
+                  </li>
+                </ul>
+                <h3>Add Default Value</h3>
+                <div class="container-fluid">
+                  <div class="add-default-value-container row">
+                    <div class="col-xs-4">
+                      <input type="text" name="parameter" placeholder="parameter" />
                     </div>
-                    <div class="col-xs-2 text-center">
-                      <button class="btn btn-danger has-tooltip" data-tooltip="Remove default value" :data-index="index" v-on:click="removeDefaultParameter">
-                        <span class="glyphicon glyphicon-remove"></span>
-                      </button>
+                    <div class="col-xs-4">
+                      <input type="text" name="value" placeholder="value" />
                     </div>
-                  </div>
-                </li>
-              </ul>
-              <h3>Add Default Value</h3>
-              <div class="container-fluid">
-                <div class="add-default-value-container row">
-                  <div class="col-xs-4">
-                    <input type="text" name="parameter" placeholder="parameter" />
-                  </div>
-                  <div class="col-xs-4">
-                    <input type="text" name="value" placeholder="value" />
-                  </div>
-                  <div class="col-xs-4">
-                    <button class="btn btn-success add-value-button" v-on:click="addDefaultValue">Add Default</button>
+                    <div class="col-xs-4">
+                      <button class="btn btn-success add-value-button" v-on:click="addDefaultValue">Add Default</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <h1>Methods to Test</h1>
-          <ul class="test-list">
-            <li class="service-test" :class="{ active: testIndex == index, failed: hasResult(index) && !allTestsPassed(index), passed: hasResult(index) && allTestsPassed(index) }" v-for="(test, index) in projectDetails.tests" v-bind:data-index="index">
-              <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters">Show Details</button>
-              <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters" style="display: none;">Hide Details</button>
-              <h2>
-                <button v-on:click="removeTest" class="remove-test-button btn btn-danger" :data-index="index" style="display: none;">
-                  <span class="glyphicon glyphicon-remove"></span>
-                </button>
-                <div class="btn-group move-test-buttons" style="display: none;">
-                  <button v-on:click="moveTestUp" :data-index="index" class="btn btn-success move-test-up-button" v-if="index > 0">
-                    <span class="glyphicon glyphicon-chevron-up"></span>
+
+            <h1>Methods to Test</h1>
+            <ul class="test-list">
+              <li class="service-test" :class="{ active: testIndex == index, failed: hasResult(index) && !allTestsPassed(index), passed: hasResult(index) && allTestsPassed(index) }" v-for="(test, index) in projectDetails.tests" v-bind:data-index="index">
+                <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters">Show Details</button>
+                <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters" style="display: none;">Hide Details</button>
+                <h2>
+                  <button v-on:click="removeTest" class="remove-test-button btn btn-danger" :data-index="index" style="display: none;">
+                    <span class="glyphicon glyphicon-remove"></span>
                   </button>
-                  <button v-on:click="moveTestDown" :data-index="index" class="btn btn-success move-test-up-down" v-if="index < model.getTestCount() - 1">
-                    <span class="glyphicon glyphicon-chevron-down"></span>
-                  </button>
+                  <div class="btn-group move-test-buttons" style="display: none;">
+                    <button v-on:click="moveTestUp" :data-index="index" class="btn btn-success move-test-up-button" v-if="index > 0">
+                      <span class="glyphicon glyphicon-chevron-up"></span>
+                    </button>
+                    <button v-on:click="moveTestDown" :data-index="index" class="btn btn-success move-test-up-down" v-if="index < model.getTestCount() - 1">
+                      <span class="glyphicon glyphicon-chevron-down"></span>
+                    </button>
+                  </div>
+                  {{ test.method }} ({{ test.service }})
+                </h2>
+
+                <div class="input-details" style="display: none;">
+                  <form class="method-details-form">
+                    <h3 v-if="test.details.parameters">SOAP Parameters</h3>
+                    <table>
+                      <tr v-if="test.details.parameters" v-for="param in test.details.parameters">
+                        <td>
+                          {{ param.name }}
+                        </td>
+                        <td v-html="getInput(param.name, param.type)"></td>
+                        <td class="controls"></td>
+                      </tr>
+                    </table>
+                    <h3 v-if="test.details.uriParameters">URI Parameters</h3>
+                    <table>
+                      <tr v-if="test.details.uriParameters" v-for="param in test.details.uriParameters">
+                        <td>
+                          {{ param.name }}
+                        </td>
+                        <td v-html="getInput(param.name, param.type)"></td>
+                        <td class="controls"></td>
+                      </tr>
+                    </table>
+                    <h3 v-if="test.details.bodyParameters">Body Parameters</h3>
+                    <table>
+                      <tr v-if="test.details.bodyParameters" v-for="param in test.details.bodyParameters">
+                        <td>
+                          {{ param.name }}
+                        </td>
+                        <td v-html="getInput(param.name, param.type)"></td>
+                        <td class="controls"></td>
+                      </tr>
+                    </table>
+                  </form>
                 </div>
-                {{ test.method }} ({{ test.service }})
-              </h2>
 
-              <div class="input-details" style="display: none;">
-                <form class="method-details-form">
-                  <h3 v-if="test.details.parameters">SOAP Parameters</h3>
-                  <table>
-                    <tr v-if="test.details.parameters" v-for="param in test.details.parameters">
-                      <td>
-                        {{ param.name }}
-                      </td>
-                      <td v-html="getInput(param.name, param.type)"></td>
-                    </tr>
-                  </table>
-                  <h3 v-if="test.details.uriParameters">URI Parameters</h3>
-                  <table>
-                    <tr v-if="test.details.uriParameters" v-for="param in test.details.uriParameters">
-                      <td>
-                        {{ param.name }}
-                      </td>
-                      <td v-html="getInput(param.name, param.type)"></td>
-                    </tr>
-                  </table>
-                  <h3 v-if="test.details.bodyParameters">Body Parameters</h3>
-                  <table>
-                    <tr v-if="test.details.bodyParameters" v-for="param in test.details.bodyParameters">
-                      <td>
-                        {{ param.name }}
-                      </td>
-                      <td v-html="getInput(param.name, param.type)"></td>
-                    </tr>
-                  </table>
-                </form>
-              </div>
-
-              <div class="assertions" style="display: none;">
-                <assertion-list :test="index" :assertions="test.assertions" :defaults="test.defaultValues" :parameters="test.details.resourceDescription" :index="index"></assertion-list>
-              </div>
-              <test-results :result="result[index]" v-if="result" style="display: none;"></test-results>
-            </li>
-          </ul>
+                <div class="assertions" style="display: none;">
+                  <assertion-list :test="index" :assertions="test.assertions" :defaults="test.defaultValues" :parameters="test.details.resourceDescription" :index="index"></assertion-list>
+                </div>
+                <test-results :result="result[index]" v-if="result" style="display: none;"></test-results>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -184,15 +190,18 @@
         return '<input name="' + name + '" type="text" value="' + this.getDefaultValue(name, type) + '" />';
       },
       getDefaultValue: function(name, type) {
-        let park = model.getParker(name);
-        if(park) {
-          return park;
+        if(name == 'WebUserID') {
+          console.log(name, type, model.getParker(name));
         }
         if(this.projectDetails && this.projectDetails.defaultValues && this.projectDetails.defaultValues[name]) {
           if(type == 'boolean') {
             return 'checked="checked"';
           }
           return this.projectDetails.defaultValues[name];
+        }
+        let park = model.getParker(name);
+        if(park) {
+          return park;
         }
         if(type == 'xs:int' || type == 'integer' || type == 'decimal number' || type == 'xs:int') {
           return 0;
