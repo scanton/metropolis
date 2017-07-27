@@ -7,6 +7,7 @@
         <div class="workspace">
           <playbar></playbar>
           <div class="value-container">
+            <h1 class="text-center">{{ projectDetails.name }}</h1>
             <div class="default-values">
               <button class="btn btn-default pull-right btn-toggle-parker" v-on:click="toggleDefaultValues">Toggle Details</button>
               <h2>Default Values <span class="badge">{{ getPropCount(projectDetails.defaultValues) }}</span></h2>
