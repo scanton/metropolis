@@ -31,6 +31,7 @@
     template: s,
     data: function() {
       return {
+        controller: controller,
         title: 'Metropolis',
         dropDown1: {
           title: 'Metropolis',
@@ -73,7 +74,7 @@
         remote.getCurrentWindow().toggleDevTools();
       },
       toggleSettings: function() {
-        console.log("toggle settings");
+        controller.toggleSettings();
       }
     }
   });

@@ -55,6 +55,10 @@ module.exports = class MetropolisController {
 	getExpectationDetails(type) {
 		return model.getExpectationDetails(type);
 	}
+	getSettings() {
+		console.log(stripObservers(this.settings.getSettings()));
+		return this.settings.getSettings();
+	}
 
   addAssertion(testIndex, parameter, type, value) {
     model.addAssertion(testIndex, parameter, type, value);
@@ -223,6 +227,14 @@ module.exports = class MetropolisController {
 	}
 	moveTestUp(index) {
 		model.moveTest(index, Number(index) - 1);
+	}
+	toggleSettings() {
+		let $set = $(".settings");
+		if($set.hasClass("show-self")) {
+			$set.removeClass("show-self");
+		} else {
+			$set.addClass("show-self");
+		}
 	}
   /**
    *

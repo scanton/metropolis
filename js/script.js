@@ -13,7 +13,7 @@ const ViewController = require(__dirname + '/custom_modules/ViewController.js');
 const viewController = new ViewController();
 
 const MetropolisController = require(__dirname + '/custom_modules/MetropolisController.js');
-const controller = new MetropolisController(model, viewController);
+const controller = new MetropolisController(model, viewController, settings);
 
 const stripObservers = function(obj) {
 	return JSON.parse(JSON.stringify(obj, null, 4));

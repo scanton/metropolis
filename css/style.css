@@ -544,3 +544,18 @@ h2 .badge {
 .list-of-assertions li.failed {
   background: red;
 }
+.settings {
+  transition: all 0.5s ease;
+  background: #555;
+  color: white;
+  position: absolute;
+  top: 33px;
+  bottom: 40px;
+  right: -400px;
+  width: 400px;
+  padding: .5em 1em;
+  overflow: scroll;
+}
+.settings.show-self {
+  right: 0;
+}

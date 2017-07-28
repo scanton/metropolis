@@ -3,7 +3,10 @@
   var s = `
 		<div class="` + componentName + `">
       <h1>Settings</h1>
-      {{ settings }}
+      <div class="current-project" v-if="settings && settings.currentProject">
+        <h2>{{settings.currentProject.name}}</h2>
+
+      </div>
 		</div>
 	`;
   Vue.component(componentName, {
@@ -11,10 +14,15 @@
       viewController.registerView(componentName, this);
     },
     template: s,
-    props: ['settings'],
     data: function() {
       return {
-        controller: controller
+        controller: controller,
+        settings: controller.getSettings()
+      }
+    },
+    methods: {
+      setSettings(settings) {
+        this.settings = settings;
       }
     }
   });
