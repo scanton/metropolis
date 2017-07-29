@@ -12,9 +12,9 @@
         <span class="glyphicon glyphicon-menu-right arrow-icon"></span>
         <span class="glyphicon glyphicon-menu-down arrow-icon" style="display: none;"></span>
         <span class="glyphicon" v-bind:class="{ 'glyphicon-cloud-download': srv.type == 'soap', 'glyphicon-download-alt': srv.type == 'ms-rest' }"></span>
-        <span class="badge" v-if="getServiceDetails(srv.name) && getServiceDetails(srv.name).length">{{ getServiceDetails(srv.name).length }}</span>
+        <span class="badge method-count" v-if="getServiceDetails(srv.name) && getServiceDetails(srv.name).length">{{ getServiceDetails(srv.name).length }}</span>
         {{ srv.name }}
-        <span class="badge">{{ calculateCoverage(srv.name) }}</span>
+        <span class="badge coverage">{{ calculateCoverage(srv.name) }}</span>
         <ul class="method-list" style="display: none;">
           <li
             class="has-tooltip"

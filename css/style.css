@@ -236,7 +236,6 @@ pre {
   white-space: nowrap;
   line-height: 1.75em;
 }
-
 .project-detail-view .workspace {
   background: #222;
   color: #999;
@@ -246,6 +245,11 @@ pre {
   bottom: 0;
   right: 0;
   white-space: nowrap;
+  padding: 1em;
+}
+.project-detail-view .workspace .assertions {
+  background: rgba(29, 28, 28, .6);
+  margin: .5em -.5em;
   padding: 1em;
 }
 .project-detail-view .workspace .value-container {
@@ -304,14 +308,8 @@ pre {
   background: #c13333;
   color: yellow;
 }
-.project-detail-view .workspace .test-list .service-test.passed .add-assertion-container .column {
-  background: #242;
-}
 .project-detail-view .workspace .test-list .service-test.passed pre, .project-detail-view .workspace .test-list .service-test.passed .test-results .data-source {
   background: #353;
-}
-.project-detail-view .workspace .test-list .service-test.failed .add-assertion-container .column {
-  background: #933;
 }
 .project-detail-view .workspace .test-list .service-test.failed pre, .project-detail-view .workspace .test-list .service-test.failed .test-results .data-source {
   background: #822;
@@ -515,7 +513,6 @@ pre {
 }
 .add-assertion-container .column {
   padding: 5px;
-  background: #444;
   min-height: 52px;
 }
 .default-values-container .col-xs-4, .default-values-container .col-xs-5 {
