@@ -325,6 +325,7 @@ pre {
 }
 .workspace .default-values button {
   margin-top: 3px;
+  padding: 4px 10px;
 }
 .workspace .default-values h2 {
   margin: 0;
