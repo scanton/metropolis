@@ -105,6 +105,7 @@
                   <assertion-list :test="index" :assertions="test.assertions" :defaults="test.defaultValues" :parameters="test.details.resourceDescription" :index="index"></assertion-list>
                 </div>
                 <test-results :result="result[index]" v-if="result" style="display: none;"></test-results>
+                <remap-values style="display: none;"></remap-values>
               </li>
             </ul>
           </div>
@@ -231,6 +232,7 @@
         $parent.find(".remove-test-button").toggle("fast");
         $parent.find(".move-test-buttons").toggle("fast");
         $parent.find(".test-results").slideToggle();
+        $parent.find(".remap-values").slideToggle();
       },
       toggleDefaultValues: function(e) {
         $(".default-values-container").slideToggle();
