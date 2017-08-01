@@ -49,6 +49,7 @@
             <h1>Methods to Test</h1>
             <ul class="test-list">
               <li class="service-test" :class="{ active: testIndex == index, failed: hasResult(index) && !allTestsPassed(index), passed: hasResult(index) && allTestsPassed(index) }" v-for="(test, index) in projectDetails.tests" v-bind:data-index="index">
+                <button class="btn btn-info pull-right button-toggle-editable" v-on:click="toggleEditable" style="display: none;"><span class="glyphicon glyphicon-cog"></span></button>
                 <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters">Show Details</button>
                 <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters" style="display: none;">Hide Details</button>
                 <h2>
@@ -65,6 +66,8 @@
                   </div>
                   {{ test.method }} ({{ test.service }})
                 </h2>
+
+                <remap-values style="display: none;"></remap-values>
 
                 <div class="input-details" style="display: none;">
                   <form class="method-details-form">
@@ -105,7 +108,8 @@
                   <assertion-list :test="index" :assertions="test.assertions" :defaults="test.defaultValues" :parameters="test.details.resourceDescription" :index="index"></assertion-list>
                 </div>
                 <test-results :result="result[index]" v-if="result" style="display: none;"></test-results>
-                <remap-values style="display: none;"></remap-values>
+
+                <remap-results style="display: none;"></remap-results>
               </li>
             </ul>
           </div>
@@ -232,7 +236,18 @@
         $parent.find(".remove-test-button").toggle("fast");
         $parent.find(".move-test-buttons").toggle("fast");
         $parent.find(".test-results").slideToggle();
+        $parent.find(".button-toggle-editable").toggle("fast");
+        if($parent.find(".remap-values").is(":visible")) {
+          this.toggleEditable(e);
+        }
+      },
+      toggleEditable: function(e) {
+        let $this = $(e.target);
+        let $parent = $this.closest("li");
+
         $parent.find(".remap-values").slideToggle();
+        $parent.find(".remap-results").slideToggle();
+        $parent.find(".add-assertion-container").slideToggle();
       },
       toggleDefaultValues: function(e) {
         $(".default-values-container").slideToggle();

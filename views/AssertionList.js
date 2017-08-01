@@ -29,7 +29,7 @@
           </div>
         </li>
       </ul>
-      <div class="add-assertion-container">
+      <div class="add-assertion-container" style="display: none;">
         <h3>Add Expectation</h3>
         <div class="row">
           <div class="col-xs-2 column">

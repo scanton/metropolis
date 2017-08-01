@@ -247,7 +247,10 @@ pre {
   white-space: nowrap;
   padding: 1em;
 }
-.project-detail-view .workspace .assertions, .project-detail-view .workspace .remap-values {
+.project-detail-view .button-toggle-editable {
+  margin-left: .5em;
+}
+.project-detail-view .workspace .assertions, .project-detail-view .workspace .remap-values, .project-detail-view .workspace .remap-results {
   background: rgba(29, 28, 28, .6);
   margin: .5em -.5em;
   padding: 1em;
