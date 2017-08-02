@@ -98,6 +98,13 @@ module.exports = class MetropolisController {
     }
   }
 
+	addRemapValue(testIndex, param, value) {
+		model.addRemapValue(testIndex, param, value);
+	}
+	addRemapResult(testIndex, param, result) {
+		model.addRemapResult(testIndex, param, result);
+	}
+
   showView(viewName) {
     $(".active-view").slideUp("fast").removeClass("active-view");
     $("." + viewName).slideDown("fast").addClass("active-view");
@@ -269,6 +276,15 @@ module.exports = class MetropolisController {
 				//	formData[i] = model.parker[i];
 				//}
 			//}
+			if(testData.remapValues && testData.remapValues.length) {
+				let l = testData.remapValues.length;
+				console.log(formData);
+				for(let i = 0; i < l; i++) {
+					let v = testData.remapValues[i];
+					formData[v.param] = model.getParker(v.value);
+				}
+				console.log(formData);
+			}
 			this.model.test(service, methodDetails, testData, formData, (data, err) => {
 				if(err) {
 					//console.warn(err);

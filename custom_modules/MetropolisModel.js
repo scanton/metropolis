@@ -53,6 +53,28 @@ module.exports = class MetropolisModel {
     }
     this.listeners[eventName].push(handler);
   }
+	addRemapValue(testIndex, param, value) {
+    let set = this.settings.getSettings();
+    if (set && set.currentProject && set.currentProject.tests && set.currentProject.tests[testIndex]) {
+      let test = set.currentProject.tests[testIndex];
+      if(!test.remapValues) {
+        test.remapValues = [];
+      }
+      test.remapValues.push({param: param, value: value});
+      this._saveCurrentProject();
+    }
+	}
+	addRemapResult(testIndex, param, result) {
+    let set = this.settings.getSettings();
+    if (set && set.currentProject && set.currentProject.tests && set.currentProject.tests[testIndex]) {
+      let test = set.currentProject.tests[testIndex];
+      if(!test.remapResults) {
+        test.remapResults = [];
+      }
+      test.remapResults.push({param: param, result: result});
+      this._saveCurrentProject();
+    }
+	}
   addTest(serviceName, methodName) {
     let meth = this._getMethodFromCurrentProject(serviceName, methodName);
     if (meth) {
@@ -107,6 +129,23 @@ module.exports = class MetropolisModel {
     }
   }
   getParker(name) {
+    if(name.indexOf(".") > 0) {
+      let a = name.split(".");
+      let l = a.length;
+      let lastVal = this.parker;
+      for(let i = 0; i < l; i++) {
+        let index = a[i];
+        if(lastVal[index]) {
+          lastVal = lastVal[index];
+          if(i == l - 1) {
+            console.log(lastVal);
+            return lastVal;
+          }
+        } else {
+          return undefined;
+        }
+      }
+    }
     if(this.parker[name]) {
       return this.parker[name];
     } else {

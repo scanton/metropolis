@@ -52,7 +52,7 @@
             <input class="inputs-2" v-if="inputs && inputs[2]" type="text" :name="inputs[2].type" :placeholder="inputs[2].name" />
           </div>
           <div class="col-xs-2 column">
-            <button class="btn btn-success add-assertion-button" v-on:click="addAssertion">
+            <button class="btn btn-default add-assertion-button" v-on:click="addAssertion">
               Add Expectation
             </button>
           </div>

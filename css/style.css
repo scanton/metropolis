@@ -522,7 +522,7 @@ pre {
 .default-values-container .col-xs-4, .default-values-container .col-xs-5 {
   padding: 0 5px;
 }
-h2 .badge {
+h1 .badge, h2 .badge {
   font-size: 14pt;
   font-weight: 100;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, .75);
@@ -559,4 +559,13 @@ h2 .badge {
 }
 .settings.show-self {
   right: 0;
+}
+.full-width-inputs input, .full-width-inputs button, .full-width-inputs select {
+  width: 95%;
+}
+.full-width-inputs button {
+  margin-top: 5px;
+}
+.full-width-inputs select {
+  margin-top: 10px;
 }

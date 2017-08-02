@@ -46,13 +46,14 @@
               </div>
             </div>
 
-            <h1>Methods to Test</h1>
+            <h1>Methods to Test <span v-if="projectDetails && projectDetails.tests && projectDetails.tests.length" class="badge">{{ projectDetails.tests.length }}</span></h1>
             <ul class="test-list">
               <li class="service-test" :class="{ active: testIndex == index, failed: hasResult(index) && !allTestsPassed(index), passed: hasResult(index) && allTestsPassed(index) }" v-for="(test, index) in projectDetails.tests" v-bind:data-index="index">
                 <button class="btn btn-info pull-right button-toggle-editable" v-on:click="toggleEditable" style="display: none;"><span class="glyphicon glyphicon-cog"></span></button>
                 <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters">Show Details</button>
                 <button class="btn btn-default pull-right btn-toggle-params" v-on:click="toggleParameters" style="display: none;">Hide Details</button>
                 <h2>
+                  <span class="glyphicon glyphicon-retweet" v-if="test.remapValues || test.remapResults"></span>
                   <button v-on:click="removeTest" class="remove-test-button btn btn-danger" :data-index="index" style="display: none;">
                     <span class="glyphicon glyphicon-remove"></span>
                   </button>
@@ -67,7 +68,7 @@
                   {{ test.method }} ({{ test.service }})
                 </h2>
 
-                <remap-values style="display: none;"></remap-values>
+                <remap-values :index="index" :values="test.remapValues" style="display: none;"></remap-values>
 
                 <div class="input-details" style="display: none;">
                   <form class="method-details-form">
@@ -109,7 +110,7 @@
                 </div>
                 <test-results :result="result[index]" v-if="result" style="display: none;"></test-results>
 
-                <remap-results style="display: none;"></remap-results>
+                <remap-results :index="index" :results="test.remapResults" :parameters="test.details.resourceDescription" style="display: none;"></remap-results>
               </li>
             </ul>
           </div>
