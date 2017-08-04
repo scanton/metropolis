@@ -69,7 +69,7 @@
         setTimeout(() => { this.$forceUpdate() }, 100);
       },
       showAddServiceDialog() {
-        console.log("show add service dialog");
+        controller.showAddServiceDialog();
       }
     },
     template: s,

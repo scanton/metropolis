@@ -258,6 +258,7 @@ pre {
 .project-detail-view .workspace .value-container {
   overflow: scroll;
   margin-top: 16px;
+  position: relative;
 }
 
 .project-detail-view .workspace ul.default-values-list {
@@ -568,4 +569,13 @@ h1 .badge, h2 .badge {
 }
 .full-width-inputs select {
   margin-top: 10px;
+}
+.custom-modal-dialog .warning {
+  background: #933;
+  border-radius: 5px;
+  margin: 1em;
+  color: white;
+  font-size: 12pt;
+  text-align: center;
+  padding: 1em;
 }

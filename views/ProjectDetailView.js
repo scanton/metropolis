@@ -110,7 +110,7 @@
                 </div>
                 <test-results :result="result[index]" v-if="result" style="display: none;"></test-results>
 
-                <remap-results :index="index" :results="test.remapResults" :parameters="test.details.resourceDescription" style="display: none;"></remap-results>
+                <!--<remap-results :index="index" :results="test.remapResults" :parameters="test.details.resourceDescription" style="display: none;"></remap-results>-->
               </li>
             </ul>
           </div>
@@ -197,9 +197,6 @@
         return '<input name="' + name + '" type="text" value="' + this.getDefaultValue(name, type) + '" />';
       },
       getDefaultValue: function(name, type) {
-        if(name == 'WebUserID') {
-          console.log(name, type, model.getParker(name));
-        }
         if(this.projectDetails && this.projectDetails.defaultValues && this.projectDetails.defaultValues[name]) {
           if(type == 'boolean') {
             return 'checked="checked"';
@@ -224,9 +221,23 @@
       },
       setProjectDetails: function(data) {
         this.projectDetails = data;
+        console.log(stripObservers(data));
+        /*.sort(function(a, b) {
+
+        });*/
       },
       setTestIndex: function(index) {
         this.testIndex = index;
+        let h = $(window).height();
+        let $activeListItem = $("ul.test-list .service-test.active");
+        let $container = $(".workspace .value-container");
+        let scrollPosition = $container.scrollTop();
+        $container.scrollTop(0);
+        let top = $activeListItem.position().top;
+        $container.scrollTop(scrollPosition);
+        $container.animate({
+          scrollTop: top - (h - 300)
+        }, 100);
       },
       toggleParameters: function(e) {
         let $this = $(e.target);

@@ -18,134 +18,12 @@ module.exports = class MetropolisController {
 		this.testIndex = 0;
 		this.testIsPaused = true;
   }
-
-	resetTestIndex() {
-		this.pauseTest();
-		this.testIndex = 0;
-		this.viewController.callViewMethod('project-detail-view', 'setTestIndex', this.testIndex );
-	}
-	stepBackTestIndex() {
-		this.pauseTest();
-		if(this.testIndex > 0) {
-			--this.testIndex;
-			this.viewController.callViewMethod('project-detail-view', 'setTestIndex', this.testIndex );
-		}
-	}
-	stepForwardTestIndex() {
-		this.pauseTest();
-		let proj = model.getCurrentProject();
-		if(proj && proj.tests && this.testIndex < proj.tests.length - 1) {
-			++this.testIndex;
-			this.viewController.callViewMethod('project-detail-view', 'setTestIndex', this.testIndex );
-		}
-	}
-	playTest() {
-		this.testIsPaused = false;
-		this.viewController.callViewMethod('playbar', 'setPaused', this.testIsPaused);
-		this._runTest();
-	}
-	pauseTest() {
-		this.testIsPaused = true;
-		this.viewController.callViewMethod('playbar', 'setPaused', this.testIsPaused);
-	}
-	getTestIndex() {
-		return this.testIndex;
-	}
-
-	getExpectationDetails(type) {
-		return model.getExpectationDetails(type);
-	}
-	getSettings() {
-		console.log(stripObservers(this.settings.getSettings()));
-		return this.settings.getSettings();
-	}
-
   addAssertion(testIndex, parameter, type, value) {
     model.addAssertion(testIndex, parameter, type, value);
   }
-
-	removeAssertion(testIndex, assertionIndex) {
-		model.removeAssertion(testIndex, assertionIndex);
+	addMethodToWorkspace(service, method) {
+		model.addTest(service, method);
 	}
-
-	updateMousePosition(x, y) {
-		$(".custom-tool-tip").css("left", x + 10).css("top", y + 10);
-	}
-
-  getServiceData(serviceType, uri) {
-    if (!uri) {
-      this.showModal("Missing URI", "<p>Please provide a URL to the service you would like to use.</p>", [{
-        label: "OK",
-        class: "btn btn-info",
-        handler: () => {
-          this.closeModal();
-        }
-      }]);
-      return;
-    }
-    if (serviceType == ".NET REST") {
-      console.log("REST", uri);
-    } else if (serviceType == "SOAP") {
-      console.log("SOAP", uri);
-    } else {
-      this.showModal("Unknown serviceType: " + serviceType, "<p>'" + serviceType + "' is not a supported service type.</p>", [{
-        label: "OK",
-        class: "btn btn-info",
-        handler: () => {
-          this.closeModal();
-        }
-      }]);
-    }
-  }
-
-	addRemapValue(testIndex, param, value) {
-		model.addRemapValue(testIndex, param, value);
-	}
-	addRemapResult(testIndex, param, result) {
-		model.addRemapResult(testIndex, param, result);
-	}
-
-  showView(viewName) {
-    $(".active-view").slideUp("fast").removeClass("active-view");
-    $("." + viewName).slideDown("fast").addClass("active-view");
-  }
-
-  showMenu(menuName) {
-    console.log(menuName);
-  }
-
-  showModal(headline, body, buttons) {
-    this.viewController.callViewMethod('custom-dialog-box', 'setHeadline', headline);
-    this.viewController.callViewMethod('custom-dialog-box', 'setBody', body);
-    this.viewController.callViewMethod('custom-dialog-box', 'setButtons', buttons);
-    $(".custom-modal-dialog").fadeIn("fast");
-  }
-
-  closeModal() {
-    $(".custom-modal-dialog").fadeOut("fast");
-  }
-
-  showLoader() {
-    $(".loading-animation").fadeIn();
-  }
-
-  closeLoader() {
-    $(".loading-animation").fadeOut();
-  }
-
-	showTooltip(tip) {
-		$(".custom-tool-tip").text(tip).removeClass("hide");
-	}
-	hideTooltip() {
-		$(".custom-tool-tip").addClass("hide");
-	}
-
-  /**
-   *
-   * Projects
-   *
-   **/
-
   addProject(name) {
     if (!this.model.hasProject(name)) {
       this.model.createProject(name, (data, err) => {
@@ -176,7 +54,70 @@ module.exports = class MetropolisController {
       ]);
     }
   }
-
+	addRemapResult(testIndex, param, result) {
+		model.addRemapResult(testIndex, param, result);
+	}
+	addRemapValue(testIndex, param, value) {
+		model.addRemapValue(testIndex, param, value);
+	}
+  closeLoader() {
+    $(".loading-animation").fadeOut();
+  }
+  closeModal() {
+    $(".custom-modal-dialog").fadeOut("fast");
+  }
+  createNewProject() {
+    this.showView("manage-projects-view");
+  }
+	getExpectationDetails(type) {
+		return model.getExpectationDetails(type);
+	}
+	getService(name) {
+		return this.model.getService(name);
+	}
+  getServiceData(serviceType, uri) {
+    if (!uri) {
+      this.showModal("Missing URI", "<p>Please provide a URL to the service you would like to use.</p>", [{
+        label: "OK",
+        class: "btn btn-info",
+        handler: () => {
+          this.closeModal();
+        }
+      }]);
+      return;
+    }
+    if (serviceType == ".NET REST") {
+      console.log("REST", uri);
+    } else if (serviceType == "SOAP") {
+      console.log("SOAP", uri);
+    } else {
+      this.showModal("Unknown serviceType: " + serviceType, "<p>'" + serviceType + "' is not a supported service type.</p>", [{
+        label: "OK",
+        class: "btn btn-info",
+        handler: () => {
+          this.closeModal();
+        }
+      }]);
+    }
+  }
+	getServiceDetails(name) {
+		return model.getServiceDetails(name);
+	}
+	getSettings() {
+		return this.settings.getSettings();
+	}
+	getTestIndex() {
+		return this.testIndex;
+	}
+  hasTest(id) {
+    return model.hasTest(id);
+  }
+	hideTooltip() {
+		$(".custom-tool-tip").addClass("hide");
+	}
+  importProject() {
+    console.log("import project");
+  }
   loadProject(name) {
     if (name) {
       this._disableWorkspace();
@@ -194,46 +135,127 @@ module.exports = class MetropolisController {
       });
     }
   }
-
-	getService(name) {
-		return this.model.getService(name);
-	}
-
-	getServiceDetails(name) {
-		return model.getServiceDetails(name);
-	}
-
-  createNewProject() {
-    this.showView("manage-projects-view");
-  }
-
-  openProject() {
-    this.showView("manage-projects-view");
-  }
-
-  importProject() {
-    console.log("import project");
-  }
-
-  saveProject() {
-    console.log("save project");
-  }
-
-  addMethodToWorkspace(service, method) {
-		model.addTest(service, method);
-  }
-	removeMethodFromWorkspace(index) {
-		model.removeTest(index);
-	}
-  hasTest(id) {
-    return model.hasTest(id);
-  }
-
 	moveTestDown(index) {
 		model.moveTest(index, Number(index) + 1);
 	}
 	moveTestUp(index) {
 		model.moveTest(index, Number(index) - 1);
+	}
+  openProject() {
+    this.showView("manage-projects-view");
+  }
+	pauseTest() {
+		this.testIsPaused = true;
+		this.viewController.callViewMethod('playbar', 'setPaused', this.testIsPaused);
+	}
+	playTest() {
+		this.testIsPaused = false;
+		this.viewController.callViewMethod('playbar', 'setPaused', this.testIsPaused);
+		this._runTest();
+	}
+	removeAssertion(testIndex, assertionIndex) {
+		model.removeAssertion(testIndex, assertionIndex);
+	}
+	removeMethodFromWorkspace(index) {
+		model.removeTest(index);
+	}
+	resetTestIndex() {
+		this.pauseTest();
+		this.testIndex = 0;
+		this.viewController.callViewMethod('project-detail-view', 'setTestIndex', this.testIndex );
+	}
+  saveProject() {
+    console.log("save project");
+  }
+	showAddServiceDialog() {
+		this.showModal("Add Service", `
+		<div class="add-service-dialog container-fluid">
+			<div class="row">
+				<div class="col-xs-2">
+					Service Path:
+				</div>
+				<div class="col-xs-3">
+					<select name="service-type">
+						<option value="ms-rest">REST (MS HELP URL)</option>
+						<option value="soap">SOAP (WSDL)</option>
+					</select>
+				</div>
+				<div class="col-xs-7">
+					<input style="width: 100%" type="text" name="uri" placeholder="wsdl or rest help url" />
+				</div>
+			</div>
+			<div class="warning" style="display: none;">
+			</div>
+		</div>
+		`, [{
+			label: "Cancel",
+			class: "btn btn-default",
+			handler: () => {
+				this.closeModal();
+			}
+		},
+		{
+			label: "Add Service",
+			class: "btn btn-success",
+			handler: (e) => {
+				let $dialog = $(".add-service-dialog");
+				let type = $dialog.find("select[name='service-type']").val();
+				let uri = $dialog.find("input[name='uri']").val();
+				let startsWith = uri.slice(0, 4);
+				let endsWith = uri.slice(uri.length - 5);
+				if(type == 'ms-rest') {
+					if(startsWith == 'http' && endsWith == '/help') {
+						console.log("add Service!", type, uri);
+					} else {
+						$dialog.find("input[name='uri']").css("background", "#933");
+						$dialog.find(".warning").text("Invalid rest help file URI.  Should match 'http://service_host/service_name/help'").slideDown("slow");
+					}
+				} else if(type == 'soap') {
+					if(startsWith == 'http' && endsWith == '?wsdl') {
+						console.log("add Service!", type, uri);
+					} else {
+						$dialog.find("input[name='uri']").css("background", "#933");
+						$dialog.find(".warning").text("Invalid soap WSDL URI.  Should match 'http://service_host/service_name.svc?WSDL'").slideDown("slow");
+					}
+				} else {
+					console.error("Type: (" + type + ") not supported.");
+				}
+			}
+		}]);
+	}
+  showLoader() {
+    $(".loading-animation").fadeIn();
+  }
+  showMenu(menuName) {
+    console.log(menuName);
+  }
+  showModal(headline, body, buttons) {
+    this.viewController.callViewMethod('custom-dialog-box', 'setHeadline', headline);
+    this.viewController.callViewMethod('custom-dialog-box', 'setBody', body);
+    this.viewController.callViewMethod('custom-dialog-box', 'setButtons', buttons);
+    $(".custom-modal-dialog").fadeIn("fast");
+  }
+	showTooltip(tip) {
+		$(".custom-tool-tip").text(tip).removeClass("hide");
+	}
+  showView(viewName) {
+    $(".active-view").slideUp("fast").removeClass("active-view");
+    $("." + viewName).slideDown("fast").addClass("active-view");
+  }
+	stepBackTestIndex() {
+		this.pauseTest();
+		if(this.testIndex > 0) {
+			--this.testIndex;
+			this.viewController.callViewMethod('project-detail-view', 'setTestIndex', this.testIndex );
+		}
+	}
+	stepForwardTestIndex() {
+		this.pauseTest();
+		let proj = model.getCurrentProject();
+		if(proj && proj.tests && this.testIndex < proj.tests.length - 1) {
+			++this.testIndex;
+			this.viewController.callViewMethod('project-detail-view', 'setTestIndex', this.testIndex );
+		}
 	}
 	toggleSettings() {
 		let $set = $(".settings");
@@ -243,12 +265,12 @@ module.exports = class MetropolisController {
 			$set.addClass("show-self");
 		}
 	}
+	updateMousePosition(x, y) {
+		$(".custom-tool-tip").css("left", x + 10).css("top", y + 10);
+	}
   /**
-   *
    * Private methods
-   *
    **/
-
   _disableWorkspace() {
     this.showLoader();
   }
@@ -278,12 +300,10 @@ module.exports = class MetropolisController {
 			//}
 			if(testData.remapValues && testData.remapValues.length) {
 				let l = testData.remapValues.length;
-				console.log(formData);
 				for(let i = 0; i < l; i++) {
 					let v = testData.remapValues[i];
 					formData[v.param] = model.getParker(v.value);
 				}
-				console.log(formData);
 			}
 			this.model.test(service, methodDetails, testData, formData, (data, err) => {
 				if(err) {

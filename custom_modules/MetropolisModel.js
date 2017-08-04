@@ -138,7 +138,6 @@ module.exports = class MetropolisModel {
         if(lastVal[index]) {
           lastVal = lastVal[index];
           if(i == l - 1) {
-            console.log(lastVal);
             return lastVal;
           }
         } else {
@@ -146,11 +145,11 @@ module.exports = class MetropolisModel {
         }
       }
     }
-    if(this.parker[name]) {
+    //if(this.parker[name]) {
       return this.parker[name];
-    } else {
+    /*}  else {
       this.parker[name.toLowerCase()];
-    }
+    } */
   }
   getProjectList() {
     return this.projectList;
@@ -261,6 +260,8 @@ module.exports = class MetropolisModel {
           }
         });
       }
+    } else {
+      progressHandler(this.serviceDetails, 1);
     }
   }
   moveTest(index, target) {
@@ -276,7 +277,7 @@ module.exports = class MetropolisModel {
   park(obj) {
     for (let i in obj) {
       this.parker[i] = obj[i];
-      this.parker[i.toLowerCase()] = obj[i];
+      //this.parker[i.toLowerCase()] = obj[i];
     }
     return this.parker;
   }
@@ -471,9 +472,6 @@ module.exports = class MetropolisModel {
     };
   }
   _getDefaultValue(name, type, formData) {
-    if(name == "SecQuestID") {
-      console.log(name, type, formData);
-    }
     let isNumeric = false;
     let isBoolean = false;
     if (type == 'xs:int' || type == 'integer') {
