@@ -86,22 +86,35 @@
         this.inputs = exp.values;
       },
       removeAssertion: function(e) {
-        let $this = $(e.target);
-        let testIndex = $this.attr("data-test-index");
-        if(!testIndex) {
-          testIndex = $this.closest("button").attr("data-test-index");
-        }
-        let assertionIndex = $this.attr("data-assertion-index");
-        if(!assertionIndex) {
-          assertionIndex = $this.closest("button").attr("data-assertion-index");
-        }
-        controller.removeAssertion(testIndex, assertionIndex);
+        controller.showModal("Remove Expectation", "Are you sure you would like to remove this expectation?", [{
+            label: "Cancel",
+            class: "btn btn-default",
+            handler: () => {
+              controller.closeModal();
+            }
+          },
+          {
+            label: "Remove Expectation",
+            class: "btn btn-success",
+            handler: () => {
+              let $this = $(e.target);
+              let testIndex = $this.attr("data-test-index");
+              if(!testIndex) {
+                testIndex = $this.closest("button").attr("data-test-index");
+              }
+              let assertionIndex = $this.attr("data-assertion-index");
+              if(!assertionIndex) {
+                assertionIndex = $this.closest("button").attr("data-assertion-index");
+              }
+              controller.removeAssertion(testIndex, assertionIndex);
+              controller.closeModal();
+            }
+          }]);
         controller.hideTooltip();
       }
     },
     template: s,
     props: ['assertions', 'parameters', 'index', 'test'],
-
     data: function() {
       return {
         controller: controller,

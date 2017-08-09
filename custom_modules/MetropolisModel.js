@@ -53,6 +53,43 @@ module.exports = class MetropolisModel {
     }
     this.listeners[eventName].push(handler);
   }
+  addServiceToProject(name, type, uri, callback) {
+    let set = this.settings.getSettings();
+    let proj = this._cloneObject(set.currentProject);
+    let service = {
+        "name": name,
+        "uri": uri,
+        "type": type,
+        "details": []
+    };
+    if(proj) {
+      if(!proj.services) {
+        proj.services = [];
+      }
+      proj.services.push(service);
+    }
+    this.settings.setValue("currentProject", proj);
+    this._saveCurrentProject(() => {
+      if (type == 'soap') {
+        this._loadSoapDetails(service, (details) => {
+          this.serviceDetails[name] = details;
+          this.dispatchEvent("default-data-change", this.settings.getSettings().currentProject);
+          if(callback) {
+            callback(this.serviceDetails);
+          }
+        });
+      } else if (type == 'ms-rest') {
+        this._loadMsRestDetails(service, (details) => {
+          this.serviceDetails[name] = details;
+          this.dispatchEvent("default-data-change", this.settings.getSettings().currentProject);
+          if(callback) {
+            callback(this.serviceDetails);
+          }
+        });
+      }
+
+    });
+  }
 	addRemapValue(testIndex, param, value) {
     let set = this.settings.getSettings();
     if (set && set.currentProject && set.currentProject.tests && set.currentProject.tests[testIndex]) {
@@ -617,7 +654,7 @@ module.exports = class MetropolisModel {
     }
     return a;
   }
-  _saveCurrentProject() {
+  _saveCurrentProject(callback) {
     let set = this.settings.getSettings();
     this.currentProject = set.currentProject;
     let proj = this._cloneObject(set.currentProject);
@@ -631,6 +668,9 @@ module.exports = class MetropolisModel {
     }, (err) => {
       if (err) {
         throw err;
+      }
+      if(callback) {
+        callback();
       }
     });
   }

@@ -37,7 +37,9 @@
         e.preventDefault();
         var $form = $(e.target).closest("form");
         var val = $form.find("input[name='name']").val();
-        controller.addProject(val);
+        controller.addProject(val, (name, data) => {
+          controller.loadProject(name);
+        });
       }
     }
   });

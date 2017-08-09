@@ -24,7 +24,7 @@ module.exports = class MetropolisController {
 	addMethodToWorkspace(service, method) {
 		model.addTest(service, method);
 	}
-  addProject(name) {
+  addProject(name, callback) {
     if (!this.model.hasProject(name)) {
       this.model.createProject(name, (data, err) => {
         this.model.loadProjectList((data) => {
@@ -33,6 +33,9 @@ module.exports = class MetropolisController {
             projectList.push(data[i].split(".json")[0]);
           }
           this.viewController.callViewMethod('projects-side-bar', 'setProjectList', projectList);
+					if(callback) {
+						callback(name, data);
+					}
         });
       });
     } else {
@@ -142,7 +145,8 @@ module.exports = class MetropolisController {
 		model.moveTest(index, Number(index) - 1);
 	}
   openProject() {
-    this.showView("manage-projects-view");
+    //this.showView("manage-projects-view");
+		this.showView("welcome-page");
   }
 	pauseTest() {
 		this.testIsPaused = true;
@@ -171,11 +175,19 @@ module.exports = class MetropolisController {
 		this.showModal("Add Service", `
 		<div class="add-service-dialog container-fluid">
 			<div class="row">
-				<div class="col-xs-2">
+				<div class="col-xs-2 label">
+					Service Name:
+				</div>
+				<div class="col-xs-10">
+					<input style="width: 100%" type="text" name="name" placeholder="service name" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2 label">
 					Service Path:
 				</div>
 				<div class="col-xs-3">
-					<select name="service-type">
+					<select name="service-type" style="width: 90%">
 						<option value="ms-rest">REST (MS HELP URL)</option>
 						<option value="soap">SOAP (WSDL)</option>
 					</select>
@@ -201,18 +213,31 @@ module.exports = class MetropolisController {
 				let $dialog = $(".add-service-dialog");
 				let type = $dialog.find("select[name='service-type']").val();
 				let uri = $dialog.find("input[name='uri']").val();
+				let name = $dialog.find("input[name='name']").val();
 				let startsWith = uri.slice(0, 4);
 				let endsWith = uri.slice(uri.length - 5);
-				if(type == 'ms-rest') {
+				$dialog.find("input").css("background", "#666");
+				if(!name.length) {
+					$dialog.find("input[name='name']").css("background", "#933");
+					$dialog.find(".warning").text("Please enter a name for this service.").slideDown("slow");
+				} else if(type == 'ms-rest') {
 					if(startsWith == 'http' && endsWith == '/help') {
-						console.log("add Service!", type, uri);
+						model.addServiceToProject(name, type, uri, (data) => {
+							this.closeLoader();
+						});
+						this.closeModal();
+						this.showLoader();
 					} else {
 						$dialog.find("input[name='uri']").css("background", "#933");
 						$dialog.find(".warning").text("Invalid rest help file URI.  Should match 'http://service_host/service_name/help'").slideDown("slow");
 					}
 				} else if(type == 'soap') {
 					if(startsWith == 'http' && endsWith == '?wsdl') {
-						console.log("add Service!", type, uri);
+						model.addServiceToProject(name, type, uri, (data) => {
+							this.closeLoader();
+						});
+						this.closeModal();
+						this.showLoader();
 					} else {
 						$dialog.find("input[name='uri']").css("background", "#933");
 						$dialog.find(".warning").text("Invalid soap WSDL URI.  Should match 'http://service_host/service_name.svc?WSDL'").slideDown("slow");

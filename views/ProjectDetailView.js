@@ -162,14 +162,30 @@
         this.$forceUpdate();
       },
       removeDefaultParameter(e) {
-        let $this = $(e.target);
-        let index = $this.attr("data-index");
-        if(!index) {
-          index = $this.closest("button").attr("data-index");
-        }
-        if(index) {
-          model.removeDefaultParameter(index);
-        }
+        var $this = $(e.target);
+        var item = $this.closest(".row").find("input[name='parameter']").val();
+        controller.showModal("Remove Default Parameter", "Are you sure you would like to delete " + item + " from Default Values?", [{
+            label: "Cancel",
+            class: "btn btn-default",
+            handler: () => {
+              controller.closeModal();
+            }
+          },
+          {
+            label: "Delete " + item,
+            class: "btn btn-success",
+            handler: () => {
+              let index = $this.attr("data-index");
+              if(!index) {
+                index = $this.closest("button").attr("data-index");
+              }
+              if(index) {
+                model.removeDefaultParameter(index);
+              }
+              controller.closeModal();
+            }
+          }
+        ]);
         controller.hideTooltip();
       },
       updateDefaultParameter(e) {
@@ -180,13 +196,28 @@
         model.updateDefaultParameter(param, val);
       },
       removeTest(e) {
-        let $this = $(e.target);
-        let index = $this.attr("data-index");
-        if(index === undefined) {
-          $this = $this.closest("button");
-          index = Number($this.attr("data-index"));
-        }
-        controller.removeMethodFromWorkspace(index);
+        var $this = $(e.target);
+        controller.showModal("Remove Test", "Are you sure you would like to delete this test?", [{
+            label: "Cancel",
+            class: "btn btn-default",
+            handler: () => {
+              controller.closeModal();
+            }
+          },
+          {
+            label: "Delete Test",
+            class: "btn btn-success",
+            handler: () => {
+              let index = $this.attr("data-index");
+              if(index === undefined) {
+                $this = $this.closest("button");
+                index = Number($this.attr("data-index"));
+              }
+              controller.removeMethodFromWorkspace(index);
+              controller.closeModal();
+            }
+          }
+        ]);
       },
       getInput(name, type) {
         if(type == 'xs:int' || type == 'integer' || type == 'decimal number' || type == 'xs:int') {
@@ -221,10 +252,6 @@
       },
       setProjectDetails: function(data) {
         this.projectDetails = data;
-        console.log(stripObservers(data));
-        /*.sort(function(a, b) {
-
-        });*/
       },
       setTestIndex: function(index) {
         this.testIndex = index;
