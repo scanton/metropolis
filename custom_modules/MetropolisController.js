@@ -118,9 +118,11 @@ module.exports = class MetropolisController {
 	hideTooltip() {
 		$(".custom-tool-tip").addClass("hide");
 	}
-  importProject() {
-    console.log("import project");
-  }
+	importProject(data) {
+		model.importProject(data, (proj) => {
+			this.loadProject(proj.name);
+		});
+	}
   loadProject(name) {
     if (name) {
       this._disableWorkspace();
@@ -248,6 +250,9 @@ module.exports = class MetropolisController {
 			}
 		}]);
 	}
+  showImportProjectView() {
+		this.showView("import-project");
+  }
   showLoader() {
     $(".loading-animation").fadeIn();
   }

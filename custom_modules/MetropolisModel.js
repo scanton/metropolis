@@ -239,6 +239,13 @@ module.exports = class MetropolisModel {
     }
     return false;
   }
+  importProject(data, callback) {
+    if(data.name) {
+      this._saveImportedProject(data, callback);
+    } else {
+      console.warn("invalid project data, no name included");
+    }
+  }
   loadProject(name, callback) {
     if (this.hasProject(name)) {
       let path = this._getProjectPath(name);
@@ -673,6 +680,30 @@ module.exports = class MetropolisModel {
         callback();
       }
     });
+  }
+  _saveImportedProject(proj, callback) {
+    if('exists', this.fs.pathExistsSync(this._getProjectPath(proj.name))) {
+      controller.showModal("Project (" + proj.name + ") Already Exists", "Please edit your project file to give the project you are importing a unique name.", [
+        {
+          label: "OK",
+          class: "btn btn-warning",
+          handler: () => {
+            controller.closeModal();
+          }
+        }
+      ])
+    } else {
+      this.fs.outputJson(this._getProjectPath(proj.name), proj, {
+        spaces: 4
+      }, (err) => {
+        if (err) {
+          throw err;
+        }
+        if(callback) {
+          callback(proj);
+        }
+      });
+    }
   }
   _sortParams(data) {
     return data.sort(function(a, b) {

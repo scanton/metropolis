@@ -17,7 +17,7 @@
     			<ul class="nav navbar-nav navbar-right">
     				<li class="refresh-browser-link"><a href="#" v-on:click="refresh"><span class="glyphicon glyphicon-refresh"></span> Refresh</a></li>
     				<li class="toggle-dev-tools-link"><a href="#" v-on:click="toggleDevTools"><span class="glyphicon glyphicon-wrench"></span> Dev Tools</a></li>
-    				<li class="settings-link"><a href="#" v-on:click="toggleSettings"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+    				<!--<li class="settings-link"><a href="#" v-on:click="toggleSettings"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>-->
     			</ul>
     		</div>
     	</div>
@@ -37,13 +37,6 @@
           title: 'Metropolis',
           icon: 'glyphicon glyphicon-globe',
           childLinks: [{
-              title: 'About Metropolis',
-              clickHandler: 'controller.showView("About Metropolis")'
-            },
-            {
-              type: 'line-break'
-            },
-            {
               title: 'New Project',
               clickHandler: 'controller.createNewProject()'
             },
@@ -52,15 +45,11 @@
               clickHandler: 'controller.openProject()'
             },
             {
-              title: 'Import Project...',
-              clickHandler: 'controller.importProject()'
-            },
-            {
               type: 'line-break'
             },
             {
-              title: 'Preferences',
-              clickHandler: 'controller.showView("Preferences")'
+              title: 'Import Project...',
+              clickHandler: 'controller.showImportProjectView()'
             }
           ]
         }
