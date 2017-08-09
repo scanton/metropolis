@@ -13,6 +13,7 @@
     		<div class="collapse navbar-collapse metropolis-navbar-collapse-0">
     			<ul class="nav navbar-nav">
     				<top-nav-dropdown v-bind:dropdown="dropDown1"></top-nav-dropdown>
+            <li v-if="projectName"><a href="#" v-on:click="showProjectDetailView">{{ projectName }}</a></li>
     			</ul>
     			<ul class="nav navbar-nav navbar-right">
     				<li class="refresh-browser-link"><a href="#" v-on:click="refresh"><span class="glyphicon glyphicon-refresh"></span> Refresh</a></li>
@@ -52,10 +53,17 @@
               clickHandler: 'controller.showImportProjectView()'
             }
           ]
-        }
+        },
+        projectName: null
       }
     },
     methods: {
+      setProjectName(name) {
+        this.projectName = name;
+      },
+      showProjectDetailView: function() {
+        controller.showProjectDetailView();
+      },
       refresh: function() {
         location.reload();
       },

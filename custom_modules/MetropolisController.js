@@ -130,6 +130,7 @@ module.exports = class MetropolisController {
         $(".active-view").slideUp("fast").removeClass("active-view");
 				this._setResizeTimeout();
         this.viewController.callViewMethod('project-detail-view', 'setProjectDetails', data);
+				this.viewController.callViewMethod('top-nav', 'setProjectName', data.name);
         $(".project-detail-view").slideDown("fast").addClass("active-view");
         this.model.loadServiceDetails(data, (data, isComplete) => {
 					this.viewController.callViewMethod('service-list', 'setServiceDetails', data);
@@ -249,6 +250,9 @@ module.exports = class MetropolisController {
 				}
 			}
 		}]);
+	}
+	showProjectDetailView() {
+		this.showView("project-detail-view");
 	}
   showImportProjectView() {
 		this.showView("import-project");
